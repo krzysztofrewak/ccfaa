@@ -1,0 +1,52 @@
+configuration,scenario,policy,simulation_day,assessment_index,signal_id,signal_type,signal_description,source_agent,local_assessment,affects_plan,requires_immediate_replan,latest_safe_day,status
+conf3,CF1,UNC,4,1,CF1-S1,DayOffSignal,Day 5 declared a day off,OperationsAgent,NO_OP,False,True,,REPLAN
+conf3,CF1,UNC,6,2,CF1-S2,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,True,,REPLAN
+conf3,CF1,LF,4,1,CF1-S1,DayOffSignal,Day 5 declared a day off,OperationsAgent,NO_OP,False,False,,KEEP
+conf3,CF1,LF,6,2,CF1-S2,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,True,9,REPLAN
+conf3,CF1,COORD,4,1,CF1-S1,DayOffSignal,Day 5 declared a day off,OperationsAgent,NO_OP,False,False,,KEEP
+conf3,CF1,COORD,6,2,CF1-S2,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,False,9,PENDING
+conf3,CF1,COORD,7,3,CF1-S2,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,False,9,PENDING
+conf3,CF1,COORD,8,4,CF1-S2,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,False,9,PENDING
+conf3,CF1,COORD,9,5,CF1-S2,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,True,9,REPLAN
+conf3,CF2,UNC,4,1,CF2-S1,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,True,,REPLAN
+conf3,CF2,UNC,6,2,CF2-S2,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,True,,REPLAN
+conf3,CF2,LF,4,1,CF2-S1,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,True,14,REPLAN
+conf3,CF2,LF,6,2,CF2-S2,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,True,9,REPLAN
+conf3,CF2,COORD,4,1,CF2-S1,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING
+conf3,CF2,COORD,5,2,CF2-S1,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING
+conf3,CF2,COORD,6,3,CF2-S2,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,False,9,PENDING
+conf3,CF2,COORD,6,4,CF2-S1,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING
+conf3,CF2,COORD,7,5,CF2-S1,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING
+conf3,CF2,COORD,7,6,CF2-S2,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,False,9,PENDING
+conf3,CF2,COORD,8,7,CF2-S1,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING
+conf3,CF2,COORD,8,8,CF2-S2,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,False,9,PENDING
+conf3,CF2,COORD,9,9,CF2-S1,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING
+conf3,CF2,COORD,9,10,CF2-S2,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,True,9,REPLAN
+conf3,CF3,UNC,4,1,CF3-S1,FermenterMaintenanceSignal,Fermenter f3 out for maintenance from day 10 for 10 day(s),OperationsAgent,AFFECTS,True,True,,REPLAN
+conf3,CF3,UNC,5,2,CF3-S2,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,True,,REPLAN
+conf3,CF3,UNC,6,3,CF3-S3,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,NO_OP,False,True,,REPLAN
+conf3,CF3,LF,4,1,CF3-S1,FermenterMaintenanceSignal,Fermenter f3 out for maintenance from day 10 for 10 day(s),OperationsAgent,AFFECTS,True,True,9,REPLAN
+conf3,CF3,LF,5,2,CF3-S2,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,True,14,REPLAN
+conf3,CF3,LF,6,3,CF3-S3,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,NO_OP,False,False,,KEEP
+conf3,CF3,COORD,4,1,CF3-S1,FermenterMaintenanceSignal,Fermenter f3 out for maintenance from day 10 for 10 day(s),OperationsAgent,AFFECTS,True,False,9,PENDING
+conf3,CF3,COORD,5,2,CF3-S2,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING
+conf3,CF3,COORD,5,3,CF3-S1,FermenterMaintenanceSignal,Fermenter f3 out for maintenance from day 10 for 10 day(s),OperationsAgent,AFFECTS,True,False,9,PENDING
+conf3,CF3,COORD,6,4,CF3-S3,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,False,9,PENDING
+conf3,CF3,COORD,6,5,CF3-S1,FermenterMaintenanceSignal,Fermenter f3 out for maintenance from day 10 for 10 day(s),OperationsAgent,AFFECTS,True,False,9,PENDING
+conf3,CF3,COORD,6,6,CF3-S2,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING
+conf3,CF3,COORD,7,7,CF3-S1,FermenterMaintenanceSignal,Fermenter f3 out for maintenance from day 10 for 10 day(s),OperationsAgent,AFFECTS,True,False,9,PENDING
+conf3,CF3,COORD,7,8,CF3-S2,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING
+conf3,CF3,COORD,7,9,CF3-S3,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,False,9,PENDING
+conf3,CF3,COORD,8,10,CF3-S1,FermenterMaintenanceSignal,Fermenter f3 out for maintenance from day 10 for 10 day(s),OperationsAgent,AFFECTS,True,False,9,PENDING
+conf3,CF3,COORD,8,11,CF3-S2,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING
+conf3,CF3,COORD,8,12,CF3-S3,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,False,9,PENDING
+conf3,CF3,COORD,9,13,CF3-S1,FermenterMaintenanceSignal,Fermenter f3 out for maintenance from day 10 for 10 day(s),OperationsAgent,AFFECTS,True,True,9,REPLAN
+conf3,CF3,COORD,9,14,CF3-S2,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING
+conf3,CF3,COORD,9,15,CF3-S3,IngredientShortageSignal,"Ingredients for batch 010 missing, available again from day 14",ProcurementAgent,AFFECTS,True,True,9,REPLAN
+conf3,CF4,UNC,8,1,CF4-S1,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,True,,REPLAN
+conf3,CF4,UNC,9,2,CF4-S2,FermentationDelaySignal,Fermentation of batch 006 in f3 delayed by 3 day(s),ProductionAgent,AFFECTS,True,True,,REPLAN
+conf3,CF4,LF,8,1,CF4-S1,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,True,14,REPLAN
+conf3,CF4,LF,9,2,CF4-S2,FermentationDelaySignal,Fermentation of batch 006 in f3 delayed by 3 day(s),ProductionAgent,AFFECTS,True,True,9,REPLAN
+conf3,CF4,COORD,8,1,CF4-S1,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING
+conf3,CF4,COORD,9,2,CF4-S2,FermentationDelaySignal,Fermentation of batch 006 in f3 delayed by 3 day(s),ProductionAgent,AFFECTS,True,True,9,REPLAN
+conf3,CF4,COORD,9,3,CF4-S1,NewBatchRequirementSignal,New order: batch SPEC (New England IPA) must be bottled by day 30,SalesAgent,AFFECTS,True,False,14,PENDING

@@ -1,0 +1,4 @@
+policy,runs,feasible,reconstructions,trial_runs,scheduler_runs,reconstruction_seconds,trial_seconds,scheduler_seconds,run_seconds
+LF,600,468,1077,0,1077,13.32,0.0,13.32,13.458
+COORD,600,457,682,0,682,15.587,0.0,15.587,15.788
+COORD_FC,600,468,698,5328,6026,14.308,132.298,146.606,149.997

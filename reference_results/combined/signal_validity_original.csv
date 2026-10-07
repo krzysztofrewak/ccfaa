@@ -1,0 +1,28 @@
+configuration,scenario,signal_id,original_signal,references_exist,missing,assessment_here,latest_safe_day_here,affected_here,conf1_assessment,conf1_latest_safe_day,conf1_affected,valid_and_relevant_unchanged
+conf1,CF1,CF1-S1,Day 5 declared a day off,True,,KEEP,,,KEEP,,,True
+conf1,CF1,CF1-S2,"Ingredients for batch 010 missing, available again from day 14",True,,PENDING,9,010,PENDING,9,010,True
+conf1,CF2,CF2-S1,New order: batch SPEC (New England IPA) must be bottled by day 30,True,,PENDING,14,SPEC,PENDING,14,SPEC,True
+conf1,CF2,CF2-S2,"Ingredients for batch 010 missing, available again from day 14",True,,PENDING,9,010,PENDING,9,010,True
+conf1,CF3,CF3-S1,Fermenter f3 out for maintenance from day 10 for 10 day(s),True,,PENDING,9,010;f3,PENDING,9,010;f3,True
+conf1,CF3,CF3-S2,New order: batch SPEC (New England IPA) must be bottled by day 30,True,,PENDING,14,SPEC,PENDING,14,SPEC,True
+conf1,CF3,CF3-S3,"Ingredients for batch 010 missing, available again from day 14",True,,PENDING,9,010,PENDING,9,010,True
+conf1,CF4,CF4-S1,New order: batch SPEC (New England IPA) must be bottled by day 30,True,,PENDING,14,SPEC,PENDING,14,SPEC,True
+conf1,CF4,CF4-S2,Fermentation of batch 006 in f3 delayed by 3 day(s),True,,REPLAN,9,010;f3,REPLAN,9,010;f3,True
+conf2,CF1,CF1-S1,Day 5 declared a day off,True,,KEEP,,,KEEP,,,True
+conf2,CF1,CF1-S2,"Ingredients for batch 010 missing, available again from day 14",True,,PENDING,9,010,PENDING,9,010,True
+conf2,CF2,CF2-S1,New order: batch SPEC (New England IPA) must be bottled by day 30,True,,PENDING,14,SPEC,PENDING,14,SPEC,True
+conf2,CF2,CF2-S2,"Ingredients for batch 010 missing, available again from day 14",True,,PENDING,9,010,PENDING,9,010,True
+conf2,CF3,CF3-S1,Fermenter f3 out for maintenance from day 10 for 10 day(s),True,,PENDING,9,010;f3,PENDING,9,010;f3,True
+conf2,CF3,CF3-S2,New order: batch SPEC (New England IPA) must be bottled by day 30,True,,PENDING,14,SPEC,PENDING,14,SPEC,True
+conf2,CF3,CF3-S3,"Ingredients for batch 010 missing, available again from day 14",True,,PENDING,9,010,PENDING,9,010,True
+conf2,CF4,CF4-S1,New order: batch SPEC (New England IPA) must be bottled by day 30,True,,PENDING,14,SPEC,PENDING,14,SPEC,True
+conf2,CF4,CF4-S2,Fermentation of batch 006 in f3 delayed by 3 day(s),True,,REPLAN,9,010;f3,REPLAN,9,010;f3,True
+conf3,CF1,CF1-S1,Day 5 declared a day off,True,,KEEP,,,KEEP,,,True
+conf3,CF1,CF1-S2,"Ingredients for batch 010 missing, available again from day 14",True,,PENDING,9,010,PENDING,9,010,True
+conf3,CF2,CF2-S1,New order: batch SPEC (New England IPA) must be bottled by day 30,True,,PENDING,14,SPEC,PENDING,14,SPEC,True
+conf3,CF2,CF2-S2,"Ingredients for batch 010 missing, available again from day 14",True,,PENDING,9,010,PENDING,9,010,True
+conf3,CF3,CF3-S1,Fermenter f3 out for maintenance from day 10 for 10 day(s),True,,PENDING,9,010;f3,PENDING,9,010;f3,True
+conf3,CF3,CF3-S2,New order: batch SPEC (New England IPA) must be bottled by day 30,True,,PENDING,14,SPEC,PENDING,14,SPEC,True
+conf3,CF3,CF3-S3,"Ingredients for batch 010 missing, available again from day 14",True,,PENDING,9,010,PENDING,9,010,True
+conf3,CF4,CF4-S1,New order: batch SPEC (New England IPA) must be bottled by day 30,True,,PENDING,14,SPEC,PENDING,14,SPEC,True
+conf3,CF4,CF4-S2,Fermentation of batch 006 in f3 delayed by 3 day(s),True,,REPLAN,9,010;f3,REPLAN,9,010;f3,True

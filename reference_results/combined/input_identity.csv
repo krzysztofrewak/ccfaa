@@ -1,0 +1,13 @@
+configuration,scenario,policies,baseline_fingerprint,signal_sequence_fingerprint,identical_inputs
+conf1,CF1,UNC;LF;COORD,bf4ec5773bf2a5b0,450d45228a409f7f,True
+conf1,CF2,UNC;LF;COORD,bf4ec5773bf2a5b0,7346fa7aa9fd5026,True
+conf1,CF3,UNC;LF;COORD,bf4ec5773bf2a5b0,0cb50875abe6288d,True
+conf1,CF4,UNC;LF;COORD,bf4ec5773bf2a5b0,7e33439f1bbe9480,True
+conf2,CF1,UNC;LF;COORD,456bfd12f323aa6b,450d45228a409f7f,True
+conf2,CF2,UNC;LF;COORD,456bfd12f323aa6b,7346fa7aa9fd5026,True
+conf2,CF3,UNC;LF;COORD,456bfd12f323aa6b,0cb50875abe6288d,True
+conf2,CF4,UNC;LF;COORD,456bfd12f323aa6b,7e33439f1bbe9480,True
+conf3,CF1,UNC;LF;COORD,3cb07d6035f35201,450d45228a409f7f,True
+conf3,CF2,UNC;LF;COORD,3cb07d6035f35201,7346fa7aa9fd5026,True
+conf3,CF3,UNC;LF;COORD,3cb07d6035f35201,0cb50875abe6288d,True
+conf3,CF4,UNC;LF;COORD,3cb07d6035f35201,7e33439f1bbe9480,True

@@ -1,0 +1,25 @@
+configuration,check,result,detail
+conf1,schedule_validate,PASS,no problems reported
+conf1,tank_capacity,PASS,every assignment <= its tank's capacity (22 checked)
+conf1,fermenter_allocation,PASS,"batch volume <= kettle yield, no tank double-booked, split tanks share brew/bottling day"
+conf1,brewing_throughput,PASS,peak 2 brew(s) on day 0 (limit 5)
+conf1,bottling_throughput,PASS,peak 2 bottling run(s) on day 8 (limit 5; one run per tank)
+conf1,non_working_days,PASS,no brewing and no bottling on any day off
+conf1,no_signal_scheduler_replan,PASS,"HeuristicScheduler.replan() with no signal on each day 0-15 reproduces the baseline exactly (same tank, volume, brew, bottling and end day for every assignment)"
+conf1,no_signal_policy_runs,PASS,"days 0-15: UNC: 0 replan(s), schedule unchanged; LF: 0 replan(s), schedule unchanged; COORD: 0 replan(s), schedule unchanged"
+conf2,schedule_validate,PASS,no problems reported
+conf2,tank_capacity,PASS,every assignment <= its tank's capacity (18 checked)
+conf2,fermenter_allocation,PASS,"batch volume <= kettle yield, no tank double-booked, split tanks share brew/bottling day"
+conf2,brewing_throughput,PASS,peak 2 brew(s) on day 0 (limit 5)
+conf2,bottling_throughput,PASS,peak 2 bottling run(s) on day 8 (limit 5; one run per tank)
+conf2,non_working_days,PASS,no brewing and no bottling on any day off
+conf2,no_signal_scheduler_replan,PASS,"HeuristicScheduler.replan() with no signal on each day 0-15 reproduces the baseline exactly (same tank, volume, brew, bottling and end day for every assignment)"
+conf2,no_signal_policy_runs,PASS,"days 0-15: UNC: 0 replan(s), schedule unchanged; LF: 0 replan(s), schedule unchanged; COORD: 0 replan(s), schedule unchanged"
+conf3,schedule_validate,PASS,no problems reported
+conf3,tank_capacity,PASS,every assignment <= its tank's capacity (25 checked)
+conf3,fermenter_allocation,PASS,"batch volume <= kettle yield, no tank double-booked, split tanks share brew/bottling day"
+conf3,brewing_throughput,PASS,peak 2 brew(s) on day 0 (limit 5)
+conf3,bottling_throughput,PASS,peak 3 bottling run(s) on day 15 (limit 5; one run per tank)
+conf3,non_working_days,PASS,no brewing and no bottling on any day off
+conf3,no_signal_scheduler_replan,PASS,"HeuristicScheduler.replan() with no signal on each day 0-15 reproduces the baseline exactly (same tank, volume, brew, bottling and end day for every assignment)"
+conf3,no_signal_policy_runs,PASS,"days 0-15: UNC: 0 replan(s), schedule unchanged; LF: 0 replan(s), schedule unchanged; COORD: 0 replan(s), schedule unchanged"

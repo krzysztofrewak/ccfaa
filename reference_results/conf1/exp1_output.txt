@@ -1,0 +1,105 @@
+day 4 FermentationDelaySignal: Fermentation of batch 006 in f3 delayed by 3 day(s)
+Changed batches: 6
+Schedule shift: 6 days
+Idle fermenter days: 2
+Shifted brews: 5 (11 days total)
+Shifted bottlings: 6 (15 days total)
+
+day 4 FermentationDelaySignal: Fermentation of batch 006 in f3 delayed by 2 day(s)
+Changed batches: 6
+Schedule shift: 3 days
+Idle fermenter days: 0
+Shifted brews: 5 (5 days total)
+Shifted bottlings: 6 (8 days total)
+
+day 4 FermentationDelaySignal: Fermentation of batch 006 in f3 delayed by 1 day(s)
+Changed batches: 6
+Schedule shift: 2 days
+Idle fermenter days: 0
+Shifted brews: 2 (2 days total)
+Shifted bottlings: 3 (4 days total)
+
+day 4 IngredientShortageSignal: Ingredients for batch 010 missing, available again from day 11
+Changed batches: 2
+Schedule shift: 2 days
+Idle fermenter days: 1
+Shifted brews: 2 (2 days total)
+Shifted bottlings: 2 (3 days total)
+
+day 4 IngredientShortageSignal: Ingredients for batch 010 missing, available again from day 14
+Changed batches: 3
+Schedule shift: 6 days
+Idle fermenter days: 5
+Shifted brews: 2 (11 days total)
+Shifted bottlings: 2 (12 days total)
+
+day 4 IngredientShortageSignal: Ingredients for batch 010 missing, available again from day 20
+Changed batches: 4
+Schedule shift: 10 days
+Idle fermenter days: 10
+Shifted brews: 4 (20 days total)
+Shifted bottlings: 4 (20 days total)
+
+day 4 DayOffSignal: Day 5 declared a day off
+Changed batches: 0
+Schedule shift: 0 days
+Idle fermenter days: 0
+Shifted brews: 0 (0 days total)
+Shifted bottlings: 0 (0 days total)
+
+day 4 DayOffSignal: Day 8 declared a day off
+Changed batches: 5
+Schedule shift: 6 days
+Idle fermenter days: 0
+Shifted brews: 2 (2 days total)
+Shifted bottlings: 3 (3 days total)
+
+day 4 DayOffSignal: Day 15 declared a day off
+Changed batches: 9
+Schedule shift: 30 days
+Idle fermenter days: 2
+Shifted brews: 6 (16 days total)
+Shifted bottlings: 8 (18 days total)
+
+day 4 FermenterMaintenanceSignal: Fermenter f3 out for maintenance from day 10 for 1 day(s)
+Changed batches: 5
+Schedule shift: 2 days
+Idle fermenter days: 1
+Shifted brews: 2 (2 days total)
+Shifted bottlings: 2 (3 days total)
+
+day 4 FermenterMaintenanceSignal: Fermenter f3 out for maintenance from day 10 for 10 day(s)
+Changed batches: 8
+Schedule shift: 20 days
+Idle fermenter days: 10
+Shifted brews: 8 (25 days total)
+Shifted bottlings: 8 (27 days total)
+
+day 4 FermenterMaintenanceSignal: Fermenter f3 out for maintenance from day 10 for 30 day(s)
+Changed batches: 11
+Schedule shift: 17 days
+Idle fermenter days: 7
+Shifted brews: 11 (61 days total)
+Shifted bottlings: 11 (61 days total)
+
+day 4 NewBatchRequirementSignal: New order: batch SPEC (New England IPA) must be bottled by day 22
+Changed batches: 9
+Schedule shift: 23 days
+Idle fermenter days: 0
+Shifted brews: 8 (31 days total)
+Shifted bottlings: 8 (33 days total)
+
+day 4 NewBatchRequirementSignal: New order: batch SPEC (New England IPA) must be bottled by day 30
+Changed batches: 12
+Schedule shift: 36 days
+Idle fermenter days: 7
+Shifted brews: 11 (53 days total)
+Shifted bottlings: 11 (53 days total)
+
+day 4 NewBatchRequirementSignal: New order: batch SPEC (New England IPA) must be bottled by day 48
+Changed batches: 12
+Schedule shift: 56 days
+Idle fermenter days: 7
+Shifted brews: 11 (61 days total)
+Shifted bottlings: 11 (61 days total)
+

@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <title>Coordinating Cross-Functional AI Agents in a Brewery Digital Twin</title>
+  </head>
+  <body class="w-full h-full bg-paper-100 p-8"
+        x-data="{
+          currentDay: 0,
+          startDay: 0,
+          horizonDays: 0,
+          fermenters: [],
+          batches: [],
+          signals: [],
+          daysOff: new Set(),
+          originalDaysOff: new Set(),
+          replanCount: 0,
+          metrics: null,
+          hoveredBatch: null,
+          layout: localStorage.getItem('fermentationScheduleLayout') || 'grouped',
+          setLayout(value) {
+            this.layout = value;
+            localStorage.setItem('fermentationScheduleLayout', value);
+          },
+          scheduleRows(kind) {
+            return this.fermenters.map((fermenter) => ({
+              fermenter,
+              slots: fermenter[kind + '_slots'],
+              status: fermenter[kind + '_status'],
+              brewStarts: fermenter[kind + '_brew_starts'],
+              changed: kind === 'new' ? fermenter.changed_slots : null,
+            }));
+          },
+          async init() {
+            const config = new URLSearchParams(location.search).get('config') || 'conf1';
+            const res = await fetch(`data/${encodeURIComponent(config)}/calendar.json`);
+            const data = await res.json();
+            this.currentDay = data.current_day;
+            this.startDay = data.start_day;
+            this.horizonDays = data.horizon_days;
+            this.fermenters = data.fermenters;
+            this.batches = data.batches;
+            this.signals = data.signals;
+            this.daysOff = new Set(data.days_off);
+            this.originalDaysOff = new Set(data.original_days_off || data.days_off);
+            this.replanCount = data.replan_count || 0;
+            this.metrics = data.metrics;
+          },
+          dayOf(index) {
+            return this.startDay + index;
+          },
+          dayBackground(index) {
+            const day = this.dayOf(index);
+            if (day === this.currentDay) return 'bg-blue-200';
+            if (this.daysOff.has(day)) return 'bg-red-200';
+            return day % 2 === 0 ? 'bg-transparent' : 'bg-gray-50';
+          },
+          isFermenterMaintenance(fermenter, index) {
+            const day = this.dayOf(index);
+            return (fermenter.maintenance || []).some((window) => day >= window.start && day < window.end);
+          },
+          daysOffFor(kind) {
+            return kind === 'original' ? this.originalDaysOff : this.daysOff;
+          },
+          sectionDayBackground(index, kind) {
+            const day = this.dayOf(index);
+            if (day === this.currentDay) return 'bg-blue-200';
+            if (this.daysOffFor(kind).has(day)) return 'bg-red-200';
+            return day % 2 === 0 ? 'bg-transparent' : 'bg-gray-50';
+          },
+          fermenterCellBackground(fermenter, index, kind) {
+            const day = this.dayOf(index);
+            if (day === this.currentDay) return 'bg-blue-200';
+            if ((kind === 'new' && this.isFermenterMaintenance(fermenter, index)) || this.daysOffFor(kind).has(day)) return 'bg-red-200';
+            return day % 2 === 0 ? 'bg-transparent' : 'bg-gray-50';
+          },
+          dayIndexes() {
+            return Array.from({ length: this.horizonDays }, (_, index) => index);
+          },
+          brewCounts(kind) {
+            const counts = new Array(this.horizonDays).fill(0);
+            for (const row of this.batches) {
+              const tanks = row[kind];
+              if (!tanks || tanks.length === 0) continue;
+              const index = tanks[0].start - this.startDay;
+              if (index >= 0 && index < counts.length) counts[index] += 1;
+            }
+            return counts;
+          },
+          brewComparison() {
+            const planned = this.brewCounts('original');
+            const replanned = this.brewCounts('new');
+            return replanned.map((count, index) => ({ count, changed: count !== planned[index] }));
+          },
+          brewRow(kind) {
+            if (kind === 'new') return this.brewComparison();
+            return this.brewCounts(kind).map((count) => ({ count, changed: false }));
+          },
+          brewMarkClass(count, changed) {
+            const classes = [count > 0 ? 'bg-teal-500' : 'bg-transparent'];
+            if (changed) classes.push('ring-2 ring-violet-500');
+            return classes.join(' ');
+          },
+          isBottlingEnd(slots, index) {
+            return Boolean(slots[index]) && (index === slots.length - 1 || slots[index + 1] !== slots[index]);
+          },
+          bottlingCounts(kind) {
+            const counts = new Array(this.horizonDays).fill(0);
+            for (const fermenter of this.fermenters) {
+              const slots = fermenter[kind + '_slots'];
+              for (let index = 0; index < slots.length; index++) {
+                if (this.isBottlingEnd(slots, index)) counts[index] += 1;
+              }
+            }
+            return counts;
+          },
+          bottlingComparison() {
+            const planned = this.bottlingCounts('original');
+            const replanned = this.bottlingCounts('new');
+            return replanned.map((count, index) => ({ count, changed: count !== planned[index] }));
+          },
+          bottlingRow(kind) {
+            if (kind === 'new') return this.bottlingComparison();
+            return this.bottlingCounts(kind).map((count) => ({ count, changed: false }));
+          },
+          bottlingMarkClass(count, changed) {
+            const classes = [count > 0 ? 'bg-cyan-500' : 'bg-transparent'];
+            if (changed) classes.push('ring-2 ring-violet-500');
+            return classes.join(' ');
+          },
+          signalColumns() {
+            const columns = Array.from({ length: this.horizonDays }, () => []);
+            for (const signal of this.signals) {
+              const index = signal.day - this.startDay;
+              if (index >= 0 && index < columns.length) columns[index].push(signal);
+            }
+            return columns;
+          },
+          signalDotClass(kind) {
+            return {
+              FermentationDelaySignal: 'bg-orange-500',
+              IngredientShortageSignal: 'bg-red-500',
+              NewBatchRequirementSignal: 'bg-blue-500',
+              DayOffSignal: 'bg-gray-500',
+            }[kind] || 'bg-purple-500';
+          },
+          statusClass(status) {
+            return { completed: 'bg-gray-400', ongoing: 'bg-amber-400', planned: 'bg-amber-200' }[status] || 'bg-transparent';
+          },
+          markClass(slot, status, changed) {
+            const classes = [this.statusClass(status)];
+            if (slot && slot === this.hoveredBatch) classes.push('ring-2 ring-black');
+            else if (changed) classes.push('ring-2 ring-rose-500');
+            return classes.join(' ');
+          },
+          formatTanks(tanks) {
+            if (!tanks || tanks.length === 0) return '-';
+            return tanks.map((tank) => tank.fermenter + ': ' + tank.start + '-' + tank.end).join(', ');
+          }
+        }">
+    <h1 class="mb-4 text-2xl">Coordinating Cross-Functional AI Agents in a Brewery Digital Twin</h1>
+
+    <template x-if="metrics">
+      <div class="mb-6 flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-600">
+        <span>Current day: <strong x-text="currentDay"></strong></span>
+        <span>Replans: <strong x-text="replanCount"></strong></span>
+        <span>Changed batches: <strong x-text="metrics.changed_batches"></strong></span>
+        <span>Schedule shift: <strong x-text="metrics.schedule_shift_days"></strong> days</span>
+        <span>Idle fermenter days: <strong x-text="metrics.idle_fermenter_days"></strong></span>
+        <span>Shifted brews: <strong x-text="metrics.shifted_brews"></strong> (<strong x-text="metrics.total_brew_shift_days"></strong> days total)</span>
+        <span>Shifted bottlings: <strong x-text="metrics.shifted_bottlings"></strong> (<strong x-text="metrics.total_bottling_shift_days"></strong> days total)</span>
+      </div>
+    </template>
+
+    <h2 class="my-4 text-xl">Signals</h2>
+    <ul class="mb-6 flex flex-col gap-1 text-sm">
+      <template x-for="signal in signals" :key="signal.day + signal.kind + signal.description">
+        <li class="flex items-center gap-3 rounded px-2 py-1"
+            :class="signal.related_batch_id && signal.related_batch_id === hoveredBatch ? 'bg-amber-100' : ''"
+            @mouseenter="if (signal.related_batch_id) hoveredBatch = signal.related_batch_id"
+            @mouseleave="hoveredBatch = null">
+          <span class="w-14 shrink-0 text-xs text-gray-400">day <span x-text="signal.day"></span></span>
+          <span class="w-64 shrink-0 text-xs uppercase tracking-wide text-gray-400" x-text="signal.kind"></span>
+          <span x-text="signal.description"></span>
+        </li>
+      </template>
+      <template x-if="signals.length === 0">
+        <li class="text-xs text-gray-400">No signals were injected.</li>
+      </template>
+    </ul>
+
+    <h2 class="my-4 text-xl">Fermentation schedule</h2>
+
+    <div class="mb-2 flex items-center gap-2">
+      <div class="w-16 shrink-0 text-xs text-gray-400">day</div>
+      <div class="flex-1 flex">
+        <template x-for="index in dayIndexes()" :key="index">
+          <div class="p-1.5" :class="dayBackground(index)">
+            <div class="w-6 h-6 flex items-center justify-center text-[9px] text-gray-500" x-text="dayOf(index)"></div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex flex-wrap gap-4 text-xs text-gray-500">
+        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-gray-400"></span>completed</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-amber-400"></span>ongoing</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-amber-200"></span>planned</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded ring-2 ring-rose-500"></span>changed</span>
+        <span class="flex items-center gap-1"><span class="relative inline-block w-3 h-3 rounded bg-amber-400"><span class="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 rounded-full bg-black"></span></span>brew start</span>
+        <span class="flex items-center gap-1"><span class="relative inline-block w-3 h-3 rounded bg-amber-400"><span class="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-black"></span></span>bottling</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-blue-200"></span>today</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-red-200"></span>day off / fermenter maintenance</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-teal-500"></span>brews</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-cyan-500"></span>bottlings</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded ring-2 ring-violet-500"></span>count changed</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-2 h-2 rounded-full bg-orange-500"></span>fermentation delay</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-2 h-2 rounded-full bg-red-500"></span>ingredient shortage</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-2 h-2 rounded-full bg-blue-500"></span>new order</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-2 h-2 rounded-full bg-gray-500"></span>day off signal</span>
+      </div>
+      <div class="flex items-center gap-1 text-xs">
+        <span class="mr-1 text-gray-400">layout:</span>
+        <button type="button" @click="setLayout('grouped')"
+                class="rounded px-2 py-1"
+                :class="layout === 'grouped' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-500'">grouped</button>
+        <button type="button" @click="setLayout('interleaved')"
+                class="rounded px-2 py-1"
+                :class="layout === 'interleaved' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-500'">interleaved</button>
+      </div>
+    </div>
+
+    <div class="mb-4 flex flex-col gap-1">
+      <div class="flex items-center gap-2">
+        <div class="w-16 shrink-0 text-xs text-gray-400">signals</div>
+        <div class="flex-1 flex">
+          <template x-for="(daySignals, index) in signalColumns()" :key="index">
+            <div class="p-1.5" :class="dayBackground(index)" :title="'day ' + dayOf(index)">
+              <div class="w-6 h-6 rounded-sm flex flex-wrap items-center justify-center gap-0.5">
+                <template x-for="signal in daySignals" :key="signal.kind + signal.description">
+                  <span class="w-2 h-2 rounded-full"
+                        :class="[signalDotClass(signal.kind), signal.related_batch_id && signal.related_batch_id === hoveredBatch ? 'ring-1 ring-black' : '']"
+                        :title="signal.description"
+                        @mouseenter="if (signal.related_batch_id) hoveredBatch = signal.related_batch_id"
+                        @mouseleave="hoveredBatch = null"></span>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <template x-if="layout === 'grouped'">
+      <div class="flex flex-col gap-6">
+        <template x-for="section in [{ title: 'Original schedule', kind: 'original' }, { title: 'Replanned schedule', kind: 'new' }]"
+                  :key="section.kind">
+          <div>
+            <h3 class="mb-2 text-sm font-semibold text-gray-600" x-text="section.title"></h3>
+            <div class="flex flex-col gap-2">
+              <div class="flex items-center gap-2">
+                <div class="w-16 shrink-0 text-xs text-gray-400">brews</div>
+                <div class="flex-1 flex">
+                  <template x-for="(entry, index) in brewRow(section.kind)" :key="index">
+                    <div class="p-1.5"
+                         :class="sectionDayBackground(index, section.kind)"
+                         :title="'day ' + dayOf(index) + (entry.count ? ' - ' + entry.count + ' brew(s)' : '') + (entry.changed ? ' (changed)' : '')">
+                      <div class="w-6 h-6 rounded-sm flex items-center justify-center text-[10px] font-medium"
+                           :class="[brewMarkClass(entry.count, entry.changed), 'text-white']">
+                        <span x-show="entry.count" x-text="entry.count"></span>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-16 shrink-0 text-xs text-gray-400">bottling</div>
+                <div class="flex-1 flex">
+                  <template x-for="(entry, index) in bottlingRow(section.kind)" :key="index">
+                    <div class="p-1.5"
+                         :class="sectionDayBackground(index, section.kind)"
+                         :title="'day ' + dayOf(index) + (entry.count ? ' - ' + entry.count + ' bottling(s)' : '') + (entry.changed ? ' (changed)' : '')">
+                      <div class="w-6 h-6 rounded-sm flex items-center justify-center text-[10px] font-medium"
+                           :class="[bottlingMarkClass(entry.count, entry.changed), 'text-white']">
+                        <span x-show="entry.count" x-text="entry.count"></span>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+              <template x-for="row in scheduleRows(section.kind)"
+                        :key="section.kind + '-' + row.fermenter.name + row.fermenter.index">
+                <div class="flex items-center gap-2">
+                  <div class="w-16 shrink-0 text-xs text-gray-400">
+                    <span x-text="row.fermenter.name"></span><sub x-text="row.fermenter.index"></sub>
+                    <span x-text="row.fermenter.capacity"></span>
+                  </div>
+                  <div class="flex-1 flex">
+                    <template x-for="(slot, index) in row.slots" :key="index">
+                      <div class="p-1.5"
+                           :class="fermenterCellBackground(row.fermenter, index, section.kind)"
+                           :title="'day ' + dayOf(index) + (slot ? ' - batch ' + slot : '') + (row.brewStarts[index] ? ' (brew start)' : '') + (isBottlingEnd(row.slots, index) ? ' (bottling)' : '') + (section.kind === 'new' && isFermenterMaintenance(row.fermenter, index) ? ' (maintenance)' : '')"
+                           @mouseenter="if (slot) hoveredBatch = slot"
+                           @mouseleave="hoveredBatch = null">
+                        <div class="relative w-6 h-6 rounded-sm"
+                             :class="markClass(slot, row.status[index], row.changed ? row.changed[index] : false)">
+                          <span x-show="row.brewStarts[index]"
+                                class="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 rounded-full bg-black"></span>
+                          <span x-show="isBottlingEnd(row.slots, index)"
+                                class="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-black"></span>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <template x-if="layout === 'interleaved'">
+      <div class="flex flex-col gap-4">
+        <template x-for="fermenter in fermenters" :key="fermenter.name + fermenter.index">
+          <div>
+            <div class="mb-1 text-sm">
+              <span x-text="fermenter.name"></span><sub x-text="fermenter.index"></sub>
+              <span class="text-gray-400" x-text="fermenter.capacity"></span>
+            </div>
+            <div class="flex flex-col">
+              <template x-for="kind in ['original', 'new']" :key="kind">
+                <div class="flex items-center gap-2">
+                  <div class="w-16 shrink-0 text-xs text-gray-400" x-text="kind"></div>
+                  <div class="flex-1 flex">
+                    <template x-for="(slot, index) in fermenter[kind + '_slots']" :key="index">
+                      <div class="p-1.5"
+                           :class="fermenterCellBackground(fermenter, index, kind)"
+                           :title="'day ' + dayOf(index) + (slot ? ' - batch ' + slot : '') + (fermenter[kind + '_brew_starts'][index] ? ' (brew start)' : '') + (isBottlingEnd(fermenter[kind + '_slots'], index) ? ' (bottling)' : '') + (kind === 'new' && isFermenterMaintenance(fermenter, index) ? ' (maintenance)' : '')"
+                           @mouseenter="if (slot) hoveredBatch = slot"
+                           @mouseleave="hoveredBatch = null">
+                        <div class="relative w-6 h-6 rounded-sm"
+                             :class="markClass(slot, fermenter[kind + '_status'][index], kind === 'new' ? fermenter.changed_slots[index] : false)">
+                          <span x-show="fermenter[kind + '_brew_starts'][index]"
+                                class="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 rounded-full bg-black"></span>
+                          <span x-show="isBottlingEnd(fermenter[kind + '_slots'], index)"
+                                class="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-black"></span>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+
+    <h2 class="my-4 text-xl">Batches</h2>
+    <div class="mb-2 flex flex-wrap gap-4 text-xs text-gray-500">
+      <span>Tanks are listed as <code class="text-gray-700">fermenter: start-end</code>.</span>
+    </div>
+    <table class="w-full text-sm border-collapse">
+      <thead>
+        <tr class="text-left border-b border-gray-300">
+          <th class="py-1 pr-4">#</th>
+          <th class="py-1 pr-4">Recipe</th>
+          <th class="py-1 pr-4">Ferm. days</th>
+          <th class="py-1 pr-4">Original</th>
+          <th class="py-1 pr-4">New</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template x-for="row in batches" :key="row.id">
+          <tr class="border-b border-gray-100"
+              :class="[row.changed ? 'bg-rose-50' : '', row.id === hoveredBatch ? 'bg-amber-100' : '']"
+              @mouseenter="hoveredBatch = row.id"
+              @mouseleave="hoveredBatch = null">
+            <td class="py-1 pr-4" x-text="row.id"></td>
+            <td class="py-1 pr-4" x-text="row.recipe"></td>
+            <td class="py-1 pr-4" x-text="row.expected_fermentation_days"></td>
+            <td class="py-1 pr-4" x-text="formatTanks(row.original)"></td>
+            <td class="py-1 pr-4" x-text="formatTanks(row.new)"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </body>
+</html>

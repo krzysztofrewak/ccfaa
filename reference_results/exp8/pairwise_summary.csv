@@ -1,0 +1,13 @@
+configuration,pair,combinations,both_feasible,only_first_feasible,only_second_feasible,same_final_schedule,scheduler_calls_lower,scheduler_calls_equal,scheduler_calls_higher,scheduler_calls_mean_delta,changed_batches_lower,changed_batches_equal,changed_batches_higher,changed_batches_mean_delta,abs_shift_lower,abs_shift_equal,abs_shift_higher,abs_shift_mean_delta,idle_tank_days_lower,idle_tank_days_equal,idle_tank_days_higher,idle_tank_days_mean_delta,net_shift_lower,net_shift_equal,net_shift_higher,net_shift_mean_delta
+conf1,LF vs UNC,200,166,0,0,151,142,24,0,-1.55,0,157,9,0.05,6,153,7,-0.01,0,163,3,0.04,0,166,0,0
+conf1,COORD vs LF,200,155,0,11,103,75,80,0,-0.62,36,117,2,-0.43,44,106,5,-10.36,35,114,6,-0.9,40,112,3,-2.64
+conf1,COORD vs UNC,200,155,0,11,96,151,4,0,-2.17,36,109,10,-0.37,46,101,8,-10.37,35,111,9,-0.85,40,112,3,-2.64
+conf2,LF vs UNC,200,166,0,0,151,145,21,0,-1.65,0,156,10,0.06,6,153,7,0.02,0,163,3,0.04,2,164,0,-0.02
+conf2,COORD vs LF,200,164,0,2,123,69,95,0,-0.57,32,130,2,-0.43,19,139,6,-2.45,14,143,7,-0.19,18,144,2,-0.76
+conf2,COORD vs UNC,200,164,0,2,118,158,6,0,-2.22,32,122,10,-0.37,20,136,8,-2.43,14,140,10,-0.15,19,143,2,-0.77
+conf3,LF vs UNC,200,166,0,0,150,142,24,0,-1.54,0,157,9,0.05,7,152,7,-0.01,0,162,4,0.05,0,166,0,0
+conf3,COORD vs LF,200,155,0,11,109,76,79,0,-0.63,27,125,3,-0.3,39,110,6,-9.7,26,122,7,-0.71,26,116,13,-2.26
+conf3,COORD vs UNC,200,155,0,11,103,151,4,0,-2.18,27,117,11,-0.24,42,105,8,-9.72,26,118,11,-0.66,26,116,13,-2.26
+all,LF vs UNC,600,498,0,0,452,429,69,0,-1.58,0,470,28,0.06,19,458,21,0,0,488,10,0.04,2,496,0,-0.01
+all,COORD vs LF,600,474,0,24,335,220,254,0,-0.61,95,372,7,-0.39,102,355,17,-7.41,75,379,20,-0.59,84,372,18,-1.86
+all,COORD vs UNC,600,474,0,24,317,460,14,0,-2.19,95,348,31,-0.33,108,342,24,-7.41,75,369,30,-0.54,85,371,18,-1.87

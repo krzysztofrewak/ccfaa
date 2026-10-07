@@ -1,0 +1,4 @@
+policy,combinations,reconstructions_total,reconstructions_mean,changed_batches_total,changed_batches_mean,abs_shift_total,abs_shift_mean,idle_tank_days_total,idle_tank_days_mean,net_shift_total,net_shift_mean,trial_runs_total,trial_runs_mean
+LF,457,969,2.12,3927,8.59,33686,73.71,3216,7.04,15949,34.9,0,0
+COORD,457,650,1.42,3748,8.2,30172,66.02,3006,6.58,15007,32.84,0,0
+COORD_FC,457,650,1.42,3748,8.2,30172,66.02,3006,6.58,15007,32.84,3852,8.43

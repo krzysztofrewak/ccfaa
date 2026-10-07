@@ -1,0 +1,1801 @@
+configuration,scenario_id,policy,signals,functions,feasible,failure,failure_day,failure_at_order_safe_point,targets_met,unresolved_pending,scheduler_calls,replanning_days,changed_batches,pct_changed_batches,abs_shift,net_shift,idle_tank_days
+conf1,R001,UNC,5,3,True,,,False,True,0,5,0;6;9;10,15,71.4,256,105,5
+conf1,R001,LF,5,3,True,,,False,True,0,3,0;9;10,15,71.4,256,105,5
+conf1,R001,COORD,5,3,True,,,False,True,0,1,10,13,61.9,170,58,8
+conf1,R002,UNC,5,4,True,,,False,True,0,5,0;2;12;13,15,75.0,134,45,9
+conf1,R002,LF,5,4,True,,,False,True,0,4,0;2;13,15,75.0,134,45,9
+conf1,R002,COORD,5,4,True,,,False,True,0,2,7;26,15,75.0,134,45,9
+conf1,R003,UNC,4,3,True,,,False,True,0,4,5;8;13,10,50.0,66,35,3
+conf1,R003,LF,4,3,True,,,False,True,0,2,8;13,10,50.0,66,35,3
+conf1,R003,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',25,True,,,0,,,,,,
+conf1,R004,UNC,5,2,True,,,False,True,0,5,4;6;9;11,8,42.1,40,16,2
+conf1,R004,LF,5,2,True,,,False,True,0,2,4;9,8,42.1,40,16,2
+conf1,R004,COORD,5,2,True,,,False,True,0,2,6;10,8,42.1,40,16,2
+conf1,R005,UNC,2,2,True,,,False,True,0,2,5;6,6,31.6,55,22,16
+conf1,R005,LF,2,2,True,,,False,True,0,2,5;6,6,31.6,55,22,16
+conf1,R005,COORD,2,2,True,,,False,True,0,1,8,6,31.6,55,22,16
+conf1,R006,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf1,R006,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf1,R006,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,0,,,,,,
+conf1,R007,UNC,4,2,True,,,False,True,0,4,5;12;13,5,26.3,38,21,13
+conf1,R007,LF,4,2,True,,,False,True,0,1,13,5,26.3,38,21,13
+conf1,R007,COORD,4,2,True,,,False,True,0,1,15,5,26.3,38,21,13
+conf1,R008,UNC,3,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,2,7,,,,,
+conf1,R008,LF,3,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,1,7,,,,,
+conf1,R008,COORD,3,3,False,could not find a feasible schedule for batch 'NEW1',23,True,,,1,8,,,,,
+conf1,R009,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf1,R009,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf1,R009,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf1,R010,UNC,3,2,True,,,False,True,0,3,2;10,1,5.3,1,0,0
+conf1,R010,LF,3,2,True,,,False,True,0,0,,2,10.5,2,0,1
+conf1,R010,COORD,3,2,True,,,False,True,0,0,,2,10.5,2,0,1
+conf1,R011,UNC,4,3,True,,,False,True,0,4,2;8;9;12,13,61.9,171,68,8
+conf1,R011,LF,4,3,True,,,False,True,0,2,8;12,13,61.9,171,68,8
+conf1,R011,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',12,True,,,0,,,,,,
+conf1,R012,UNC,5,4,True,,,False,True,0,5,2;5;6;13,9,45.0,82,47,2
+conf1,R012,LF,5,4,True,,,False,True,0,2,6;13,9,45.0,82,47,2
+conf1,R012,COORD,5,4,True,,,False,True,0,1,26,5,25.0,53,33,1
+conf1,R013,UNC,3,2,True,,,False,True,0,3,1;7;9,11,55.0,116,44,7
+conf1,R013,LF,3,2,True,,,False,True,0,1,1,11,55.0,116,44,7
+conf1,R013,COORD,3,2,False,could not find a feasible schedule for batch 'NEW1',25,True,,,0,,,,,,
+conf1,R014,UNC,2,2,True,,,False,True,0,2,4;9,7,36.8,45,23,14
+conf1,R014,LF,2,2,True,,,False,True,0,1,9,7,36.8,45,23,14
+conf1,R014,COORD,2,2,True,,,False,True,0,1,15,7,36.8,45,23,14
+conf1,R015,UNC,2,2,True,,,False,True,0,2,8;11,4,21.1,27,15,0
+conf1,R015,LF,2,2,True,,,False,True,0,1,11,4,21.1,27,15,0
+conf1,R015,COORD,2,2,True,,,False,True,0,1,26,4,21.1,27,15,0
+conf1,R016,UNC,5,3,True,,,False,True,0,5,1;2;8;9,15,68.2,327,118,14
+conf1,R016,LF,5,3,True,,,False,True,0,4,1;2;8,15,68.2,327,118,14
+conf1,R016,COORD,5,3,True,,,False,True,0,1,8,15,68.2,327,118,14
+conf1,R017,UNC,2,2,True,,,False,True,0,2,1;2,12,60.0,118,45,6
+conf1,R017,LF,2,2,True,,,False,True,0,2,1;2,12,60.0,118,45,6
+conf1,R017,COORD,2,2,True,,,False,True,0,1,3,12,60.0,118,45,6
+conf1,R018,UNC,3,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf1,R018,LF,3,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf1,R018,COORD,3,2,False,could not find a feasible schedule for batch 'NEW1',18,False,,,0,,,,,,
+conf1,R019,UNC,3,3,True,,,False,True,0,3,1;6;13,9,45.0,73,32,1
+conf1,R019,LF,3,3,True,,,False,True,0,2,6;13,9,45.0,73,32,1
+conf1,R019,COORD,3,3,True,,,False,True,0,1,15,9,45.0,73,32,1
+conf1,R020,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf1,R020,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf1,R020,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',6,True,,,0,,,,,,
+conf1,R021,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',13,False,,,1,9,,,,,
+conf1,R021,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',13,False,,,1,9,,,,,
+conf1,R021,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',23,True,,,0,,,,,,
+conf1,R022,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',11,False,,,1,6,,,,,
+conf1,R022,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',11,False,,,0,,,,,,
+conf1,R022,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',23,True,,,0,,,,,,
+conf1,R023,UNC,4,3,True,,,False,True,0,4,2;10,12,63.2,82,35,21
+conf1,R023,LF,4,3,True,,,False,True,0,3,2;10,12,63.2,82,35,21
+conf1,R023,COORD,4,3,True,,,False,True,0,2,9;10,12,63.2,82,35,21
+conf1,R024,UNC,5,3,True,,,False,True,0,5,5;8;10;12,13,61.9,271,106,19
+conf1,R024,LF,5,3,True,,,False,True,0,4,8;10;12,13,61.9,271,106,19
+conf1,R024,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',33,True,,,1,10,,,,,
+conf1,R025,UNC,4,3,True,,,False,True,0,4,2;6;8;9,14,66.7,238,83,7
+conf1,R025,LF,4,3,True,,,False,True,0,3,6;8;9,14,66.7,238,83,7
+conf1,R025,COORD,4,3,True,,,False,True,0,1,9,14,66.7,269,87,15
+conf1,R026,UNC,5,3,True,,,False,True,0,5,4;5;10;11;12,14,66.7,196,69,4
+conf1,R026,LF,5,3,True,,,False,True,0,3,4;5;10,14,66.7,196,69,4
+conf1,R026,COORD,5,3,True,,,False,True,0,2,8;15,14,66.7,163,60,6
+conf1,R027,UNC,2,2,True,,,False,True,0,2,9;11,4,21.1,30,5,0
+conf1,R027,LF,2,2,True,,,False,True,0,1,9,4,21.1,30,5,0
+conf1,R027,COORD,2,2,True,,,False,True,0,1,10,4,21.1,30,5,0
+conf1,R028,UNC,4,3,True,,,False,True,0,4,3;4;13,10,50.0,73,24,0
+conf1,R028,LF,4,3,True,,,False,True,0,1,4,10,50.0,73,24,0
+conf1,R028,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',12,True,,,0,,,,,,
+conf1,R029,UNC,3,2,True,,,False,True,0,3,1;6;8,14,70.0,107,30,1
+conf1,R029,LF,3,2,True,,,False,True,0,3,1;6;8,14,70.0,107,30,1
+conf1,R029,COORD,3,2,True,,,False,True,0,1,8,14,70.0,107,30,1
+conf1,R030,UNC,5,3,True,,,False,True,0,5,3;4;5;6;8,12,60.0,146,59,9
+conf1,R030,LF,5,3,True,,,False,True,0,3,3;6;8,12,60.0,146,59,9
+conf1,R030,COORD,5,3,True,,,False,True,0,1,10,11,55.0,120,45,9
+conf1,R031,UNC,5,3,True,,,False,True,0,5,3;8;9;12,10,52.6,61,42,17
+conf1,R031,LF,5,3,True,,,False,True,0,1,8,10,52.6,61,42,17
+conf1,R031,COORD,5,3,True,,,False,True,0,1,8,10,52.6,61,42,17
+conf1,R032,UNC,2,2,True,,,False,True,0,2,0;4,0,0.0,0,0,0
+conf1,R032,LF,2,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf1,R032,COORD,2,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf1,R033,UNC,5,3,False,could not find a feasible schedule for batch 'NEW3',10,False,,,4,3;6;7;10,,,,,
+conf1,R033,LF,5,3,False,could not find a feasible schedule for batch 'NEW3',10,False,,,4,3;6;7;10,,,,,
+conf1,R033,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,0,,,,,,
+conf1,R034,UNC,5,2,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf1,R034,LF,5,2,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf1,R034,COORD,5,2,False,could not find a feasible schedule for batch 'NEW1',9,True,,,0,,,,,,
+conf1,R035,UNC,4,2,True,,,False,True,0,4,0;3;8;12,12,60.0,167,54,24
+conf1,R035,LF,4,2,True,,,False,True,0,3,3;8;12,12,60.0,167,54,24
+conf1,R035,COORD,4,2,True,,,False,True,0,2,9;24,12,60.0,167,54,24
+conf1,R036,UNC,3,3,False,could not find a feasible schedule for batch 'NEW1',4,False,,,0,,,,,,
+conf1,R036,LF,3,3,False,could not find a feasible schedule for batch 'NEW1',4,False,,,0,,,,,,
+conf1,R036,COORD,3,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,0,,,,,,
+conf1,R037,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,0,,,,,,
+conf1,R037,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,0,,,,,,
+conf1,R037,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,0,,,,,,
+conf1,R038,UNC,5,4,True,,,False,True,0,5,0;2;3;6;8,11,55.0,69,25,1
+conf1,R038,LF,5,4,True,,,False,True,0,2,3;8,11,55.0,69,25,1
+conf1,R038,COORD,5,4,True,,,False,True,0,1,10,9,45.0,64,23,1
+conf1,R039,UNC,3,2,True,,,False,True,0,3,5;7;11,9,47.4,32,11,0
+conf1,R039,LF,3,2,True,,,False,True,0,2,7;11,9,47.4,32,11,0
+conf1,R039,COORD,3,2,True,,,False,True,0,2,8;26,9,47.4,32,11,0
+conf1,R040,UNC,5,3,True,,,False,True,0,5,0;6;8;9;12,15,71.4,248,83,5
+conf1,R040,LF,5,3,True,,,False,True,0,4,0;6;8;9,15,71.4,248,83,5
+conf1,R040,COORD,5,3,True,,,False,True,0,2,8;12,15,71.4,248,83,5
+conf1,R041,UNC,3,2,True,,,False,True,0,3,3;5;13,13,68.4,87,34,13
+conf1,R041,LF,3,2,True,,,False,True,0,3,3;5;13,13,68.4,87,34,13
+conf1,R041,COORD,3,2,True,,,False,True,0,2,9;15,13,68.4,87,34,13
+conf1,R042,UNC,4,2,True,,,False,True,0,4,0;5;10,16,72.7,399,134,8
+conf1,R042,LF,4,2,True,,,False,True,0,3,0;5,16,72.7,399,134,8
+conf1,R042,COORD,4,2,True,,,False,True,0,1,15,12,54.5,183,93,13
+conf1,R043,UNC,2,2,True,,,False,True,0,2,9;12,9,45.0,69,33,4
+conf1,R043,LF,2,2,True,,,False,True,0,2,9;12,9,45.0,69,33,4
+conf1,R043,COORD,2,2,True,,,False,True,0,1,22,7,35.0,38,24,2
+conf1,R044,UNC,5,4,False,could not find a feasible schedule for batch 'NEW1',1,False,,,1,1,,,,,
+conf1,R044,LF,5,4,False,could not find a feasible schedule for batch 'NEW1',1,False,,,1,1,,,,,
+conf1,R044,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',3,False,,,0,,,,,,
+conf1,R045,UNC,2,2,True,,,False,True,0,2,4;8,7,35.0,52,27,1
+conf1,R045,LF,2,2,True,,,False,True,0,1,8,7,35.0,52,27,1
+conf1,R045,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',20,True,,,0,,,,,,
+conf1,R046,UNC,3,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,1,0,,,,,
+conf1,R046,LF,3,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,1,0,,,,,
+conf1,R046,COORD,3,3,False,could not find a feasible schedule for batch 'NEW1',26,False,,,0,,,,,,
+conf1,R047,UNC,3,2,True,,,False,True,0,3,5;9;13,0,0.0,0,0,0
+conf1,R047,LF,3,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf1,R047,COORD,3,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf1,R048,UNC,5,3,True,,,False,True,0,5,4;7;11;12,14,70.0,143,61,13
+conf1,R048,LF,5,3,True,,,False,True,0,4,4;7;11;12,14,70.0,143,61,13
+conf1,R048,COORD,5,3,True,,,False,True,0,2,7;26,14,70.0,128,60,8
+conf1,R049,UNC,5,3,True,,,False,True,0,5,2;3;4;5;12,13,65.0,185,48,18
+conf1,R049,LF,5,3,True,,,False,True,0,3,2;4;5,13,65.0,185,48,18
+conf1,R049,COORD,5,3,True,,,False,True,0,1,8,13,65.0,166,50,14
+conf1,R050,UNC,3,2,True,,,False,True,0,3,0;9;10,13,61.9,242,100,16
+conf1,R050,LF,3,2,True,,,False,True,0,2,9;10,13,61.9,242,100,16
+conf1,R050,COORD,3,2,False,could not find a feasible schedule for batch 'NEW2',24,True,,,0,,,,,,
+conf1,R051,UNC,2,2,True,,,False,True,0,2,12,2,10.5,9,3,0
+conf1,R051,LF,2,2,True,,,False,True,0,1,12,2,10.5,9,3,0
+conf1,R051,COORD,2,2,True,,,False,True,0,1,26,2,10.5,9,3,0
+conf1,R052,UNC,2,2,True,,,False,True,0,2,10;13,1,5.3,1,0,1
+conf1,R052,LF,2,2,True,,,False,True,0,0,,1,5.3,1,0,1
+conf1,R052,COORD,2,2,True,,,False,True,0,0,,1,5.3,1,0,1
+conf1,R053,UNC,2,2,True,,,False,True,0,2,2;10,13,68.4,93,22,3
+conf1,R053,LF,2,2,True,,,False,True,0,2,2;10,13,68.4,93,22,3
+conf1,R053,COORD,2,2,True,,,False,True,0,2,3;10,13,68.4,93,22,3
+conf1,R054,UNC,3,2,True,,,False,True,0,3,0;7;9,13,65.0,83,28,5
+conf1,R054,LF,3,2,True,,,False,True,0,3,0;7;9,13,65.0,83,28,5
+conf1,R054,COORD,3,2,False,could not find a feasible schedule for batch 'NEW1',22,True,,,1,8,,,,,
+conf1,R055,UNC,4,4,True,,,False,True,0,4,0;1;5;10,9,45.0,76,30,4
+conf1,R055,LF,4,4,True,,,False,True,0,3,0;5;10,9,45.0,76,30,4
+conf1,R055,COORD,4,4,True,,,False,True,0,2,6;25,6,30.0,36,16,0
+conf1,R056,UNC,2,2,True,,,False,True,0,2,3;4,8,42.1,41,16,0
+conf1,R056,LF,2,2,True,,,False,True,0,1,4,8,42.1,41,16,0
+conf1,R056,COORD,2,2,True,,,False,True,0,1,8,8,42.1,41,16,0
+conf1,R057,UNC,5,4,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf1,R057,LF,5,4,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf1,R057,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf1,R058,UNC,4,3,True,,,False,True,0,4,4;8;12,13,65.0,74,37,5
+conf1,R058,LF,4,3,True,,,False,True,0,3,4;8;12,13,65.0,74,37,5
+conf1,R058,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',21,True,,,1,8,,,,,
+conf1,R059,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',11,True,,,1,4,,,,,
+conf1,R059,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',11,True,,,1,4,,,,,
+conf1,R059,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',11,True,,,1,10,,,,,
+conf1,R060,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf1,R060,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf1,R060,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,0,,,,,,
+conf1,R061,UNC,3,2,True,,,False,True,0,3,3;8;13,12,63.2,49,15,1
+conf1,R061,LF,3,2,True,,,False,True,0,3,3;8;13,12,63.2,49,15,1
+conf1,R061,COORD,3,2,True,,,False,True,0,3,3;9;26,12,63.2,49,15,1
+conf1,R062,UNC,4,3,True,,,False,True,0,4,0;3;4;13,14,70.0,137,53,8
+conf1,R062,LF,4,3,True,,,False,True,0,2,4;13,14,70.0,137,53,8
+conf1,R062,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',17,True,,,0,,,,,,
+conf1,R063,UNC,3,2,True,,,False,True,0,3,6;7;13,11,57.9,61,27,15
+conf1,R063,LF,3,2,True,,,False,True,0,3,6;7;13,11,57.9,61,27,15
+conf1,R063,COORD,3,2,True,,,False,True,0,2,9;26,11,57.9,61,27,15
+conf1,R064,UNC,4,2,False,could not find a feasible schedule for batch 'NEW2',12,False,,,3,4;11;12,,,,,
+conf1,R064,LF,4,2,False,could not find a feasible schedule for batch 'NEW2',12,False,,,1,11,,,,,
+conf1,R064,COORD,4,2,False,could not find a feasible schedule for batch 'NEW2',22,True,,,0,,,,,,
+conf1,R065,UNC,2,2,True,,,False,True,0,2,3;12,8,40.0,61,35,0
+conf1,R065,LF,2,2,True,,,False,True,0,1,12,8,40.0,61,35,0
+conf1,R065,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',27,True,,,0,,,,,,
+conf1,R066,UNC,3,3,True,,,False,True,0,3,2;7;9,15,75.0,132,43,6
+conf1,R066,LF,3,3,True,,,False,True,0,2,2;7,15,75.0,132,43,6
+conf1,R066,COORD,3,3,True,,,False,True,0,1,8,14,70.0,122,43,11
+conf1,R067,UNC,2,2,True,,,False,True,0,2,7;8,8,42.1,31,14,4
+conf1,R067,LF,2,2,True,,,False,True,0,1,7,8,42.1,31,14,4
+conf1,R067,COORD,2,2,True,,,False,True,0,1,8,8,42.1,31,14,4
+conf1,R068,UNC,3,2,True,,,False,True,0,3,0;8;13,9,47.4,56,15,8
+conf1,R068,LF,3,2,True,,,False,True,0,2,0;13,9,47.4,56,15,8
+conf1,R068,COORD,3,2,True,,,False,True,0,2,9;22,9,47.4,56,15,8
+conf1,R069,UNC,5,3,True,,,False,True,0,5,2;3;9;12,10,50.0,77,35,6
+conf1,R069,LF,5,3,True,,,False,True,0,2,12,10,50.0,77,35,6
+conf1,R069,COORD,5,3,True,,,False,True,0,1,15,10,50.0,77,35,6
+conf1,R070,UNC,5,3,True,,,False,True,0,5,7;8;12;13,14,63.6,288,113,16
+conf1,R070,LF,5,3,True,,,False,True,0,4,7;8;12;13,14,63.6,288,113,16
+conf1,R070,COORD,5,3,True,,,False,True,0,2,10;15,14,63.6,288,113,16
+conf1,R071,UNC,5,4,True,,,False,True,0,5,6;10;13,15,75.0,84,36,6
+conf1,R071,LF,5,4,True,,,False,True,0,4,6;10;13,15,75.0,84,36,6
+conf1,R071,COORD,5,4,True,,,False,True,0,2,8;14,15,75.0,82,35,5
+conf1,R072,UNC,2,2,True,,,False,True,0,2,1;11,2,10.5,9,3,0
+conf1,R072,LF,2,2,True,,,False,True,0,1,11,2,10.5,9,3,0
+conf1,R072,COORD,2,2,True,,,False,True,0,1,26,2,10.5,9,3,0
+conf1,R073,UNC,2,2,True,,,False,True,0,2,1;11,0,0.0,0,0,0
+conf1,R073,LF,2,2,True,,,False,True,0,0,,1,5.3,3,0,3
+conf1,R073,COORD,2,2,True,,,False,True,0,0,,1,5.3,3,0,3
+conf1,R074,UNC,2,2,True,,,False,True,0,2,4;5,7,35.0,61,33,2
+conf1,R074,LF,2,2,True,,,False,True,0,1,5,7,35.0,61,33,2
+conf1,R074,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',25,True,,,0,,,,,,
+conf1,R075,UNC,4,3,True,,,False,True,0,4,2;3;9;10,13,68.4,98,32,10
+conf1,R075,LF,4,3,True,,,False,True,0,2,3;9,13,68.4,98,32,10
+conf1,R075,COORD,4,3,True,,,False,True,0,2,8;26,13,68.4,98,32,10
+conf1,R076,UNC,2,2,True,,,False,True,0,2,3;12,13,65.0,118,43,12
+conf1,R076,LF,2,2,True,,,False,True,0,2,3;12,13,65.0,118,43,12
+conf1,R076,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',22,True,,,1,8,,,,,
+conf1,R077,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',10,False,,,1,2,,,,,
+conf1,R077,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',10,False,,,0,,,,,,
+conf1,R077,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',23,True,,,0,,,,,,
+conf1,R078,UNC,5,3,True,,,False,True,0,5,1;3;5;11,14,73.7,54,20,1
+conf1,R078,LF,5,3,True,,,False,True,0,3,3;5;11,14,73.7,54,20,1
+conf1,R078,COORD,5,3,True,,,False,True,0,3,3;9;26,14,73.7,54,20,1
+conf1,R079,UNC,3,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf1,R079,LF,3,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf1,R079,COORD,3,2,False,could not find a feasible schedule for batch 'NEW1',6,True,,,0,,,,,,
+conf1,R080,UNC,5,4,False,could not find a feasible schedule for batch 'NEW1',11,False,,,4,0;2;5;6,,,,,
+conf1,R080,LF,5,4,False,could not find a feasible schedule for batch 'NEW1',11,False,,,1,5,,,,,
+conf1,R080,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',30,True,,,1,10,,,,,
+conf1,R081,UNC,4,2,True,,,False,True,0,4,1;3;6,8,42.1,33,8,3
+conf1,R081,LF,4,2,True,,,False,True,0,3,1;3,8,42.1,33,8,3
+conf1,R081,COORD,4,2,True,,,False,True,0,1,6,8,42.1,33,8,3
+conf1,R082,UNC,5,3,True,,,False,True,0,5,1;2;5;12,12,60.0,95,41,0
+conf1,R082,LF,5,3,True,,,False,True,0,2,5,12,60.0,95,41,0
+conf1,R082,COORD,5,3,True,,,False,True,0,1,7,12,60.0,95,41,0
+conf1,R083,UNC,4,2,False,could not find a feasible schedule for batch 'NEW1',6,False,,,1,4,,,,,
+conf1,R083,LF,4,2,False,could not find a feasible schedule for batch 'NEW1',6,False,,,1,4,,,,,
+conf1,R083,COORD,4,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf1,R084,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',12,False,,,1,5,,,,,
+conf1,R084,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',12,False,,,0,,,,,,
+conf1,R084,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',37,True,,,0,,,,,,
+conf1,R085,UNC,5,3,True,,,False,True,0,5,0;2;8;10;11,14,73.7,61,18,3
+conf1,R085,LF,5,3,True,,,False,True,0,2,2;11,14,73.7,61,18,3
+conf1,R085,COORD,5,3,True,,,False,True,0,2,8;26,14,73.7,61,18,3
+conf1,R086,UNC,5,2,True,,,False,True,0,5,0;2;7;9,14,63.6,325,107,20
+conf1,R086,LF,5,2,True,,,False,True,0,3,0;2;7,14,63.6,325,107,20
+conf1,R086,COORD,5,2,True,,,False,True,0,1,15,12,54.5,184,93,14
+conf1,R087,UNC,3,3,True,,,False,True,0,3,1;4;6,12,60.0,99,33,8
+conf1,R087,LF,3,3,True,,,False,True,0,1,4,12,60.0,99,33,8
+conf1,R087,COORD,3,3,True,,,False,True,0,1,15,8,40.0,45,23,1
+conf1,R088,UNC,3,3,True,,,False,True,0,3,5;12;13,4,21.1,20,9,9
+conf1,R088,LF,3,3,True,,,False,True,0,2,5;12,4,21.1,20,9,9
+conf1,R088,COORD,3,3,True,,,False,True,0,2,6;23,4,21.1,20,9,9
+conf1,R089,UNC,4,3,True,,,False,True,0,4,4;7;9,12,63.2,69,22,9
+conf1,R089,LF,4,3,True,,,False,True,0,3,4;9,12,63.2,69,22,9
+conf1,R089,COORD,4,3,True,,,False,True,0,2,8;15,12,63.2,69,22,9
+conf1,R090,UNC,4,3,True,,,False,True,0,4,0;3;5,13,65.0,162,51,28
+conf1,R090,LF,4,3,True,,,False,True,0,3,0;3;5,13,65.0,162,51,28
+conf1,R090,COORD,4,3,True,,,False,True,0,2,3;8,13,65.0,162,51,28
+conf1,R091,UNC,2,2,True,,,False,True,0,2,1;3,9,47.4,10,4,0
+conf1,R091,LF,2,2,True,,,False,True,0,1,1,9,47.4,10,4,0
+conf1,R091,COORD,2,2,True,,,False,True,0,1,8,9,47.4,10,4,0
+conf1,R092,UNC,5,3,True,,,False,True,0,5,3;6;10;12,15,71.4,204,73,5
+conf1,R092,LF,5,3,True,,,False,True,0,3,6;10;12,15,71.4,204,73,5
+conf1,R092,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',13,True,,,1,8,,,,,
+conf1,R093,UNC,3,2,True,,,False,True,0,3,2;3;11,5,26.3,12,11,6
+conf1,R093,LF,3,2,True,,,False,True,0,2,3;11,5,26.3,12,11,6
+conf1,R093,COORD,3,2,True,,,False,True,0,2,10;22,5,26.3,12,11,6
+conf1,R094,UNC,3,2,True,,,False,True,0,3,5;10,10,52.6,69,25,2
+conf1,R094,LF,3,2,True,,,False,True,0,3,5;10,10,52.6,69,25,2
+conf1,R094,COORD,3,2,True,,,False,True,0,2,10;26,10,52.6,69,25,2
+conf1,R095,UNC,2,2,True,,,False,True,0,2,5;9,12,60.0,103,33,1
+conf1,R095,LF,2,2,True,,,False,True,0,2,5;9,12,60.0,103,33,1
+conf1,R095,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',25,True,,,1,8,,,,,
+conf1,R096,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf1,R096,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf1,R096,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf1,R097,UNC,4,4,True,,,False,True,0,4,4;5;8;9,14,70.0,148,52,7
+conf1,R097,LF,4,4,True,,,False,True,0,3,4;8;9,14,70.0,148,52,7
+conf1,R097,COORD,4,4,True,,,False,True,0,1,9,14,70.0,148,52,7
+conf1,R098,UNC,2,2,True,,,False,True,0,2,5;6,10,50.0,65,29,2
+conf1,R098,LF,2,2,True,,,False,True,0,2,5;6,10,50.0,65,29,2
+conf1,R098,COORD,2,2,True,,,False,True,0,1,9,10,50.0,65,29,2
+conf1,R099,UNC,4,2,False,could not find a feasible schedule for batch 'NEW2',13,False,,,3,3;6;7,,,,,
+conf1,R099,LF,4,2,False,could not find a feasible schedule for batch 'NEW2',13,False,,,3,3;6;7,,,,,
+conf1,R099,COORD,4,2,False,could not find a feasible schedule for batch 'NEW2',30,True,,,1,8,,,,,
+conf1,R100,UNC,2,2,True,,,False,True,0,2,1;10,7,36.8,46,16,0
+conf1,R100,LF,2,2,True,,,False,True,0,1,10,7,36.8,46,16,0
+conf1,R100,COORD,2,2,True,,,False,True,0,1,10,7,36.8,46,16,0
+conf1,R101,UNC,3,2,True,,,False,True,0,3,3;6;7,11,55.0,105,37,7
+conf1,R101,LF,3,2,True,,,False,True,0,1,3,11,55.0,105,37,7
+conf1,R101,COORD,3,2,True,,,False,True,0,1,15,7,35.0,51,27,0
+conf1,R102,UNC,4,3,True,,,False,True,0,4,5;9;10;12,13,68.4,87,29,7
+conf1,R102,LF,4,3,True,,,False,True,0,3,5;9;12,13,68.4,87,29,7
+conf1,R102,COORD,4,3,True,,,False,True,0,3,8;10;28,13,68.4,87,29,7
+conf1,R103,UNC,4,2,True,,,False,True,0,4,4;13,0,0.0,0,0,0
+conf1,R103,LF,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf1,R103,COORD,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf1,R104,UNC,5,3,True,,,False,True,0,5,2;5;7;9;11,14,66.7,221,81,11
+conf1,R104,LF,5,3,True,,,False,True,0,2,2;11,13,61.9,184,75,11
+conf1,R104,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',31,True,,,1,10,,,,,
+conf1,R105,UNC,5,3,True,,,False,True,0,5,1;3;8;11,14,66.7,211,97,6
+conf1,R105,LF,5,3,True,,,False,True,0,3,3;8;11,14,66.7,211,97,6
+conf1,R105,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',25,True,,,1,8,,,,,
+conf1,R106,UNC,2,2,True,,,False,True,0,2,1;12,7,36.8,40,11,4
+conf1,R106,LF,2,2,True,,,False,True,0,2,1;12,7,36.8,40,11,4
+conf1,R106,COORD,2,2,True,,,False,True,0,2,9;22,7,36.8,40,11,4
+conf1,R107,UNC,2,2,True,,,False,True,0,2,3;13,3,15.8,23,6,0
+conf1,R107,LF,2,2,True,,,False,True,0,1,3,3,15.8,23,6,0
+conf1,R107,COORD,2,2,True,,,False,True,0,1,9,3,15.8,23,6,0
+conf1,R108,UNC,5,2,True,,,False,True,0,5,2;3;9;13,9,45.0,64,30,7
+conf1,R108,LF,5,2,True,,,False,True,0,2,9;13,9,45.0,64,30,7
+conf1,R108,COORD,5,2,True,,,False,True,0,1,15,9,45.0,64,30,7
+conf1,R109,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',11,False,,,3,0;7;9,,,,,
+conf1,R109,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',11,False,,,2,0;7,,,,,
+conf1,R109,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',16,True,,,1,8,,,,,
+conf1,R110,UNC,4,2,True,,,False,True,0,4,2;4;9,8,42.1,51,19,4
+conf1,R110,LF,4,2,True,,,False,True,0,2,2;4,8,42.1,51,19,4
+conf1,R110,COORD,4,2,True,,,False,True,0,2,3;10,8,42.1,51,19,4
+conf1,R111,UNC,5,3,True,,,False,True,0,5,0;2;4;6;8,15,71.4,352,106,12
+conf1,R111,LF,5,3,True,,,False,True,0,3,0;2;6,15,71.4,352,106,12
+conf1,R111,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',13,True,,,1,3,,,,,
+conf1,R112,UNC,2,2,True,,,False,True,0,2,10;11,10,50.0,71,40,13
+conf1,R112,LF,2,2,True,,,False,True,0,2,10;11,10,50.0,71,40,13
+conf1,R112,COORD,2,2,True,,,False,True,0,1,15,10,50.0,71,40,13
+conf1,R113,UNC,3,2,True,,,False,True,0,3,2;10;13,11,57.9,81,26,9
+conf1,R113,LF,3,2,True,,,False,True,0,1,2,11,57.9,81,26,9
+conf1,R113,COORD,3,2,True,,,False,True,0,1,8,11,57.9,81,26,9
+conf1,R114,UNC,4,2,True,,,False,True,0,4,0;3;8;13,12,63.2,51,18,0
+conf1,R114,LF,4,2,True,,,False,True,0,3,0;3;13,12,63.2,51,18,0
+conf1,R114,COORD,4,2,True,,,False,True,0,2,7;26,12,63.2,51,18,0
+conf1,R115,UNC,4,2,True,,,False,True,0,4,1;6;7;9,0,0.0,0,0,0
+conf1,R115,LF,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf1,R115,COORD,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf1,R116,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,1,1,,,,,
+conf1,R116,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,1,1,,,,,
+conf1,R116,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,0,,,,,,
+conf1,R117,UNC,2,2,True,,,False,True,0,2,4;12,12,60.0,96,33,16
+conf1,R117,LF,2,2,True,,,False,True,0,2,4;12,12,60.0,96,33,16
+conf1,R117,COORD,2,2,True,,,False,True,0,2,10;15,11,55.0,92,32,16
+conf1,R118,UNC,3,2,True,,,False,True,0,3,3;11;12,5,26.3,32,9,7
+conf1,R118,LF,3,2,True,,,False,True,0,2,11;12,5,26.3,32,9,7
+conf1,R118,COORD,3,2,True,,,False,True,0,1,15,5,26.3,32,9,7
+conf1,R119,UNC,4,2,True,,,False,True,0,4,2;4;9;11,13,61.9,217,69,12
+conf1,R119,LF,4,2,True,,,False,True,0,2,2;9,13,61.9,217,69,12
+conf1,R119,COORD,4,2,True,,,False,True,0,1,15,11,52.4,103,41,8
+conf1,R120,UNC,2,2,True,,,False,True,0,2,4;10,7,35.0,59,30,1
+conf1,R120,LF,2,2,True,,,False,True,0,1,4,7,35.0,59,30,1
+conf1,R120,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',24,True,,,0,,,,,,
+conf1,R121,UNC,5,3,True,,,False,True,0,5,0;4;5;6,13,61.9,203,62,7
+conf1,R121,LF,5,3,True,,,False,True,0,2,0;6,13,61.9,203,62,7
+conf1,R121,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',14,True,,,0,,,,,,
+conf1,R122,UNC,5,3,True,,,False,True,0,5,2;6;9;10;13,15,75.0,116,26,2
+conf1,R122,LF,5,3,True,,,False,True,0,2,2;6,15,75.0,116,26,2
+conf1,R122,COORD,5,3,True,,,False,True,0,2,3;15,14,70.0,87,22,2
+conf1,R123,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf1,R123,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf1,R123,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf1,R124,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf1,R124,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf1,R124,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',16,True,,,0,,,,,,
+conf1,R125,UNC,5,3,True,,,False,True,0,5,5;6;11;12;13,14,66.7,207,58,17
+conf1,R125,LF,5,3,True,,,False,True,0,5,5;6;11;12;13,14,66.7,207,58,17
+conf1,R125,COORD,5,3,True,,,False,True,0,3,10;11;15,13,61.9,144,49,8
+conf1,R126,UNC,5,4,True,,,False,True,0,5,2;6;9;12;13,13,61.9,221,97,13
+conf1,R126,LF,5,4,True,,,False,True,0,3,6;9;12,13,61.9,221,97,13
+conf1,R126,COORD,5,4,False,could not find a feasible schedule for batch 'NEW2',19,True,,,0,,,,,,
+conf1,R127,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,3,2;4;8,,,,,
+conf1,R127,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,3,2;4;8,,,,,
+conf1,R127,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',30,True,,,2,3;8,,,,,
+conf1,R128,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',7,False,,,0,,,,,,
+conf1,R128,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',7,False,,,0,,,,,,
+conf1,R128,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',30,True,,,0,,,,,,
+conf1,R129,UNC,5,3,True,,,False,True,0,5,1;4;10;11;13,14,66.7,259,86,19
+conf1,R129,LF,5,3,True,,,False,True,0,4,1;4;10;13,14,66.7,259,86,19
+conf1,R129,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',25,True,,,1,8,,,,,
+conf1,R130,UNC,4,2,True,,,False,True,0,4,3;6;12;13,5,26.3,32,19,15
+conf1,R130,LF,4,2,True,,,False,True,0,2,12;13,5,26.3,32,19,15
+conf1,R130,COORD,4,2,True,,,False,True,0,1,18,5,26.3,32,19,15
+conf1,R131,UNC,3,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf1,R131,LF,3,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf1,R131,COORD,3,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,0,,,,,,
+conf1,R132,UNC,3,2,True,,,False,True,0,3,1;10;12,12,63.2,79,40,3
+conf1,R132,LF,3,2,True,,,False,True,0,2,1;10,12,63.2,79,40,3
+conf1,R132,COORD,3,2,True,,,False,True,0,2,9;15,12,63.2,79,40,3
+conf1,R133,UNC,5,3,True,,,False,True,0,5,1;3;5;11;12,13,61.9,234,85,6
+conf1,R133,LF,5,3,True,,,False,True,0,4,1;3;5;11,13,61.9,234,85,6
+conf1,R133,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',22,True,,,1,8,,,,,
+conf1,R134,UNC,3,2,True,,,False,True,0,3,1;7;13,11,57.9,88,31,24
+conf1,R134,LF,3,2,True,,,False,True,0,2,1;13,11,57.9,88,31,24
+conf1,R134,COORD,3,2,True,,,False,True,0,2,3;21,11,57.9,88,31,24
+conf1,R135,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,1,2,,,,,
+conf1,R135,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,1,2,,,,,
+conf1,R135,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf1,R136,UNC,2,2,True,,,False,True,0,2,7;9,2,10.5,5,2,1
+conf1,R136,LF,2,2,True,,,False,True,0,1,9,2,10.5,5,2,1
+conf1,R136,COORD,2,2,True,,,False,True,0,1,26,2,10.5,5,2,1
+conf1,R137,UNC,2,2,True,,,False,True,0,2,2;9,12,60.0,137,53,7
+conf1,R137,LF,2,2,True,,,False,True,0,2,2;9,12,60.0,137,53,7
+conf1,R137,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',26,False,,,0,,,,,,
+conf1,R138,UNC,5,3,True,,,False,True,0,5,2;4;6,10,52.6,23,12,0
+conf1,R138,LF,5,3,True,,,False,True,0,3,2;4;6,10,52.6,23,12,0
+conf1,R138,COORD,5,3,True,,,False,True,0,1,8,10,52.6,23,12,0
+conf1,R139,UNC,5,4,False,could not find a feasible schedule for batch 'NEW1',12,False,,,4,0;4;11,,,,,
+conf1,R139,LF,5,4,False,could not find a feasible schedule for batch 'NEW1',12,False,,,1,4,,,,,
+conf1,R139,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',23,True,,,1,9,,,,,
+conf1,R140,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf1,R140,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf1,R140,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',16,True,,,0,,,,,,
+conf1,R141,UNC,3,3,True,,,False,True,0,3,0;9,11,55.0,98,33,8
+conf1,R141,LF,3,3,True,,,False,True,0,1,9,11,55.0,98,33,8
+conf1,R141,COORD,3,3,True,,,False,True,0,1,15,7,35.0,44,23,1
+conf1,R142,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,2,0;1,,,,,
+conf1,R142,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,1,0,,,,,
+conf1,R142,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf1,R143,UNC,5,4,True,,,False,True,0,5,4;6;7;13,12,60.0,79,54,9
+conf1,R143,LF,5,4,True,,,False,True,0,3,4;6;13,12,60.0,79,54,9
+conf1,R143,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',39,True,,,1,8,,,,,
+conf1,R144,UNC,2,2,True,,,False,True,0,2,5;10,2,10.5,5,2,1
+conf1,R144,LF,2,2,True,,,False,True,0,1,5,2,10.5,5,2,1
+conf1,R144,COORD,2,2,True,,,False,True,0,1,26,2,10.5,5,2,1
+conf1,R145,UNC,4,3,True,,,False,True,0,4,0;4;7,14,70.0,137,45,7
+conf1,R145,LF,4,3,True,,,False,True,0,4,0;4;7,14,70.0,137,45,7
+conf1,R145,COORD,4,3,True,,,False,True,0,1,9,14,70.0,175,60,11
+conf1,R146,UNC,4,3,True,,,False,True,0,4,5;9;11,12,60.0,116,44,8
+conf1,R146,LF,4,3,True,,,False,True,0,2,5;9,12,60.0,116,44,8
+conf1,R146,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',12,True,,,0,,,,,,
+conf1,R147,UNC,2,2,True,,,False,True,0,2,1;3,7,36.8,37,9,1
+conf1,R147,LF,2,2,True,,,False,True,0,2,1;3,7,36.8,37,9,1
+conf1,R147,COORD,2,2,True,,,False,True,0,1,9,7,36.8,37,9,1
+conf1,R148,UNC,5,3,True,,,False,True,0,5,1;3;7;11;13,14,66.7,226,97,14
+conf1,R148,LF,5,3,True,,,False,True,0,3,1;7;11,14,66.7,226,97,14
+conf1,R148,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',26,True,,,1,9,,,,,
+conf1,R149,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',1,False,,,1,0,,,,,
+conf1,R149,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf1,R149,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf1,R150,UNC,4,2,True,,,False,True,0,4,0;6;13,12,63.2,106,27,16
+conf1,R150,LF,4,2,True,,,False,True,0,3,0;6;13,12,63.2,106,27,16
+conf1,R150,COORD,4,2,True,,,False,True,0,2,8;15,8,42.1,65,18,19
+conf1,R151,UNC,3,2,True,,,False,True,0,3,1;10;12,13,61.9,233,101,18
+conf1,R151,LF,3,2,True,,,False,True,0,2,1;12,13,61.9,233,101,18
+conf1,R151,COORD,3,2,False,could not find a feasible schedule for batch 'NEW1',24,True,,,0,,,,,,
+conf1,R152,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf1,R152,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf1,R152,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf1,R153,UNC,5,3,True,,,False,True,0,5,0;2;6;8,14,70.0,195,55,16
+conf1,R153,LF,5,3,True,,,False,True,0,2,2,14,70.0,195,55,16
+conf1,R153,COORD,5,3,True,,,False,True,0,1,3,14,70.0,170,57,12
+conf1,R154,UNC,5,3,True,,,False,True,0,5,0;2;4;10,16,80.0,82,34,0
+conf1,R154,LF,5,3,True,,,False,True,0,4,2;4;10,16,80.0,82,34,0
+conf1,R154,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',19,True,,,1,3,,,,,
+conf1,R155,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,3,4;6;7,,,,,
+conf1,R155,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,2,4;6,,,,,
+conf1,R155,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,0,,,,,,
+conf1,R156,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf1,R156,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf1,R156,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',5,True,,,0,,,,,,
+conf1,R157,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,2,0;3,,,,,
+conf1,R157,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,0,,,,,,
+conf1,R157,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',16,True,,,0,,,,,,
+conf1,R158,UNC,2,2,True,,,False,True,0,2,0;3,11,55.0,112,40,8
+conf1,R158,LF,2,2,True,,,False,True,0,1,3,11,55.0,112,40,8
+conf1,R158,COORD,2,2,True,,,False,True,0,1,22,5,25.0,26,20,2
+conf1,R159,UNC,3,2,True,,,False,True,0,3,4;7;13,13,61.9,217,83,17
+conf1,R159,LF,3,2,True,,,False,True,0,3,4;7;13,13,61.9,217,83,17
+conf1,R159,COORD,3,2,True,,,False,True,0,2,10;25,12,57.1,170,56,20
+conf1,R160,UNC,2,2,True,,,False,True,0,2,0;11,14,70.0,128,29,4
+conf1,R160,LF,2,2,True,,,False,True,0,2,0;11,14,70.0,128,29,4
+conf1,R160,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',11,True,,,0,,,,,,
+conf1,R161,UNC,5,3,True,,,False,True,0,5,0;5;7;9;10,7,36.8,42,19,9
+conf1,R161,LF,5,3,True,,,False,True,0,2,5;7,7,36.8,42,19,9
+conf1,R161,COORD,5,3,True,,,False,True,0,1,10,8,42.1,43,19,10
+conf1,R162,UNC,4,3,True,,,False,True,0,4,5;11;12;13,12,60.0,95,37,4
+conf1,R162,LF,4,3,True,,,False,True,0,3,5;12;13,12,60.0,95,37,4
+conf1,R162,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',21,True,,,1,8,,,,,
+conf1,R163,UNC,3,3,True,,,False,True,0,3,3;11;13,10,50.0,89,49,11
+conf1,R163,LF,3,3,True,,,False,True,0,2,11;13,10,50.0,89,49,11
+conf1,R163,COORD,3,3,True,,,False,True,0,1,15,10,50.0,89,49,11
+conf1,R164,UNC,5,2,True,,,False,True,0,5,7;9;11;13,12,63.2,118,52,31
+conf1,R164,LF,5,2,True,,,False,True,0,4,7;9;13,12,63.2,118,52,31
+conf1,R164,COORD,5,2,True,,,False,True,0,3,7;9;18,12,63.2,116,52,28
+conf1,R165,UNC,4,4,True,,,False,True,0,4,2;3;7;12,14,70.0,108,31,2
+conf1,R165,LF,4,4,True,,,False,True,0,1,3,14,70.0,108,31,2
+conf1,R165,COORD,4,4,False,could not find a feasible schedule for batch 'NEW1',13,True,,,0,,,,,,
+conf1,R166,UNC,3,2,True,,,False,True,0,3,4;8;9,3,15.8,23,6,0
+conf1,R166,LF,3,2,True,,,False,True,0,1,8,3,15.8,23,6,0
+conf1,R166,COORD,3,2,True,,,False,True,0,1,9,3,15.8,23,6,0
+conf1,R167,UNC,2,2,True,,,False,True,0,2,0;2,13,65.0,135,43,7
+conf1,R167,LF,2,2,True,,,False,True,0,2,0;2,13,65.0,135,43,7
+conf1,R167,COORD,2,2,True,,,False,True,0,1,9,13,65.0,135,43,7
+conf1,R168,UNC,2,2,True,,,False,True,0,2,1;6,8,42.1,31,29,2
+conf1,R168,LF,2,2,True,,,False,True,0,1,1,8,42.1,31,29,2
+conf1,R168,COORD,2,2,True,,,False,True,0,1,3,8,42.1,31,29,2
+conf1,R169,UNC,4,4,True,,,False,True,0,4,0;4;13,14,70.0,111,40,9
+conf1,R169,LF,4,4,True,,,False,True,0,3,0;4;13,14,70.0,111,40,9
+conf1,R169,COORD,4,4,False,could not find a feasible schedule for batch 'NEW1',21,True,,,1,8,,,,,
+conf1,R170,UNC,2,2,True,,,False,True,0,2,10;12,10,50.0,79,49,11
+conf1,R170,LF,2,2,True,,,False,True,0,2,10;12,10,50.0,79,49,11
+conf1,R170,COORD,2,2,True,,,False,True,0,1,15,10,50.0,79,49,11
+conf1,R171,UNC,5,2,False,could not find a feasible schedule for batch 'NEW2',11,False,,,2,2;7,,,,,
+conf1,R171,LF,5,2,False,could not find a feasible schedule for batch 'NEW2',11,False,,,2,2;7,,,,,
+conf1,R171,COORD,5,2,False,could not find a feasible schedule for batch 'NEW1',10,True,,,0,,,,,,
+conf1,R172,UNC,3,3,True,,,False,True,0,3,1;5;9,13,65.0,109,36,7
+conf1,R172,LF,3,3,True,,,False,True,0,2,1;5,13,65.0,109,36,7
+conf1,R172,COORD,3,3,True,,,False,True,0,1,9,13,65.0,109,36,7
+conf1,R173,UNC,5,2,True,,,False,True,0,5,3;4;9,10,52.6,75,24,0
+conf1,R173,LF,5,2,True,,,False,True,0,3,4;9,10,52.6,75,24,0
+conf1,R173,COORD,5,2,True,,,False,True,0,2,8;26,10,52.6,59,19,0
+conf1,R174,UNC,2,2,True,,,False,True,0,2,1;5,14,70.0,122,42,6
+conf1,R174,LF,2,2,True,,,False,True,0,1,1,14,70.0,122,42,6
+conf1,R174,COORD,2,2,True,,,False,True,0,1,8,13,65.0,112,42,11
+conf1,R175,UNC,2,2,True,,,False,True,0,2,4;7,13,68.4,98,32,10
+conf1,R175,LF,2,2,True,,,False,True,0,2,4;7,13,68.4,98,32,10
+conf1,R175,COORD,2,2,True,,,False,True,0,1,8,13,68.4,98,32,10
+conf1,R176,UNC,5,3,True,,,False,True,0,5,0;6;8;9;13,14,66.7,221,84,5
+conf1,R176,LF,5,3,True,,,False,True,0,3,0;8;9,14,66.7,221,84,5
+conf1,R176,COORD,5,3,True,,,False,True,0,2,8;25,14,66.7,163,71,6
+conf1,R177,UNC,5,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,1,1,,,,,
+conf1,R177,LF,5,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf1,R177,COORD,5,2,False,could not find a feasible schedule for batch 'NEW1',3,True,,,0,,,,,,
+conf1,R178,UNC,4,3,True,,,False,True,0,4,6;9;11;12,12,60.0,81,22,0
+conf1,R178,LF,4,3,True,,,False,True,0,2,6;9,12,60.0,81,22,0
+conf1,R178,COORD,4,3,True,,,False,True,0,2,7;18,10,50.0,39,14,0
+conf1,R179,UNC,5,3,True,,,False,True,0,5,4;7;9;10;11,5,26.3,5,6,0
+conf1,R179,LF,5,3,True,,,False,True,0,2,4;7,5,26.3,5,6,0
+conf1,R179,COORD,5,3,True,,,False,True,0,2,6;8,5,26.3,5,6,0
+conf1,R180,UNC,4,4,True,,,False,True,0,4,2;5;9,13,65.0,132,43,18
+conf1,R180,LF,4,4,True,,,False,True,0,3,2;5;9,13,65.0,132,43,18
+conf1,R180,COORD,4,4,True,,,False,True,0,1,9,13,65.0,130,42,17
+conf1,R181,UNC,2,2,True,,,False,True,0,2,8;10,4,21.1,27,15,0
+conf1,R181,LF,2,2,True,,,False,True,0,1,8,4,21.1,27,15,0
+conf1,R181,COORD,2,2,True,,,False,True,0,1,26,4,21.1,27,15,0
+conf1,R182,UNC,5,2,True,,,False,True,0,5,0;5;9;12,14,73.7,82,28,1
+conf1,R182,LF,5,2,True,,,False,True,0,4,0;5;9,14,73.7,82,28,1
+conf1,R182,COORD,5,2,True,,,False,True,0,2,8;26,14,73.7,82,28,1
+conf1,R183,UNC,4,4,True,,,False,True,0,4,0;12;13,12,60.0,159,65,15
+conf1,R183,LF,4,4,True,,,False,True,0,2,0;12,12,60.0,159,65,15
+conf1,R183,COORD,4,4,True,,,False,True,0,1,15,11,55.0,89,31,11
+conf1,R184,UNC,4,3,True,,,False,True,0,4,11;12;13,6,31.6,62,31,17
+conf1,R184,LF,4,3,True,,,False,True,0,3,11;12;13,6,31.6,62,31,17
+conf1,R184,COORD,4,3,True,,,False,True,0,1,15,6,31.6,62,31,17
+conf1,R185,UNC,2,2,True,,,False,True,0,2,3;5,12,63.2,46,11,1
+conf1,R185,LF,2,2,True,,,False,True,0,2,3;5,12,63.2,46,11,1
+conf1,R185,COORD,2,2,True,,,False,True,0,1,7,12,63.2,46,11,1
+conf1,R186,UNC,5,3,True,,,False,True,0,5,7;8;9;12;13,10,52.6,74,21,12
+conf1,R186,LF,5,3,True,,,False,True,0,2,8;9,10,52.6,74,21,12
+conf1,R186,COORD,5,3,True,,,False,True,0,1,10,10,52.6,74,21,12
+conf1,R187,UNC,2,2,True,,,False,True,0,2,11;13,6,31.6,39,18,13
+conf1,R187,LF,2,2,True,,,False,True,0,1,13,6,31.6,39,18,13
+conf1,R187,COORD,2,2,True,,,False,True,0,1,15,6,31.6,39,18,13
+conf1,R188,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',5,False,,,0,,,,,,
+conf1,R188,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',5,False,,,0,,,,,,
+conf1,R188,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',30,True,,,0,,,,,,
+conf1,R189,UNC,2,2,True,,,False,True,0,2,1;9,11,55.0,116,48,7
+conf1,R189,LF,2,2,True,,,False,True,0,1,9,11,55.0,116,48,7
+conf1,R189,COORD,2,2,True,,,False,True,0,1,29,3,15.0,14,20,0
+conf1,R190,UNC,4,3,True,,,False,True,0,4,2;3;5;11,15,71.4,221,79,7
+conf1,R190,LF,4,3,True,,,False,True,0,2,2;5,15,71.4,221,79,7
+conf1,R190,COORD,4,3,True,,,False,True,0,1,22,9,42.9,78,47,4
+conf1,R191,UNC,2,2,True,,,False,True,0,2,2;11,5,26.3,5,6,0
+conf1,R191,LF,2,2,True,,,False,True,0,1,2,5,26.3,5,6,0
+conf1,R191,COORD,2,2,True,,,False,True,0,1,8,5,26.3,5,6,0
+conf1,R192,UNC,5,3,True,,,False,True,0,5,0;6;7;11,9,47.4,34,11,11
+conf1,R192,LF,5,3,True,,,False,True,0,3,6;7;11,9,47.4,34,11,11
+conf1,R192,COORD,5,3,True,,,False,True,0,2,7;18,9,47.4,34,11,11
+conf1,R193,UNC,5,3,True,,,False,True,0,5,0;3;11;12;13,11,57.9,60,22,2
+conf1,R193,LF,5,3,True,,,False,True,0,3,3;12;13,11,57.9,60,22,2
+conf1,R193,COORD,5,3,True,,,False,True,0,2,9;23,11,57.9,60,22,2
+conf1,R194,UNC,4,3,True,,,False,True,0,4,4;6;7;9,9,45.0,59,29,5
+conf1,R194,LF,4,3,True,,,False,True,0,2,6;9,9,45.0,59,29,5
+conf1,R194,COORD,4,3,True,,,False,True,0,1,15,9,45.0,59,29,5
+conf1,R195,UNC,5,3,True,,,False,True,0,5,0;8;9;12;13,13,65.0,135,43,1
+conf1,R195,LF,5,3,True,,,False,True,0,3,0;8;12,13,65.0,135,43,1
+conf1,R195,COORD,5,3,True,,,False,True,0,3,3;10;18,13,65.0,135,43,4
+conf1,R196,UNC,3,2,True,,,False,True,0,3,2;5;8,9,47.4,23,9,0
+conf1,R196,LF,3,2,True,,,False,True,0,2,2;8,9,47.4,23,9,0
+conf1,R196,COORD,3,2,True,,,False,True,0,1,8,9,47.4,23,9,0
+conf1,R197,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',5,False,,,1,0,,,,,
+conf1,R197,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',5,False,,,0,,,,,,
+conf1,R197,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',16,True,,,0,,,,,,
+conf1,R198,UNC,4,2,True,,,False,True,0,4,2;6;12;13,10,52.6,114,44,22
+conf1,R198,LF,4,2,True,,,False,True,0,1,6,10,52.6,114,44,22
+conf1,R198,COORD,4,2,True,,,False,True,0,1,10,10,52.6,114,44,22
+conf1,R199,UNC,5,3,True,,,False,True,0,5,4;5;7;9;12,15,68.2,237,75,3
+conf1,R199,LF,5,3,True,,,False,True,0,4,4;5;7;9,15,68.2,237,75,3
+conf1,R199,COORD,5,3,True,,,False,True,0,2,8;11,15,68.2,228,76,4
+conf1,R200,UNC,4,3,True,,,False,True,0,4,4;5;6;11,13,61.9,142,44,7
+conf1,R200,LF,4,3,True,,,False,True,0,2,5;11,13,61.9,142,44,7
+conf1,R200,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',13,True,,,0,,,,,,
+conf2,R001,UNC,5,3,True,,,False,True,0,5,0;6;9;10,10,58.8,72,59,1
+conf2,R001,LF,5,3,True,,,False,True,0,3,0;9;10,10,58.8,72,59,1
+conf2,R001,COORD,5,3,True,,,False,True,0,1,14,9,52.9,49,58,7
+conf2,R002,UNC,5,4,True,,,False,True,0,5,0;2;12;13,11,68.8,48,37,8
+conf2,R002,LF,5,4,True,,,False,True,0,5,0;2;12;13,11,68.8,48,37,8
+conf2,R002,COORD,5,4,True,,,False,True,0,2,7;23,11,68.8,48,37,8
+conf2,R003,UNC,4,3,True,,,False,True,0,4,5;8;13,6,37.5,1,31,6
+conf2,R003,LF,4,3,True,,,False,True,0,2,8;13,6,37.5,1,31,6
+conf2,R003,COORD,4,3,True,,,False,True,0,1,25,4,25.0,1,31,13
+conf2,R004,UNC,5,2,True,,,False,True,0,5,4;6;9;11,2,13.3,5,16,11
+conf2,R004,LF,5,2,True,,,False,True,0,1,4,2,13.3,0,16,11
+conf2,R004,COORD,5,2,True,,,False,True,0,1,6,2,13.3,0,16,11
+conf2,R005,UNC,2,2,True,,,False,True,0,2,5;6,1,6.7,18,21,19
+conf2,R005,LF,2,2,True,,,False,True,0,1,5,1,6.7,18,21,19
+conf2,R005,COORD,2,2,True,,,False,True,0,1,8,1,6.7,18,21,19
+conf2,R006,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf2,R006,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf2,R006,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,0,,,,,,
+conf2,R007,UNC,4,2,True,,,False,True,0,4,5;12;13,2,13.3,12,19,15
+conf2,R007,LF,4,2,True,,,False,True,0,1,13,2,13.3,12,19,15
+conf2,R007,COORD,4,2,True,,,False,True,0,1,15,2,13.3,12,19,15
+conf2,R008,UNC,3,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,2,7,,,,,
+conf2,R008,LF,3,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,1,7,,,,,
+conf2,R008,COORD,3,3,False,could not find a feasible schedule for batch 'NEW1',23,True,,,1,8,,,,,
+conf2,R009,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf2,R009,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf2,R009,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf2,R010,UNC,3,2,True,,,False,True,0,3,2;10,1,6.7,1,-1,0
+conf2,R010,LF,3,2,True,,,False,True,0,0,,2,13.3,2,-1,1
+conf2,R010,COORD,3,2,True,,,False,True,0,0,,2,13.3,2,-1,1
+conf2,R011,UNC,4,3,True,,,False,True,0,4,2;8;9;12,7,41.2,24,46,12
+conf2,R011,LF,4,3,True,,,False,True,0,2,8;12,7,41.2,24,46,12
+conf2,R011,COORD,4,3,True,,,False,True,0,1,12,7,41.2,47,54,9
+conf2,R012,UNC,5,4,True,,,False,True,0,5,2;5;6;13,5,31.2,7,44,6
+conf2,R012,LF,5,4,True,,,False,True,0,2,6;13,5,31.2,7,44,6
+conf2,R012,COORD,5,4,True,,,False,True,0,1,26,3,18.8,7,44,14
+conf2,R013,UNC,3,2,True,,,False,True,0,3,1;7;9,1,6.2,0,27,0
+conf2,R013,LF,3,2,True,,,False,True,0,1,1,1,6.2,0,27,0
+conf2,R013,COORD,3,2,True,,,False,True,0,1,25,1,6.2,0,27,10
+conf2,R014,UNC,2,2,True,,,False,True,0,2,4;9,2,13.3,0,5,1
+conf2,R014,LF,2,2,True,,,False,True,0,1,9,2,13.3,0,5,1
+conf2,R014,COORD,2,2,True,,,False,True,0,1,15,2,13.3,0,5,1
+conf2,R015,UNC,2,2,True,,,False,True,0,2,8;11,2,13.3,7,23,12
+conf2,R015,LF,2,2,True,,,False,True,0,1,11,2,13.3,7,23,12
+conf2,R015,COORD,2,2,True,,,False,True,0,1,26,2,13.3,7,23,12
+conf2,R016,UNC,5,3,True,,,False,True,0,5,1;2;8;9,11,61.1,148,91,5
+conf2,R016,LF,5,3,True,,,False,True,0,4,1;2;8,11,61.1,148,91,5
+conf2,R016,COORD,5,3,True,,,False,True,0,1,8,11,61.1,148,91,5
+conf2,R017,UNC,2,2,True,,,False,True,0,2,1;2,4,25.0,4,29,0
+conf2,R017,LF,2,2,True,,,False,True,0,2,1;2,4,25.0,4,29,0
+conf2,R017,COORD,2,2,True,,,False,True,0,1,3,4,25.0,4,29,0
+conf2,R018,UNC,3,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf2,R018,LF,3,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf2,R018,COORD,3,2,False,could not find a feasible schedule for batch 'NEW1',23,True,,,0,,,,,,
+conf2,R019,UNC,3,3,True,,,False,True,0,3,1;6;13,3,18.8,7,27,3
+conf2,R019,LF,3,3,True,,,False,True,0,2,6;13,3,18.8,7,27,3
+conf2,R019,COORD,3,3,True,,,False,True,0,1,15,3,18.8,7,27,3
+conf2,R020,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf2,R020,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf2,R020,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',6,True,,,0,,,,,,
+conf2,R021,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',13,False,,,1,9,,,,,
+conf2,R021,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',13,False,,,1,9,,,,,
+conf2,R021,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',23,True,,,0,,,,,,
+conf2,R022,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',11,False,,,1,6,,,,,
+conf2,R022,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',11,False,,,0,,,,,,
+conf2,R022,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',23,True,,,0,,,,,,
+conf2,R023,UNC,4,3,True,,,False,True,0,4,2;10,5,33.3,7,7,1
+conf2,R023,LF,4,3,True,,,False,True,0,3,2;10,5,33.3,7,7,1
+conf2,R023,COORD,4,3,True,,,False,True,0,2,9;11,5,33.3,7,7,1
+conf2,R024,UNC,5,3,True,,,False,True,0,5,5;8;10;12,9,52.9,71,81,15
+conf2,R024,LF,5,3,True,,,False,True,0,2,8;12,9,52.9,71,81,15
+conf2,R024,COORD,5,3,True,,,False,True,0,1,31,3,17.6,7,55,20
+conf2,R025,UNC,4,3,True,,,False,True,0,4,2;6;8;9,10,58.8,71,57,6
+conf2,R025,LF,4,3,True,,,False,True,0,3,6;8;9,10,58.8,71,57,6
+conf2,R025,COORD,4,3,True,,,False,True,0,1,9,10,58.8,79,52,10
+conf2,R026,UNC,5,3,True,,,False,True,0,5,4;5;10;11;12,8,47.1,45,40,2
+conf2,R026,LF,5,3,True,,,False,True,0,3,4;5;10,8,47.1,45,40,2
+conf2,R026,COORD,5,3,True,,,False,True,0,2,8;15,7,41.2,29,21,2
+conf2,R027,UNC,2,2,True,,,False,True,0,2,9;11,1,6.7,3,3,0
+conf2,R027,LF,2,2,True,,,False,True,0,0,,1,6.7,3,3,0
+conf2,R027,COORD,2,2,True,,,False,True,0,0,,1,6.7,3,3,0
+conf2,R028,UNC,4,3,True,,,False,True,0,4,3;4;13,4,25.0,6,4,0
+conf2,R028,LF,4,3,True,,,False,True,0,1,4,4,25.0,6,4,0
+conf2,R028,COORD,4,3,True,,,False,True,0,1,12,1,6.2,0,14,0
+conf2,R029,UNC,3,2,True,,,False,True,0,3,1;6;8,9,56.2,29,15,1
+conf2,R029,LF,3,2,True,,,False,True,0,3,1;6;8,9,56.2,29,15,1
+conf2,R029,COORD,3,2,True,,,False,True,0,1,8,9,56.2,29,15,1
+conf2,R030,UNC,5,3,True,,,False,True,0,5,3;4;5;6;8,3,18.8,14,34,2
+conf2,R030,LF,5,3,True,,,False,True,0,2,6;8,3,18.8,14,34,2
+conf2,R030,COORD,5,3,True,,,False,True,0,1,25,1,6.2,0,27,10
+conf2,R031,UNC,5,3,True,,,False,True,0,5,3;8;9;12,3,20.0,6,-28,0
+conf2,R031,LF,5,3,True,,,False,True,0,1,8,3,20.0,6,-28,0
+conf2,R031,COORD,5,3,True,,,False,True,0,1,8,3,20.0,6,-28,0
+conf2,R032,UNC,2,2,True,,,False,True,0,2,0;4,0,0.0,0,0,0
+conf2,R032,LF,2,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf2,R032,COORD,2,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf2,R033,UNC,5,3,False,could not find a feasible schedule for batch 'NEW3',10,False,,,4,3;6;7;10,,,,,
+conf2,R033,LF,5,3,False,could not find a feasible schedule for batch 'NEW3',10,False,,,4,3;6;7;10,,,,,
+conf2,R033,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',17,True,,,0,,,,,,
+conf2,R034,UNC,5,2,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf2,R034,LF,5,2,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf2,R034,COORD,5,2,False,could not find a feasible schedule for batch 'NEW1',9,True,,,0,,,,,,
+conf2,R035,UNC,4,2,True,,,False,True,0,4,0;3;8;12,8,50.0,54,45,24
+conf2,R035,LF,4,2,True,,,False,True,0,3,3;8;12,8,50.0,54,45,24
+conf2,R035,COORD,4,2,True,,,False,True,0,2,9;24,8,50.0,54,45,24
+conf2,R036,UNC,3,3,False,could not find a feasible schedule for batch 'NEW1',4,False,,,0,,,,,,
+conf2,R036,LF,3,3,False,could not find a feasible schedule for batch 'NEW1',4,False,,,0,,,,,,
+conf2,R036,COORD,3,3,False,could not find a feasible schedule for batch 'NEW1',30,True,,,0,,,,,,
+conf2,R037,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,0,,,,,,
+conf2,R037,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,0,,,,,,
+conf2,R037,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',22,False,,,0,,,,,,
+conf2,R038,UNC,5,4,True,,,False,True,0,5,0;2;3;6;8,4,25.0,3,16,2
+conf2,R038,LF,5,4,True,,,False,True,0,2,3;8,4,25.0,3,16,2
+conf2,R038,COORD,5,4,True,,,False,True,0,1,10,3,18.8,1,17,4
+conf2,R039,UNC,3,2,True,,,False,True,0,3,5;7;11,6,40.0,8,8,11
+conf2,R039,LF,3,2,True,,,False,True,0,2,7;11,6,40.0,8,8,11
+conf2,R039,COORD,3,2,True,,,False,True,0,2,8;26,6,40.0,8,8,11
+conf2,R040,UNC,5,3,True,,,False,True,0,5,0;6;8;9;12,11,64.7,93,74,5
+conf2,R040,LF,5,3,True,,,False,True,0,4,0;6;8;9,11,64.7,93,74,5
+conf2,R040,COORD,5,3,True,,,False,True,0,2,8;12,11,64.7,93,74,5
+conf2,R041,UNC,3,2,True,,,False,True,0,3,3;5;13,6,40.0,19,23,14
+conf2,R041,LF,3,2,True,,,False,True,0,3,3;5;13,6,40.0,19,23,14
+conf2,R041,COORD,3,2,True,,,False,True,0,2,9;15,6,40.0,19,23,14
+conf2,R042,UNC,4,2,True,,,False,True,0,4,0;5;10,12,66.7,201,111,8
+conf2,R042,LF,4,2,True,,,False,True,0,3,0;5,12,66.7,201,111,8
+conf2,R042,COORD,4,2,True,,,False,True,0,1,15,9,50.0,61,56,8
+conf2,R043,UNC,2,2,True,,,False,True,0,2,9;12,5,31.2,4,31,7
+conf2,R043,LF,2,2,True,,,False,True,0,2,9;12,5,31.2,4,31,7
+conf2,R043,COORD,2,2,True,,,False,True,0,1,22,3,18.8,4,31,10
+conf2,R044,UNC,5,4,False,could not find a feasible schedule for batch 'NEW1',1,False,,,1,1,,,,,
+conf2,R044,LF,5,4,False,could not find a feasible schedule for batch 'NEW1',1,False,,,1,1,,,,,
+conf2,R044,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',3,False,,,0,,,,,,
+conf2,R045,UNC,2,2,True,,,False,True,0,2,4;8,3,18.8,0,22,2
+conf2,R045,LF,2,2,True,,,False,True,0,1,8,3,18.8,0,22,2
+conf2,R045,COORD,2,2,True,,,False,True,0,1,20,1,6.2,0,22,5
+conf2,R046,UNC,3,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,1,0,,,,,
+conf2,R046,LF,3,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,1,0,,,,,
+conf2,R046,COORD,3,3,False,could not find a feasible schedule for batch 'NEW1',26,False,,,0,,,,,,
+conf2,R047,UNC,3,2,True,,,False,True,0,3,5;9;13,0,0.0,0,0,0
+conf2,R047,LF,3,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf2,R047,COORD,3,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf2,R048,UNC,5,3,True,,,False,True,0,5,4;7;11;12,9,56.2,22,48,9
+conf2,R048,LF,5,3,True,,,False,True,0,4,4;7;11;12,9,56.2,22,48,9
+conf2,R048,COORD,5,3,True,,,False,True,0,2,7;26,7,43.8,19,46,12
+conf2,R049,UNC,5,3,True,,,False,True,0,5,2;3;4;5;12,7,43.8,54,29,14
+conf2,R049,LF,5,3,True,,,False,True,0,3,2;4;5,7,43.8,54,29,14
+conf2,R049,COORD,5,3,True,,,False,True,0,1,8,7,43.8,54,29,14
+conf2,R050,UNC,3,2,True,,,False,True,0,3,0;9;10,9,52.9,58,64,11
+conf2,R050,LF,3,2,True,,,False,True,0,2,9;10,9,52.9,58,64,11
+conf2,R050,COORD,3,2,True,,,False,True,0,1,24,3,17.6,0,49,9
+conf2,R051,UNC,2,2,True,,,False,True,0,2,12,2,13.3,3,19,12
+conf2,R051,LF,2,2,True,,,False,True,0,1,12,2,13.3,3,19,12
+conf2,R051,COORD,2,2,True,,,False,True,0,1,26,2,13.3,3,19,12
+conf2,R052,UNC,2,2,True,,,False,True,0,2,10;13,1,6.7,1,0,1
+conf2,R052,LF,2,2,True,,,False,True,0,0,,1,6.7,1,0,1
+conf2,R052,COORD,2,2,True,,,False,True,0,0,,1,6.7,1,0,1
+conf2,R053,UNC,2,2,True,,,False,True,0,2,2;10,7,46.7,23,3,4
+conf2,R053,LF,2,2,True,,,False,True,0,2,2;10,7,46.7,23,3,4
+conf2,R053,COORD,2,2,True,,,False,True,0,2,3;10,7,46.7,23,3,4
+conf2,R054,UNC,3,2,True,,,False,True,0,3,0;7;9,8,50.0,14,15,4
+conf2,R054,LF,3,2,True,,,False,True,0,3,0;7;9,8,50.0,14,15,4
+conf2,R054,COORD,3,2,True,,,False,True,0,2,8;22,6,37.5,14,15,7
+conf2,R055,UNC,4,4,True,,,False,True,0,4,0;1;5;10,7,43.8,8,27,8
+conf2,R055,LF,4,4,True,,,False,True,0,3,0;5;10,7,43.8,8,27,8
+conf2,R055,COORD,4,4,True,,,False,True,0,2,6;25,2,12.5,6,29,17
+conf2,R056,UNC,2,2,True,,,False,True,0,2,3;4,3,20.0,9,14,16
+conf2,R056,LF,2,2,True,,,False,True,0,1,4,3,20.0,9,14,16
+conf2,R056,COORD,2,2,True,,,False,True,0,1,8,3,20.0,9,14,16
+conf2,R057,UNC,5,4,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf2,R057,LF,5,4,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf2,R057,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf2,R058,UNC,4,3,True,,,False,True,0,4,4;8;12,9,56.2,8,23,9
+conf2,R058,LF,4,3,True,,,False,True,0,3,4;8;12,9,56.2,8,23,9
+conf2,R058,COORD,4,3,True,,,False,True,0,2,8;21,5,31.2,8,22,14
+conf2,R059,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',11,True,,,1,4,,,,,
+conf2,R059,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',11,True,,,0,,,,,,
+conf2,R059,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',11,True,,,0,,,,,,
+conf2,R060,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf2,R060,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf2,R060,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,0,,,,,,
+conf2,R061,UNC,3,2,True,,,False,True,0,3,3;8;13,6,40.0,9,17,10
+conf2,R061,LF,3,2,True,,,False,True,0,3,3;8;13,6,40.0,9,17,10
+conf2,R061,COORD,3,2,True,,,False,True,0,3,3;9;26,6,40.0,9,17,10
+conf2,R062,UNC,4,3,True,,,False,True,0,4,0;3;4;13,5,31.2,8,27,2
+conf2,R062,LF,4,3,True,,,False,True,0,2,4;13,5,31.2,8,27,2
+conf2,R062,COORD,4,3,True,,,False,True,0,1,17,4,25.0,6,27,5
+conf2,R063,UNC,3,2,True,,,False,True,0,3,6;7;13,6,40.0,4,9,3
+conf2,R063,LF,3,2,True,,,False,True,0,3,6;7;13,6,40.0,4,9,3
+conf2,R063,COORD,3,2,True,,,False,True,0,2,9;26,6,40.0,4,9,3
+conf2,R064,UNC,4,2,False,could not find a feasible schedule for batch 'NEW2',12,False,,,3,4;11;12,,,,,
+conf2,R064,LF,4,2,False,could not find a feasible schedule for batch 'NEW2',12,False,,,1,11,,,,,
+conf2,R064,COORD,4,2,False,could not find a feasible schedule for batch 'NEW2',22,True,,,0,,,,,,
+conf2,R065,UNC,2,2,True,,,False,True,0,2,3;12,2,12.5,0,29,0
+conf2,R065,LF,2,2,True,,,False,True,0,1,12,2,12.5,0,29,0
+conf2,R065,COORD,2,2,True,,,False,True,0,1,27,2,12.5,0,29,12
+conf2,R066,UNC,3,3,True,,,False,True,0,3,2;7;9,7,43.8,34,23,5
+conf2,R066,LF,3,3,True,,,False,True,0,2,2;7,7,43.8,34,23,5
+conf2,R066,COORD,3,3,True,,,False,True,0,1,8,4,25.0,9,16,4
+conf2,R067,UNC,2,2,True,,,False,True,0,2,7;8,3,20.0,8,14,16
+conf2,R067,LF,2,2,True,,,False,True,0,1,7,3,20.0,8,14,16
+conf2,R067,COORD,2,2,True,,,False,True,0,1,8,3,20.0,8,14,16
+conf2,R068,UNC,3,2,True,,,False,True,0,3,0;8;13,2,13.3,2,-1,8
+conf2,R068,LF,3,2,True,,,False,True,0,2,0;13,2,13.3,2,-1,8
+conf2,R068,COORD,3,2,True,,,False,True,0,2,9;22,2,13.3,2,-1,8
+conf2,R069,UNC,5,3,True,,,False,True,0,5,2;3;9;12,5,31.2,8,30,6
+conf2,R069,LF,5,3,True,,,False,True,0,2,12,5,31.2,8,30,6
+conf2,R069,COORD,5,3,True,,,False,True,0,1,15,5,31.2,8,30,6
+conf2,R070,UNC,5,3,True,,,False,True,0,5,7;8;12;13,10,55.6,65,71,12
+conf2,R070,LF,5,3,True,,,False,True,0,4,7;8;12;13,10,55.6,65,71,12
+conf2,R070,COORD,5,3,True,,,False,True,0,1,15,10,55.6,65,71,12
+conf2,R071,UNC,5,4,True,,,False,True,0,5,6;10;13,11,68.8,12,34,12
+conf2,R071,LF,5,4,True,,,False,True,0,3,6;13,11,68.8,12,34,12
+conf2,R071,COORD,5,4,True,,,False,True,0,2,8;24,6,37.5,10,30,18
+conf2,R072,UNC,2,2,True,,,False,True,0,2,1;11,2,13.3,3,19,12
+conf2,R072,LF,2,2,True,,,False,True,0,1,11,2,13.3,3,19,12
+conf2,R072,COORD,2,2,True,,,False,True,0,1,26,2,13.3,3,19,12
+conf2,R073,UNC,2,2,True,,,False,True,0,2,1;11,0,0.0,0,0,0
+conf2,R073,LF,2,2,True,,,False,True,0,0,,1,6.7,3,0,3
+conf2,R073,COORD,2,2,True,,,False,True,0,0,,1,6.7,3,0,3
+conf2,R074,UNC,2,2,True,,,False,True,0,2,4;5,3,18.8,0,27,3
+conf2,R074,LF,2,2,True,,,False,True,0,1,5,3,18.8,0,27,3
+conf2,R074,COORD,2,2,True,,,False,True,0,1,25,1,6.2,0,27,10
+conf2,R075,UNC,4,3,True,,,False,True,0,4,2;3;9;10,5,33.3,11,-5,12
+conf2,R075,LF,4,3,True,,,False,True,0,2,3;9,5,33.3,11,-5,12
+conf2,R075,COORD,4,3,True,,,False,True,0,2,8;26,5,33.3,11,-5,12
+conf2,R076,UNC,2,2,True,,,False,True,0,2,3;12,8,50.0,21,36,11
+conf2,R076,LF,2,2,True,,,False,True,0,2,3;12,8,50.0,21,36,11
+conf2,R076,COORD,2,2,True,,,False,True,0,2,8;22,4,25.0,6,24,14
+conf2,R077,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',10,False,,,1,2,,,,,
+conf2,R077,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',10,False,,,0,,,,,,
+conf2,R077,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',23,True,,,0,,,,,,
+conf2,R078,UNC,5,3,True,,,False,True,0,5,1;3;5;11,6,40.0,11,17,9
+conf2,R078,LF,5,3,True,,,False,True,0,3,3;5;11,6,40.0,11,17,9
+conf2,R078,COORD,5,3,True,,,False,True,0,3,3;9;26,6,40.0,11,17,9
+conf2,R079,UNC,3,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf2,R079,LF,3,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf2,R079,COORD,3,2,False,could not find a feasible schedule for batch 'NEW1',6,True,,,0,,,,,,
+conf2,R080,UNC,5,4,False,could not find a feasible schedule for batch 'NEW1',11,False,,,4,0;2;5;6,,,,,
+conf2,R080,LF,5,4,False,could not find a feasible schedule for batch 'NEW1',11,False,,,0,,,,,,
+conf2,R080,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',30,True,,,0,,,,,,
+conf2,R081,UNC,4,2,True,,,False,True,0,4,1;3;6,4,26.7,7,19,12
+conf2,R081,LF,4,2,True,,,False,True,0,3,1;3,4,26.7,7,19,12
+conf2,R081,COORD,4,2,True,,,False,True,0,1,6,4,26.7,7,19,12
+conf2,R082,UNC,5,3,True,,,False,True,0,5,1;2;5;12,5,31.2,5,19,0
+conf2,R082,LF,5,3,True,,,False,True,0,2,5,5,31.2,5,19,0
+conf2,R082,COORD,5,3,True,,,False,True,0,1,7,5,31.2,5,19,0
+conf2,R083,UNC,4,2,False,could not find a feasible schedule for batch 'NEW1',6,False,,,1,4,,,,,
+conf2,R083,LF,4,2,False,could not find a feasible schedule for batch 'NEW1',6,False,,,1,4,,,,,
+conf2,R083,COORD,4,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf2,R084,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',12,False,,,1,5,,,,,
+conf2,R084,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',12,False,,,0,,,,,,
+conf2,R084,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',37,True,,,0,,,,,,
+conf2,R085,UNC,5,3,True,,,False,True,0,5,0;2;8;10;11,5,33.3,16,21,17
+conf2,R085,LF,5,3,True,,,False,True,0,2,2;11,5,33.3,16,21,17
+conf2,R085,COORD,5,3,True,,,False,True,0,2,8;26,5,33.3,16,21,17
+conf2,R086,UNC,5,2,True,,,False,True,0,5,0;2;7;9,10,55.6,154,87,16
+conf2,R086,LF,5,2,True,,,False,True,0,3,0;2;7,10,55.6,154,87,16
+conf2,R086,COORD,5,2,True,,,False,True,0,1,15,9,50.0,64,58,12
+conf2,R087,UNC,3,3,True,,,False,True,0,3,1;4;6,2,12.5,1,17,0
+conf2,R087,LF,3,3,True,,,False,True,0,1,4,2,12.5,1,17,0
+conf2,R087,COORD,3,3,True,,,False,True,0,1,15,2,12.5,1,17,0
+conf2,R088,UNC,3,3,True,,,False,True,0,3,5;12;13,1,6.7,2,-2,0
+conf2,R088,LF,3,3,True,,,False,True,0,1,5,1,6.7,2,-2,0
+conf2,R088,COORD,3,3,True,,,False,True,0,1,6,1,6.7,2,-2,0
+conf2,R089,UNC,4,3,True,,,False,True,0,4,4;7;9,6,40.0,27,23,22
+conf2,R089,LF,4,3,True,,,False,True,0,3,4;9,6,40.0,27,23,22
+conf2,R089,COORD,4,3,True,,,False,True,0,2,8;15,6,40.0,27,23,22
+conf2,R090,UNC,4,3,True,,,False,True,0,4,0;3;5,6,37.5,25,18,4
+conf2,R090,LF,4,3,True,,,False,True,0,3,0;3;5,6,37.5,25,18,4
+conf2,R090,COORD,4,3,True,,,False,True,0,2,3;8,6,37.5,25,18,4
+conf2,R091,UNC,2,2,True,,,False,True,0,2,1;3,4,26.7,5,1,8
+conf2,R091,LF,2,2,True,,,False,True,0,1,1,4,26.7,5,1,8
+conf2,R091,COORD,2,2,True,,,False,True,0,1,8,4,26.7,5,1,8
+conf2,R092,UNC,5,3,True,,,False,True,0,5,3;6;10;12,10,58.8,43,42,2
+conf2,R092,LF,5,3,True,,,False,True,0,3,6;10;12,10,58.8,43,42,2
+conf2,R092,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',13,True,,,1,8,,,,,
+conf2,R093,UNC,3,2,True,,,False,True,0,3,2;3;11,1,6.7,0,-2,8
+conf2,R093,LF,3,2,True,,,False,True,0,1,11,1,6.7,0,-2,8
+conf2,R093,COORD,3,2,True,,,False,True,0,1,22,1,6.7,0,-2,8
+conf2,R094,UNC,3,2,True,,,False,True,0,3,5;10,3,20.0,12,23,11
+conf2,R094,LF,3,2,True,,,False,True,0,1,10,3,20.0,12,23,11
+conf2,R094,COORD,3,2,True,,,False,True,0,1,26,3,20.0,12,23,11
+conf2,R095,UNC,2,2,True,,,False,True,0,2,5;9,5,31.2,8,17,0
+conf2,R095,LF,2,2,True,,,False,True,0,2,5;9,5,31.2,8,17,0
+conf2,R095,COORD,2,2,True,,,False,True,0,2,8;25,4,25.0,6,27,16
+conf2,R096,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf2,R096,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf2,R096,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf2,R097,UNC,4,4,True,,,False,True,0,4,4;5;8;9,4,25.0,16,35,0
+conf2,R097,LF,4,4,True,,,False,True,0,3,4;8;9,4,25.0,16,35,0
+conf2,R097,COORD,4,4,True,,,False,True,0,1,9,4,25.0,16,35,0
+conf2,R098,UNC,2,2,True,,,False,True,0,2,5;6,5,31.2,4,29,8
+conf2,R098,LF,2,2,True,,,False,True,0,2,5;6,5,31.2,4,29,8
+conf2,R098,COORD,2,2,True,,,False,True,0,1,9,5,31.2,4,29,8
+conf2,R099,UNC,4,2,False,could not find a feasible schedule for batch 'NEW2',13,False,,,3,3;6;7,,,,,
+conf2,R099,LF,4,2,False,could not find a feasible schedule for batch 'NEW2',13,False,,,3,3;6;7,,,,,
+conf2,R099,COORD,4,2,False,could not find a feasible schedule for batch 'NEW2',30,True,,,1,8,,,,,
+conf2,R100,UNC,2,2,True,,,False,True,0,2,1;10,1,6.7,7,7,0
+conf2,R100,LF,2,2,True,,,False,True,0,0,,1,6.7,7,7,0
+conf2,R100,COORD,2,2,True,,,False,True,0,0,,1,6.7,7,7,0
+conf2,R101,UNC,3,2,True,,,False,True,0,3,3;6;7,3,18.8,6,30,9
+conf2,R101,LF,3,2,True,,,False,True,0,2,3;6,3,18.8,6,30,9
+conf2,R101,COORD,3,2,True,,,False,True,0,1,15,3,18.8,6,30,9
+conf2,R102,UNC,4,3,True,,,False,True,0,4,5;9;10;12,4,26.7,11,21,17
+conf2,R102,LF,4,3,True,,,False,True,0,3,5;9;12,4,26.7,11,21,17
+conf2,R102,COORD,4,3,True,,,False,True,0,3,8;10;26,4,26.7,11,21,17
+conf2,R103,UNC,4,2,True,,,False,True,0,4,4;13,0,0.0,0,0,0
+conf2,R103,LF,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf2,R103,COORD,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf2,R104,UNC,5,3,True,,,False,True,0,5,2;5;7;9;11,10,58.8,89,81,11
+conf2,R104,LF,5,3,True,,,False,True,0,2,2;11,8,47.1,33,67,8
+conf2,R104,COORD,5,3,True,,,False,True,0,2,10;31,3,17.6,3,49,7
+conf2,R105,UNC,5,3,True,,,False,True,0,5,1;3;8;11,9,52.9,43,53,4
+conf2,R105,LF,5,3,True,,,False,True,0,3,3;8;11,9,52.9,43,53,4
+conf2,R105,COORD,5,3,True,,,False,True,0,2,8;25,9,52.9,11,46,4
+conf2,R106,UNC,2,2,True,,,False,True,0,2,1;12,3,20.0,10,-10,0
+conf2,R106,LF,2,2,True,,,False,True,0,2,1;12,3,20.0,10,-10,0
+conf2,R106,COORD,2,2,True,,,False,True,0,2,9;22,3,20.0,10,-10,0
+conf2,R107,UNC,2,2,True,,,False,True,0,2,3;13,1,6.7,11,5,0
+conf2,R107,LF,2,2,True,,,False,True,0,1,3,1,6.7,11,5,0
+conf2,R107,COORD,2,2,True,,,False,True,0,1,9,1,6.7,11,5,0
+conf2,R108,UNC,5,2,True,,,False,True,0,5,2;3;9;13,5,31.2,6,25,8
+conf2,R108,LF,5,2,True,,,False,True,0,2,9;13,5,31.2,6,25,8
+conf2,R108,COORD,5,2,True,,,False,True,0,1,15,5,31.2,6,25,8
+conf2,R109,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',11,False,,,3,0;7;9,,,,,
+conf2,R109,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',11,False,,,2,0;7,,,,,
+conf2,R109,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',16,True,,,1,8,,,,,
+conf2,R110,UNC,4,2,True,,,False,True,0,4,2;4;9,2,13.3,10,13,4
+conf2,R110,LF,4,2,True,,,False,True,0,1,2,2,13.3,10,13,4
+conf2,R110,COORD,4,2,True,,,False,True,0,1,3,2,13.3,10,13,4
+conf2,R111,UNC,5,3,True,,,False,True,0,5,0;2;4;6;8,11,64.7,141,72,11
+conf2,R111,LF,5,3,True,,,False,True,0,3,0;2;6,11,64.7,141,72,11
+conf2,R111,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',13,True,,,1,3,,,,,
+conf2,R112,UNC,2,2,True,,,False,True,0,2,10;11,5,31.2,0,21,1
+conf2,R112,LF,2,2,True,,,False,True,0,2,10;11,5,31.2,0,21,1
+conf2,R112,COORD,2,2,True,,,False,True,0,1,15,5,31.2,0,21,1
+conf2,R113,UNC,3,2,True,,,False,True,0,3,2;10;13,4,26.7,8,16,18
+conf2,R113,LF,3,2,True,,,False,True,0,2,2;10,4,26.7,8,16,18
+conf2,R113,COORD,3,2,True,,,False,True,0,2,8;15,4,26.7,8,16,18
+conf2,R114,UNC,4,2,True,,,False,True,0,4,0;3;8;13,7,46.7,13,10,10
+conf2,R114,LF,4,2,True,,,False,True,0,3,0;3;13,7,46.7,13,10,10
+conf2,R114,COORD,4,2,True,,,False,True,0,2,7;26,7,46.7,13,10,10
+conf2,R115,UNC,4,2,True,,,False,True,0,4,1;6;7;9,0,0.0,0,0,0
+conf2,R115,LF,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf2,R115,COORD,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf2,R116,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,1,1,,,,,
+conf2,R116,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,1,1,,,,,
+conf2,R116,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,0,,,,,,
+conf2,R117,UNC,2,2,True,,,False,True,0,2,4;12,5,31.2,16,0,1
+conf2,R117,LF,2,2,True,,,False,True,0,2,4;12,5,31.2,16,0,1
+conf2,R117,COORD,2,2,True,,,False,True,0,2,10;15,4,25.0,14,-1,1
+conf2,R118,UNC,3,2,True,,,False,True,0,3,3;11;12,4,26.7,14,30,24
+conf2,R118,LF,3,2,True,,,False,True,0,2,11;12,4,26.7,14,30,24
+conf2,R118,COORD,3,2,True,,,False,True,0,1,15,4,26.7,14,30,24
+conf2,R119,UNC,4,2,True,,,False,True,0,4,2;4;9;11,9,52.9,67,47,8
+conf2,R119,LF,4,2,True,,,False,True,0,2,2;9,9,52.9,67,47,8
+conf2,R119,COORD,4,2,True,,,False,True,0,1,15,8,47.1,42,40,8
+conf2,R120,UNC,2,2,True,,,False,True,0,2,4;10,3,18.8,0,26,2
+conf2,R120,LF,2,2,True,,,False,True,0,1,4,3,18.8,0,26,2
+conf2,R120,COORD,2,2,True,,,False,True,0,1,24,2,12.5,1,26,10
+conf2,R121,UNC,5,3,True,,,False,True,0,5,0;4;5;6,9,52.9,74,63,7
+conf2,R121,LF,5,3,True,,,False,True,0,2,0;6,9,52.9,74,63,7
+conf2,R121,COORD,5,3,True,,,False,True,0,1,14,9,52.9,50,57,7
+conf2,R122,UNC,5,3,True,,,False,True,0,5,2;6;9;10;13,7,43.8,32,11,1
+conf2,R122,LF,5,3,True,,,False,True,0,2,2;6,7,43.8,32,11,1
+conf2,R122,COORD,5,3,True,,,False,True,0,2,3;15,7,43.8,32,11,1
+conf2,R123,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf2,R123,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf2,R123,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf2,R124,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf2,R124,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf2,R124,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',16,True,,,0,,,,,,
+conf2,R125,UNC,5,3,True,,,False,True,0,5,5;6;11;12;13,10,58.8,87,49,16
+conf2,R125,LF,5,3,True,,,False,True,0,5,5;6;11;12;13,10,58.8,87,49,16
+conf2,R125,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',14,True,,,0,,,,,,
+conf2,R126,UNC,5,4,True,,,False,True,0,5,2;6;9;12;13,9,52.9,53,54,11
+conf2,R126,LF,5,4,True,,,False,True,0,3,6;9;12,9,52.9,53,54,11
+conf2,R126,COORD,5,4,True,,,False,True,0,1,19,5,29.4,7,43,5
+conf2,R127,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,3,2;4;8,,,,,
+conf2,R127,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,3,2;4;8,,,,,
+conf2,R127,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',30,True,,,2,3;8,,,,,
+conf2,R128,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',7,False,,,0,,,,,,
+conf2,R128,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',7,False,,,0,,,,,,
+conf2,R128,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',30,True,,,0,,,,,,
+conf2,R129,UNC,5,3,True,,,False,True,0,5,1;4;10;11;13,10,58.8,84,70,14
+conf2,R129,LF,5,3,True,,,False,True,0,3,1;10;13,10,58.8,84,70,14
+conf2,R129,COORD,5,3,True,,,False,True,0,2,8;25,4,23.5,4,42,17
+conf2,R130,UNC,4,2,True,,,False,True,0,4,3;6;12;13,1,6.7,2,-1,9
+conf2,R130,LF,4,2,True,,,False,True,0,2,12;13,1,6.7,2,-1,9
+conf2,R130,COORD,4,2,True,,,False,True,0,1,22,1,6.7,2,-1,9
+conf2,R131,UNC,3,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf2,R131,LF,3,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf2,R131,COORD,3,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,0,,,,,,
+conf2,R132,UNC,3,2,True,,,False,True,0,3,1;10;12,3,20.0,11,15,8
+conf2,R132,LF,3,2,True,,,False,True,0,2,1;10,3,20.0,11,15,8
+conf2,R132,COORD,3,2,True,,,False,True,0,2,9;15,3,20.0,11,15,8
+conf2,R133,UNC,5,3,True,,,False,True,0,5,1;3;5;11;12,9,52.9,82,71,4
+conf2,R133,LF,5,3,True,,,False,True,0,3,1;5;11,9,52.9,82,71,4
+conf2,R133,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',22,True,,,1,8,,,,,
+conf2,R134,UNC,3,2,True,,,False,True,0,3,1;7;13,4,26.7,16,-16,1
+conf2,R134,LF,3,2,True,,,False,True,0,2,1;13,4,26.7,16,-16,1
+conf2,R134,COORD,3,2,True,,,False,True,0,2,3;22,4,26.7,16,-16,1
+conf2,R135,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,1,2,,,,,
+conf2,R135,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,1,2,,,,,
+conf2,R135,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf2,R136,UNC,2,2,True,,,False,True,0,2,7;9,2,13.3,1,17,12
+conf2,R136,LF,2,2,True,,,False,True,0,1,9,2,13.3,1,17,12
+conf2,R136,COORD,2,2,True,,,False,True,0,1,26,2,13.3,1,17,12
+conf2,R137,UNC,2,2,True,,,False,True,0,2,2;9,3,18.8,7,39,3
+conf2,R137,LF,2,2,True,,,False,True,0,2,2;9,3,18.8,7,39,3
+conf2,R137,COORD,2,2,True,,,False,True,0,1,26,3,18.8,7,39,14
+conf2,R138,UNC,5,3,True,,,False,True,0,5,2;4;6,6,40.0,10,3,8
+conf2,R138,LF,5,3,True,,,False,True,0,3,2;4;6,6,40.0,10,3,8
+conf2,R138,COORD,5,3,True,,,False,True,0,1,8,6,40.0,10,3,8
+conf2,R139,UNC,5,4,False,could not find a feasible schedule for batch 'NEW1',12,False,,,4,0;4;11,,,,,
+conf2,R139,LF,5,4,False,could not find a feasible schedule for batch 'NEW1',12,False,,,1,4,,,,,
+conf2,R139,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',23,True,,,1,9,,,,,
+conf2,R140,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf2,R140,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf2,R140,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',16,True,,,0,,,,,,
+conf2,R141,UNC,3,3,True,,,False,True,0,3,0;9,1,6.2,0,17,0
+conf2,R141,LF,3,3,True,,,False,True,0,1,9,1,6.2,0,17,0
+conf2,R141,COORD,3,3,True,,,False,True,0,1,15,1,6.2,0,17,0
+conf2,R142,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,2,0;1,,,,,
+conf2,R142,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,1,0,,,,,
+conf2,R142,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf2,R143,UNC,5,4,True,,,False,True,0,5,4;6;7;13,8,50.0,9,41,16
+conf2,R143,LF,5,4,True,,,False,True,0,3,4;6;13,8,50.0,9,41,16
+conf2,R143,COORD,5,4,True,,,False,True,0,2,8;39,7,43.8,7,41,30
+conf2,R144,UNC,2,2,True,,,False,True,0,2,5;10,2,13.3,1,17,12
+conf2,R144,LF,2,2,True,,,False,True,0,1,5,2,13.3,1,17,12
+conf2,R144,COORD,2,2,True,,,False,True,0,1,26,2,13.3,1,17,12
+conf2,R145,UNC,4,3,True,,,False,True,0,4,0;4;7,8,50.0,32,23,1
+conf2,R145,LF,4,3,True,,,False,True,0,3,4;7,8,50.0,32,23,1
+conf2,R145,COORD,4,3,True,,,False,True,0,1,9,6,37.5,28,31,1
+conf2,R146,UNC,4,3,True,,,False,True,0,4,5;9;11,3,18.8,3,19,2
+conf2,R146,LF,4,3,True,,,False,True,0,2,5;9,3,18.8,3,19,2
+conf2,R146,COORD,4,3,True,,,False,True,0,1,12,3,18.8,3,19,2
+conf2,R147,UNC,2,2,True,,,False,True,0,2,1;3,3,20.0,3,3,2
+conf2,R147,LF,2,2,True,,,False,True,0,2,1;3,3,20.0,3,3,2
+conf2,R147,COORD,2,2,True,,,False,True,0,1,9,3,20.0,3,3,2
+conf2,R148,UNC,5,3,True,,,False,True,0,5,1;3;7;11;13,10,58.8,64,58,14
+conf2,R148,LF,5,3,True,,,False,True,0,4,1;7;11;13,10,58.8,64,58,14
+conf2,R148,COORD,5,3,True,,,False,True,0,2,9;26,6,35.3,16,38,1
+conf2,R149,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',1,False,,,1,0,,,,,
+conf2,R149,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf2,R149,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf2,R150,UNC,4,2,True,,,False,True,0,4,0;6;13,6,40.0,24,30,27
+conf2,R150,LF,4,2,True,,,False,True,0,3,0;6;13,6,40.0,24,30,27
+conf2,R150,COORD,4,2,True,,,False,True,0,2,8;15,4,26.7,22,32,34
+conf2,R151,UNC,3,2,True,,,False,True,0,3,1;10;12,9,52.9,62,57,14
+conf2,R151,LF,3,2,True,,,False,True,0,2,1;12,9,52.9,62,57,14
+conf2,R151,COORD,3,2,True,,,False,True,0,1,24,2,11.8,0,41,9
+conf2,R152,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf2,R152,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf2,R152,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf2,R153,UNC,5,3,True,,,False,True,0,5,0;2;6;8,8,50.0,39,41,9
+conf2,R153,LF,5,3,True,,,False,True,0,2,2,8,50.0,39,41,9
+conf2,R153,COORD,5,3,True,,,False,True,0,1,3,8,50.0,39,41,9
+conf2,R154,UNC,5,3,True,,,False,True,0,5,0;2;4;10,11,68.8,20,30,2
+conf2,R154,LF,5,3,True,,,False,True,0,4,2;4;10,11,68.8,20,30,2
+conf2,R154,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',19,True,,,1,3,,,,,
+conf2,R155,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,3,4;6;7,,,,,
+conf2,R155,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,2,4;6,,,,,
+conf2,R155,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,0,,,,,,
+conf2,R156,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf2,R156,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf2,R156,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',5,True,,,0,,,,,,
+conf2,R157,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,2,0;3,,,,,
+conf2,R157,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,0,,,,,,
+conf2,R157,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',16,True,,,0,,,,,,
+conf2,R158,UNC,2,2,True,,,False,True,0,2,0;3,1,6.2,0,24,0
+conf2,R158,LF,2,2,True,,,False,True,0,1,3,1,6.2,0,24,0
+conf2,R158,COORD,2,2,True,,,False,True,0,1,22,1,6.2,0,24,7
+conf2,R159,UNC,3,2,True,,,False,True,0,3,4;7;13,9,52.9,88,66,25
+conf2,R159,LF,3,2,True,,,False,True,0,3,4;7;13,9,52.9,88,66,25
+conf2,R159,COORD,3,2,True,,,False,True,0,1,15,8,47.1,58,59,20
+conf2,R160,UNC,2,2,True,,,False,True,0,2,0;11,7,43.8,28,8,1
+conf2,R160,LF,2,2,True,,,False,True,0,2,0;11,7,43.8,28,8,1
+conf2,R160,COORD,2,2,True,,,False,True,0,1,11,4,25.0,16,0,1
+conf2,R161,UNC,5,3,True,,,False,True,0,5,0;5;7;9;10,2,13.3,1,13,9
+conf2,R161,LF,5,3,True,,,False,True,0,1,5,2,13.3,0,13,9
+conf2,R161,COORD,5,3,True,,,False,True,0,1,15,3,20.0,2,13,10
+conf2,R162,UNC,4,3,True,,,False,True,0,4,5;11;12;13,7,43.8,35,42,9
+conf2,R162,LF,4,3,True,,,False,True,0,3,5;12;13,7,43.8,35,42,9
+conf2,R162,COORD,4,3,True,,,False,True,0,2,8;21,6,37.5,35,34,17
+conf2,R163,UNC,3,3,True,,,False,True,0,3,3;11;13,5,31.2,14,43,12
+conf2,R163,LF,3,3,True,,,False,True,0,2,11;13,5,31.2,14,43,12
+conf2,R163,COORD,3,3,True,,,False,True,0,1,15,5,31.2,14,43,12
+conf2,R164,UNC,5,2,True,,,False,True,0,5,7;9;11;13,5,33.3,30,10,10
+conf2,R164,LF,5,2,True,,,False,True,0,5,7;9;11;13,5,33.3,30,10,10
+conf2,R164,COORD,5,2,True,,,False,True,0,3,7;9;19,5,33.3,30,10,10
+conf2,R165,UNC,4,4,True,,,False,True,0,4,2;3;7;12,9,56.2,45,38,16
+conf2,R165,LF,4,4,True,,,False,True,0,2,3;12,9,56.2,45,38,16
+conf2,R165,COORD,4,4,False,could not find a feasible schedule for batch 'NEW1',13,True,,,0,,,,,,
+conf2,R166,UNC,3,2,True,,,False,True,0,3,4;8;9,1,6.7,11,5,0
+conf2,R166,LF,3,2,True,,,False,True,0,1,8,1,6.7,11,5,0
+conf2,R166,COORD,3,2,True,,,False,True,0,1,9,1,6.7,11,5,0
+conf2,R167,UNC,2,2,True,,,False,True,0,2,0;2,4,25.0,18,27,0
+conf2,R167,LF,2,2,True,,,False,True,0,2,0;2,4,25.0,18,27,0
+conf2,R167,COORD,2,2,True,,,False,True,0,1,9,4,25.0,18,27,0
+conf2,R168,UNC,2,2,True,,,False,True,0,2,1;6,3,20.0,3,13,8
+conf2,R168,LF,2,2,True,,,False,True,0,1,1,3,20.0,3,13,8
+conf2,R168,COORD,2,2,True,,,False,True,0,1,3,3,20.0,3,13,8
+conf2,R169,UNC,4,4,True,,,False,True,0,4,0;4;13,9,56.2,20,35,10
+conf2,R169,LF,4,4,True,,,False,True,0,2,0;13,9,56.2,20,35,10
+conf2,R169,COORD,4,4,True,,,False,True,0,2,8;21,5,31.2,9,22,14
+conf2,R170,UNC,2,2,True,,,False,True,0,2,10;12,5,31.2,8,42,11
+conf2,R170,LF,2,2,True,,,False,True,0,2,10;12,5,31.2,8,42,11
+conf2,R170,COORD,2,2,True,,,False,True,0,1,15,5,31.2,8,42,11
+conf2,R171,UNC,5,2,False,could not find a feasible schedule for batch 'NEW2',11,False,,,2,2;7,,,,,
+conf2,R171,LF,5,2,False,could not find a feasible schedule for batch 'NEW2',11,False,,,2,2;7,,,,,
+conf2,R171,COORD,5,2,False,could not find a feasible schedule for batch 'NEW1',10,True,,,0,,,,,,
+conf2,R172,UNC,3,3,True,,,False,True,0,3,1;5;9,3,18.8,5,21,0
+conf2,R172,LF,3,3,True,,,False,True,0,2,1;5,3,18.8,5,21,0
+conf2,R172,COORD,3,3,True,,,False,True,0,1,9,3,18.8,5,21,0
+conf2,R173,UNC,5,2,True,,,False,True,0,5,3;4;9,5,33.3,18,13,8
+conf2,R173,LF,5,2,True,,,False,True,0,2,4;9,5,33.3,18,13,8
+conf2,R173,COORD,5,2,True,,,False,True,0,2,8;26,5,33.3,18,13,8
+conf2,R174,UNC,2,2,True,,,False,True,0,2,1;5,7,43.8,26,22,7
+conf2,R174,LF,2,2,True,,,False,True,0,2,1;5,7,43.8,26,22,7
+conf2,R174,COORD,2,2,True,,,False,True,0,1,8,4,25.0,4,16,6
+conf2,R175,UNC,2,2,True,,,False,True,0,2,4;7,5,33.3,11,-21,2
+conf2,R175,LF,2,2,True,,,False,True,0,2,4;7,5,33.3,11,-21,2
+conf2,R175,COORD,2,2,True,,,False,True,0,1,8,5,33.3,11,-5,12
+conf2,R176,UNC,5,3,True,,,False,True,0,5,0;6;8;9;13,9,52.9,51,57,4
+conf2,R176,LF,5,3,True,,,False,True,0,3,0;8;9,9,52.9,51,57,4
+conf2,R176,COORD,5,3,True,,,False,True,0,2,8;25,6,35.3,11,43,0
+conf2,R177,UNC,5,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,1,1,,,,,
+conf2,R177,LF,5,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf2,R177,COORD,5,2,False,could not find a feasible schedule for batch 'NEW1',3,True,,,0,,,,,,
+conf2,R178,UNC,4,3,True,,,False,True,0,4,6;9;11;12,5,31.2,5,8,0
+conf2,R178,LF,4,3,True,,,False,True,0,2,6;9,5,31.2,5,8,0
+conf2,R178,COORD,4,3,True,,,False,True,0,2,7;18,5,31.2,5,8,3
+conf2,R179,UNC,5,3,True,,,False,True,0,5,4;7;9;10;11,4,26.7,3,0,8
+conf2,R179,LF,5,3,True,,,False,True,0,2,4;7,4,26.7,3,0,8
+conf2,R179,COORD,5,3,True,,,False,True,0,2,6;8,4,26.7,3,0,8
+conf2,R180,UNC,4,4,True,,,False,True,0,4,2;5;9,8,50.0,24,15,4
+conf2,R180,LF,4,4,True,,,False,True,0,3,2;5;9,8,50.0,24,15,4
+conf2,R180,COORD,4,4,True,,,False,True,0,1,9,8,50.0,24,15,4
+conf2,R181,UNC,2,2,True,,,False,True,0,2,8;10,2,13.3,7,23,12
+conf2,R181,LF,2,2,True,,,False,True,0,1,8,2,13.3,7,23,12
+conf2,R181,COORD,2,2,True,,,False,True,0,1,26,2,13.3,7,23,12
+conf2,R182,UNC,5,2,True,,,False,True,0,5,0;5;9;12,8,53.3,24,26,19
+conf2,R182,LF,5,2,True,,,False,True,0,4,0;5;9,8,53.3,24,26,19
+conf2,R182,COORD,5,2,True,,,False,True,0,2,8;26,8,53.3,24,26,19
+conf2,R183,UNC,4,4,True,,,False,True,0,4,0;12;13,5,31.2,20,14,1
+conf2,R183,LF,4,4,True,,,False,True,0,2,0;12,5,31.2,20,14,1
+conf2,R183,COORD,4,4,True,,,False,True,0,1,15,5,31.2,18,13,3
+conf2,R184,UNC,4,3,True,,,False,True,0,4,11;12;13,4,26.7,27,38,29
+conf2,R184,LF,4,3,True,,,False,True,0,2,11;13,4,26.7,27,38,29
+conf2,R184,COORD,4,3,True,,,False,True,0,1,15,4,26.7,27,38,29
+conf2,R185,UNC,2,2,True,,,False,True,0,2,3;5,3,20.0,11,14,15
+conf2,R185,LF,2,2,True,,,False,True,0,2,3;5,3,20.0,11,14,15
+conf2,R185,COORD,2,2,True,,,False,True,0,1,7,3,20.0,11,14,15
+conf2,R186,UNC,5,3,True,,,False,True,0,5,7;8;9;12;13,3,20.0,3,5,1
+conf2,R186,LF,5,3,True,,,False,True,0,1,9,3,20.0,3,5,1
+conf2,R186,COORD,5,3,True,,,False,True,0,1,15,3,20.0,3,5,1
+conf2,R187,UNC,2,2,True,,,False,True,0,2,11;13,4,26.7,19,21,20
+conf2,R187,LF,2,2,True,,,False,True,0,1,13,4,26.7,19,21,20
+conf2,R187,COORD,2,2,True,,,False,True,0,1,15,4,26.7,19,21,20
+conf2,R188,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',5,False,,,0,,,,,,
+conf2,R188,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',5,False,,,0,,,,,,
+conf2,R188,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',30,True,,,0,,,,,,
+conf2,R189,UNC,2,2,True,,,False,True,0,2,1;9,1,6.2,0,31,0
+conf2,R189,LF,2,2,True,,,False,True,0,1,9,1,6.2,0,31,0
+conf2,R189,COORD,2,2,True,,,False,True,0,1,29,1,6.2,0,31,14
+conf2,R190,UNC,4,3,True,,,False,True,0,4,2;3;5;11,11,64.7,70,63,4
+conf2,R190,LF,4,3,True,,,False,True,0,2,2;5,11,64.7,70,63,4
+conf2,R190,COORD,4,3,True,,,False,True,0,1,22,4,23.5,5,38,10
+conf2,R191,UNC,2,2,True,,,False,True,0,2,2;11,4,26.7,3,0,8
+conf2,R191,LF,2,2,True,,,False,True,0,1,2,4,26.7,3,0,8
+conf2,R191,COORD,2,2,True,,,False,True,0,1,8,4,26.7,3,0,8
+conf2,R192,UNC,5,3,True,,,False,True,0,5,0;6;7;11,4,26.7,8,-25,0
+conf2,R192,LF,5,3,True,,,False,True,0,3,6;7;11,4,26.7,8,-25,0
+conf2,R192,COORD,5,3,True,,,False,True,0,2,7;22,4,26.7,8,-25,0
+conf2,R193,UNC,5,3,True,,,False,True,0,5,0;3;11;12;13,5,33.3,18,1,5
+conf2,R193,LF,5,3,True,,,False,True,0,3,3;12;13,5,33.3,18,1,5
+conf2,R193,COORD,5,3,True,,,False,True,0,2,9;22,5,33.3,18,1,5
+conf2,R194,UNC,4,3,True,,,False,True,0,4,4;6;7;9,5,31.2,4,23,6
+conf2,R194,LF,4,3,True,,,False,True,0,2,6;9,5,31.2,4,23,6
+conf2,R194,COORD,4,3,True,,,False,True,0,1,15,5,31.2,4,23,6
+conf2,R195,UNC,5,3,True,,,False,True,0,5,0;8;9;12;13,5,31.2,39,34,9
+conf2,R195,LF,5,3,True,,,False,True,0,3,0;8;12,5,31.2,39,34,9
+conf2,R195,COORD,5,3,True,,,False,True,0,3,3;10;18,5,31.2,39,34,12
+conf2,R196,UNC,3,2,True,,,False,True,0,3,2;5;8,4,26.7,10,15,16
+conf2,R196,LF,3,2,True,,,False,True,0,2,2;8,4,26.7,10,15,16
+conf2,R196,COORD,3,2,True,,,False,True,0,1,8,4,26.7,10,15,16
+conf2,R197,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',5,False,,,1,0,,,,,
+conf2,R197,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',5,False,,,0,,,,,,
+conf2,R197,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',16,True,,,0,,,,,,
+conf2,R198,UNC,4,2,True,,,False,True,0,4,2;6;12;13,0,0.0,0,0,0
+conf2,R198,LF,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf2,R198,COORD,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf2,R199,UNC,5,3,True,,,False,True,0,5,4;5;7;9;12,11,61.1,105,69,3
+conf2,R199,LF,5,3,True,,,False,True,0,4,4;5;7;9,11,61.1,105,69,3
+conf2,R199,COORD,5,3,True,,,False,True,0,2,8;11,10,55.6,60,49,1
+conf2,R200,UNC,4,3,True,,,False,True,0,4,4;5;6;11,9,52.9,37,36,8
+conf2,R200,LF,4,3,True,,,False,True,0,2,5;11,9,52.9,37,36,8
+conf2,R200,COORD,4,3,True,,,False,True,0,1,13,9,52.9,37,36,8
+conf3,R001,UNC,5,3,True,,,False,True,0,5,0;6;9;10,15,71.4,256,119,5
+conf3,R001,LF,5,3,True,,,False,True,0,3,0;9;10,15,71.4,256,119,5
+conf3,R001,COORD,5,3,True,,,False,True,0,1,10,13,61.9,146,60,1
+conf3,R002,UNC,5,4,True,,,False,True,0,5,0;2;12;13,15,75.0,134,49,9
+conf3,R002,LF,5,4,True,,,False,True,0,4,0;2;13,15,75.0,134,49,9
+conf3,R002,COORD,5,4,True,,,False,True,0,2,7;26,15,75.0,134,49,9
+conf3,R003,UNC,4,3,True,,,False,True,0,4,5;8;13,12,60.0,66,33,5
+conf3,R003,LF,4,3,True,,,False,True,0,2,8;13,12,60.0,66,33,5
+conf3,R003,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',25,True,,,0,,,,,,
+conf3,R004,UNC,5,2,True,,,False,True,0,5,4;6;9;11,6,31.6,40,16,2
+conf3,R004,LF,5,2,True,,,False,True,0,2,4;9,6,31.6,40,16,2
+conf3,R004,COORD,5,2,True,,,False,True,0,2,6;10,6,31.6,40,16,2
+conf3,R005,UNC,2,2,True,,,False,True,0,2,5;6,7,36.8,61,33,19
+conf3,R005,LF,2,2,True,,,False,True,0,2,5;6,7,36.8,61,33,19
+conf3,R005,COORD,2,2,True,,,False,True,0,1,8,7,36.8,61,33,19
+conf3,R006,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf3,R006,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf3,R006,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,0,,,,,,
+conf3,R007,UNC,4,2,True,,,False,True,0,4,5;12;13,6,31.6,44,25,9
+conf3,R007,LF,4,2,True,,,False,True,0,1,13,6,31.6,44,25,9
+conf3,R007,COORD,4,2,True,,,False,True,0,1,15,6,31.6,44,25,9
+conf3,R008,UNC,3,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,2,7,,,,,
+conf3,R008,LF,3,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,1,7,,,,,
+conf3,R008,COORD,3,3,False,could not find a feasible schedule for batch 'NEW1',23,True,,,1,8,,,,,
+conf3,R009,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf3,R009,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf3,R009,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf3,R010,UNC,3,2,True,,,False,True,0,3,2;10,1,5.3,1,0,0
+conf3,R010,LF,3,2,True,,,False,True,0,0,,2,10.5,2,0,1
+conf3,R010,COORD,3,2,True,,,False,True,0,0,,2,10.5,2,0,1
+conf3,R011,UNC,4,3,True,,,False,True,0,4,2;8;9;12,14,66.7,171,84,10
+conf3,R011,LF,4,3,True,,,False,True,0,2,8;12,14,66.7,171,84,10
+conf3,R011,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',12,True,,,0,,,,,,
+conf3,R012,UNC,5,4,True,,,False,True,0,5,2;5;6;13,11,55.0,82,52,4
+conf3,R012,LF,5,4,True,,,False,True,0,2,6;13,11,55.0,82,52,4
+conf3,R012,COORD,5,4,True,,,False,True,0,1,26,5,25.0,53,38,1
+conf3,R013,UNC,3,2,True,,,False,True,0,3,1;7;9,10,50.0,88,35,0
+conf3,R013,LF,3,2,True,,,False,True,0,1,1,10,50.0,88,35,0
+conf3,R013,COORD,3,2,False,could not find a feasible schedule for batch 'NEW1',25,True,,,0,,,,,,
+conf3,R014,UNC,2,2,True,,,False,True,0,2,4;9,7,36.8,45,23,14
+conf3,R014,LF,2,2,True,,,False,True,0,1,9,7,36.8,45,23,14
+conf3,R014,COORD,2,2,True,,,False,True,0,1,15,7,36.8,45,23,14
+conf3,R015,UNC,2,2,True,,,False,True,0,2,8;11,4,21.1,21,9,4
+conf3,R015,LF,2,2,True,,,False,True,0,1,11,4,21.1,21,9,4
+conf3,R015,COORD,2,2,True,,,False,True,0,1,26,4,21.1,21,9,4
+conf3,R016,UNC,5,3,True,,,False,True,0,5,1;2;8;9,16,72.7,304,110,8
+conf3,R016,LF,5,3,True,,,False,True,0,4,1;2;8,16,72.7,304,110,8
+conf3,R016,COORD,5,3,True,,,False,True,0,1,8,16,72.7,304,110,8
+conf3,R017,UNC,2,2,True,,,False,True,0,2,1;2,12,60.0,118,51,6
+conf3,R017,LF,2,2,True,,,False,True,0,2,1;2,12,60.0,118,51,6
+conf3,R017,COORD,2,2,True,,,False,True,0,1,3,12,60.0,118,51,6
+conf3,R018,UNC,3,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf3,R018,LF,3,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf3,R018,COORD,3,2,False,could not find a feasible schedule for batch 'NEW1',18,False,,,0,,,,,,
+conf3,R019,UNC,3,3,True,,,False,True,0,3,1;6;13,11,55.0,73,39,2
+conf3,R019,LF,3,3,True,,,False,True,0,2,6;13,11,55.0,73,39,2
+conf3,R019,COORD,3,3,True,,,False,True,0,1,15,11,55.0,73,39,2
+conf3,R020,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf3,R020,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf3,R020,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',6,True,,,0,,,,,,
+conf3,R021,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',13,False,,,1,9,,,,,
+conf3,R021,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',13,False,,,1,9,,,,,
+conf3,R021,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',23,True,,,0,,,,,,
+conf3,R022,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',11,False,,,1,6,,,,,
+conf3,R022,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',11,False,,,0,,,,,,
+conf3,R022,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',23,True,,,0,,,,,,
+conf3,R023,UNC,4,3,True,,,False,True,0,4,2;10,12,63.2,62,28,16
+conf3,R023,LF,4,3,True,,,False,True,0,3,2;10,12,63.2,62,28,16
+conf3,R023,COORD,4,3,True,,,False,True,0,2,9;10,12,63.2,62,28,16
+conf3,R024,UNC,5,3,True,,,False,True,0,5,5;8;10;12,14,66.7,301,123,18
+conf3,R024,LF,5,3,True,,,False,True,0,4,8;10;12,14,66.7,301,123,18
+conf3,R024,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',33,True,,,1,10,,,,,
+conf3,R025,UNC,4,3,True,,,False,True,0,4,2;6;8;9,14,66.7,212,92,4
+conf3,R025,LF,4,3,True,,,False,True,0,3,6;8;9,14,66.7,212,92,4
+conf3,R025,COORD,4,3,True,,,False,True,0,1,9,14,66.7,194,71,6
+conf3,R026,UNC,5,3,True,,,False,True,0,5,4;5;10;11;12,15,71.4,167,66,4
+conf3,R026,LF,5,3,True,,,False,True,0,3,4;5;10,15,71.4,167,66,4
+conf3,R026,COORD,5,3,True,,,False,True,0,2,8;15,15,71.4,139,47,5
+conf3,R027,UNC,2,2,True,,,False,True,0,2,9;11,4,21.1,30,5,0
+conf3,R027,LF,2,2,True,,,False,True,0,1,9,4,21.1,30,5,0
+conf3,R027,COORD,2,2,True,,,False,True,0,1,10,4,21.1,30,5,0
+conf3,R028,UNC,4,3,True,,,False,True,0,4,3;4;13,12,60.0,73,31,0
+conf3,R028,LF,4,3,True,,,False,True,0,1,4,12,60.0,73,31,0
+conf3,R028,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',12,True,,,0,,,,,,
+conf3,R029,UNC,3,2,True,,,False,True,0,3,1;6;8,14,70.0,107,38,1
+conf3,R029,LF,3,2,True,,,False,True,0,3,1;6;8,14,70.0,107,38,1
+conf3,R029,COORD,3,2,True,,,False,True,0,1,8,14,70.0,107,38,1
+conf3,R030,UNC,5,3,True,,,False,True,0,5,3;4;5;6;8,12,60.0,130,59,5
+conf3,R030,LF,5,3,True,,,False,True,0,3,3;6;8,12,60.0,130,59,5
+conf3,R030,COORD,5,3,True,,,False,True,0,1,10,10,50.0,92,44,2
+conf3,R031,UNC,5,3,True,,,False,True,0,5,3;8;9;12,10,52.6,61,32,17
+conf3,R031,LF,5,3,True,,,False,True,0,1,8,10,52.6,61,32,17
+conf3,R031,COORD,5,3,True,,,False,True,0,1,8,10,52.6,61,32,17
+conf3,R032,UNC,2,2,True,,,False,True,0,2,0;4,0,0.0,0,0,0
+conf3,R032,LF,2,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf3,R032,COORD,2,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf3,R033,UNC,5,3,False,could not find a feasible schedule for batch 'NEW3',10,False,,,4,3;6;7;10,,,,,
+conf3,R033,LF,5,3,False,could not find a feasible schedule for batch 'NEW3',10,False,,,3,3;6;10,,,,,
+conf3,R033,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,0,,,,,,
+conf3,R034,UNC,5,2,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf3,R034,LF,5,2,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf3,R034,COORD,5,2,False,could not find a feasible schedule for batch 'NEW1',9,True,,,0,,,,,,
+conf3,R035,UNC,4,2,True,,,False,True,0,4,0;3;8;12,11,55.0,175,76,30
+conf3,R035,LF,4,2,True,,,False,True,0,3,3;8;12,11,55.0,175,76,30
+conf3,R035,COORD,4,2,True,,,False,True,0,2,9;18,11,55.0,135,62,24
+conf3,R036,UNC,3,3,False,could not find a feasible schedule for batch 'NEW1',4,False,,,0,,,,,,
+conf3,R036,LF,3,3,False,could not find a feasible schedule for batch 'NEW1',4,False,,,0,,,,,,
+conf3,R036,COORD,3,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,0,,,,,,
+conf3,R037,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,0,,,,,,
+conf3,R037,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,0,,,,,,
+conf3,R037,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,0,,,,,,
+conf3,R038,UNC,5,4,True,,,False,True,0,5,0;2;3;6;8,13,65.0,69,23,1
+conf3,R038,LF,5,4,True,,,False,True,0,2,3;8,13,65.0,69,23,1
+conf3,R038,COORD,5,4,True,,,False,True,0,1,10,11,55.0,64,25,1
+conf3,R039,UNC,3,2,True,,,False,True,0,3,5;7;11,9,47.4,20,11,2
+conf3,R039,LF,3,2,True,,,False,True,0,2,7;11,9,47.4,20,11,2
+conf3,R039,COORD,3,2,True,,,False,True,0,2,8;26,9,47.4,20,11,2
+conf3,R040,UNC,5,3,True,,,False,True,0,5,0;6;8;9;12,16,76.2,248,95,5
+conf3,R040,LF,5,3,True,,,False,True,0,4,0;6;8;9,16,76.2,248,95,5
+conf3,R040,COORD,5,3,True,,,False,True,0,2,8;12,16,76.2,248,95,5
+conf3,R041,UNC,3,2,True,,,False,True,0,3,3;5;13,12,63.2,87,35,6
+conf3,R041,LF,3,2,True,,,False,True,0,3,3;5;13,12,63.2,87,35,6
+conf3,R041,COORD,3,2,True,,,False,True,0,2,9;15,12,63.2,87,35,6
+conf3,R042,UNC,4,2,True,,,False,True,0,4,0;5;10,16,72.7,399,138,8
+conf3,R042,LF,4,2,True,,,False,True,0,3,0;5,16,72.7,399,138,8
+conf3,R042,COORD,4,2,True,,,False,True,0,1,15,12,54.5,155,100,5
+conf3,R043,UNC,2,2,True,,,False,True,0,2,9;12,8,40.0,57,38,1
+conf3,R043,LF,2,2,True,,,False,True,0,2,9;12,8,40.0,57,38,1
+conf3,R043,COORD,2,2,True,,,False,True,0,1,22,7,35.0,38,32,2
+conf3,R044,UNC,5,4,False,could not find a feasible schedule for batch 'NEW1',1,False,,,1,1,,,,,
+conf3,R044,LF,5,4,False,could not find a feasible schedule for batch 'NEW1',1,False,,,1,1,,,,,
+conf3,R044,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',3,False,,,0,,,,,,
+conf3,R045,UNC,2,2,True,,,False,True,0,2,4;8,10,50.0,78,28,2
+conf3,R045,LF,2,2,True,,,False,True,0,1,8,10,50.0,78,28,2
+conf3,R045,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',20,True,,,0,,,,,,
+conf3,R046,UNC,3,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,1,0,,,,,
+conf3,R046,LF,3,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,1,0,,,,,
+conf3,R046,COORD,3,3,False,could not find a feasible schedule for batch 'NEW1',26,False,,,0,,,,,,
+conf3,R047,UNC,3,2,True,,,False,True,0,3,5;9;13,0,0.0,0,0,0
+conf3,R047,LF,3,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf3,R047,COORD,3,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf3,R048,UNC,5,3,True,,,False,True,0,5,4;7;11;12,14,70.0,127,72,9
+conf3,R048,LF,5,3,True,,,False,True,0,4,4;7;11;12,14,70.0,127,72,9
+conf3,R048,COORD,5,3,True,,,False,True,0,2,7;26,13,65.0,128,69,8
+conf3,R049,UNC,5,3,True,,,False,True,0,5,2;3;4;5;12,13,65.0,166,54,14
+conf3,R049,LF,5,3,True,,,False,True,0,3,2;4;5,13,65.0,166,54,14
+conf3,R049,COORD,5,3,True,,,False,True,0,1,8,13,65.0,166,54,14
+conf3,R050,UNC,3,2,True,,,False,True,0,3,0;9;10,13,61.9,213,107,11
+conf3,R050,LF,3,2,True,,,False,True,0,2,9;10,13,61.9,213,107,11
+conf3,R050,COORD,3,2,False,could not find a feasible schedule for batch 'NEW2',24,True,,,0,,,,,,
+conf3,R051,UNC,2,2,True,,,False,True,0,2,12,2,10.5,9,3,0
+conf3,R051,LF,2,2,True,,,False,True,0,1,12,2,10.5,9,3,0
+conf3,R051,COORD,2,2,True,,,False,True,0,1,26,2,10.5,9,3,0
+conf3,R052,UNC,2,2,True,,,False,True,0,2,10;13,1,5.3,1,0,1
+conf3,R052,LF,2,2,True,,,False,True,0,0,,1,5.3,1,0,1
+conf3,R052,COORD,2,2,True,,,False,True,0,0,,1,5.3,1,0,1
+conf3,R053,UNC,2,2,True,,,False,True,0,2,2;10,13,68.4,79,22,3
+conf3,R053,LF,2,2,True,,,False,True,0,2,2;10,13,68.4,79,22,3
+conf3,R053,COORD,2,2,True,,,False,True,0,2,3;10,13,68.4,79,22,3
+conf3,R054,UNC,3,2,True,,,False,True,0,3,0;7;9,12,60.0,75,43,5
+conf3,R054,LF,3,2,True,,,False,True,0,3,0;7;9,12,60.0,75,43,5
+conf3,R054,COORD,3,2,False,could not find a feasible schedule for batch 'NEW1',22,True,,,1,8,,,,,
+conf3,R055,UNC,4,4,True,,,False,True,0,4,0;1;5;10,12,60.0,100,50,6
+conf3,R055,LF,4,4,True,,,False,True,0,3,0;5;10,12,60.0,100,50,6
+conf3,R055,COORD,4,4,True,,,False,True,0,2,6;25,7,35.0,42,27,3
+conf3,R056,UNC,2,2,True,,,False,True,0,2,3;4,8,42.1,41,16,0
+conf3,R056,LF,2,2,True,,,False,True,0,1,4,8,42.1,41,16,0
+conf3,R056,COORD,2,2,True,,,False,True,0,1,8,8,42.1,41,16,0
+conf3,R057,UNC,5,4,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf3,R057,LF,5,4,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf3,R057,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf3,R058,UNC,4,3,True,,,False,True,0,4,4;8;12,13,65.0,62,38,4
+conf3,R058,LF,4,3,True,,,False,True,0,3,4;8;12,13,65.0,62,38,4
+conf3,R058,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',21,True,,,1,8,,,,,
+conf3,R059,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',11,True,,,1,4,,,,,
+conf3,R059,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',11,True,,,1,4,,,,,
+conf3,R059,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',11,True,,,1,10,,,,,
+conf3,R060,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf3,R060,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf3,R060,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',9,False,,,0,,,,,,
+conf3,R061,UNC,3,2,True,,,False,True,0,3,3;8;13,12,63.2,55,26,4
+conf3,R061,LF,3,2,True,,,False,True,0,3,3;8;13,12,63.2,55,26,4
+conf3,R061,COORD,3,2,True,,,False,True,0,3,3;9;26,12,63.2,55,26,4
+conf3,R062,UNC,4,3,True,,,False,True,0,4,0;3;4;13,14,70.0,92,40,0
+conf3,R062,LF,4,3,True,,,False,True,0,2,4;13,14,70.0,92,40,0
+conf3,R062,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',17,True,,,0,,,,,,
+conf3,R063,UNC,3,2,True,,,False,True,0,3,6;7;13,11,57.9,61,27,15
+conf3,R063,LF,3,2,True,,,False,True,0,3,6;7;13,11,57.9,61,27,15
+conf3,R063,COORD,3,2,True,,,False,True,0,2,9;26,11,57.9,61,27,15
+conf3,R064,UNC,4,2,False,could not find a feasible schedule for batch 'NEW2',12,False,,,3,4;11;12,,,,,
+conf3,R064,LF,4,2,False,could not find a feasible schedule for batch 'NEW2',12,False,,,1,11,,,,,
+conf3,R064,COORD,4,2,False,could not find a feasible schedule for batch 'NEW2',22,True,,,0,,,,,,
+conf3,R065,UNC,2,2,True,,,False,True,0,2,3;12,10,50.0,61,35,0
+conf3,R065,LF,2,2,True,,,False,True,0,1,12,10,50.0,61,35,0
+conf3,R065,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',27,True,,,0,,,,,,
+conf3,R066,UNC,3,3,True,,,False,True,0,3,2;7;9,15,75.0,132,50,6
+conf3,R066,LF,3,3,True,,,False,True,0,2,2;7,15,75.0,132,50,6
+conf3,R066,COORD,3,3,True,,,False,True,0,1,8,13,65.0,74,31,2
+conf3,R067,UNC,2,2,True,,,False,True,0,2,7;8,8,42.1,31,14,4
+conf3,R067,LF,2,2,True,,,False,True,0,1,7,8,42.1,31,14,4
+conf3,R067,COORD,2,2,True,,,False,True,0,1,8,8,42.1,31,14,4
+conf3,R068,UNC,3,2,True,,,False,True,0,3,0;8;13,10,52.6,56,20,8
+conf3,R068,LF,3,2,True,,,False,True,0,2,0;13,10,52.6,56,20,8
+conf3,R068,COORD,3,2,True,,,False,True,0,2,9;22,10,52.6,56,20,8
+conf3,R069,UNC,5,3,True,,,False,True,0,5,2;3;9;12,10,50.0,77,42,7
+conf3,R069,LF,5,3,True,,,False,True,0,2,12,10,50.0,77,42,7
+conf3,R069,COORD,5,3,True,,,False,True,0,1,15,10,50.0,77,42,7
+conf3,R070,UNC,5,3,True,,,False,True,0,5,7;8;12;13,14,63.6,243,120,10
+conf3,R070,LF,5,3,True,,,False,True,0,4,7;8;12;13,14,63.6,243,120,10
+conf3,R070,COORD,5,3,True,,,False,True,0,2,10;15,14,63.6,243,120,10
+conf3,R071,UNC,5,4,True,,,False,True,0,5,6;10;13,14,70.0,86,43,8
+conf3,R071,LF,5,4,True,,,False,True,0,4,6;10;13,14,70.0,86,43,8
+conf3,R071,COORD,5,4,True,,,False,True,0,2,8;14,14,70.0,84,41,6
+conf3,R072,UNC,2,2,True,,,False,True,0,2,1;11,2,10.5,9,3,0
+conf3,R072,LF,2,2,True,,,False,True,0,1,11,2,10.5,9,3,0
+conf3,R072,COORD,2,2,True,,,False,True,0,1,26,2,10.5,9,3,0
+conf3,R073,UNC,2,2,True,,,False,True,0,2,1;11,0,0.0,0,0,0
+conf3,R073,LF,2,2,True,,,False,True,0,0,,1,5.3,3,0,3
+conf3,R073,COORD,2,2,True,,,False,True,0,0,,1,5.3,3,0,3
+conf3,R074,UNC,2,2,True,,,False,True,0,2,4;5,10,50.0,88,35,3
+conf3,R074,LF,2,2,True,,,False,True,0,1,5,10,50.0,88,35,3
+conf3,R074,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',25,True,,,0,,,,,,
+conf3,R075,UNC,4,3,True,,,False,True,0,4,2;3;9;10,12,63.2,98,38,10
+conf3,R075,LF,4,3,True,,,False,True,0,2,3;9,12,63.2,98,38,10
+conf3,R075,COORD,4,3,True,,,False,True,0,2,8;29,12,63.2,98,38,10
+conf3,R076,UNC,2,2,True,,,False,True,0,2,3;12,13,65.0,130,63,22
+conf3,R076,LF,2,2,True,,,False,True,0,2,3;12,13,65.0,130,63,22
+conf3,R076,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',22,True,,,1,8,,,,,
+conf3,R077,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',10,False,,,1,2,,,,,
+conf3,R077,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',10,False,,,0,,,,,,
+conf3,R077,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',23,True,,,0,,,,,,
+conf3,R078,UNC,5,3,True,,,False,True,0,5,1;3;5;11,13,68.4,56,21,2
+conf3,R078,LF,5,3,True,,,False,True,0,2,3;5,13,68.4,55,21,2
+conf3,R078,COORD,5,3,True,,,False,True,0,2,3;9,13,68.4,55,21,2
+conf3,R079,UNC,3,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf3,R079,LF,3,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf3,R079,COORD,3,2,False,could not find a feasible schedule for batch 'NEW1',6,True,,,0,,,,,,
+conf3,R080,UNC,5,4,False,could not find a feasible schedule for batch 'NEW1',11,False,,,4,0;2;5;6,,,,,
+conf3,R080,LF,5,4,False,could not find a feasible schedule for batch 'NEW1',11,False,,,1,5,,,,,
+conf3,R080,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',30,True,,,1,10,,,,,
+conf3,R081,UNC,4,2,True,,,False,True,0,4,1;3;6,8,42.1,33,8,3
+conf3,R081,LF,4,2,True,,,False,True,0,3,1;3,8,42.1,33,8,3
+conf3,R081,COORD,4,2,True,,,False,True,0,1,6,8,42.1,33,8,3
+conf3,R082,UNC,5,3,True,,,False,True,0,5,1;2;5;12,13,65.0,99,58,0
+conf3,R082,LF,5,3,True,,,False,True,0,2,5,13,65.0,99,58,0
+conf3,R082,COORD,5,3,True,,,False,True,0,1,7,13,65.0,99,58,0
+conf3,R083,UNC,4,2,False,could not find a feasible schedule for batch 'NEW1',6,False,,,1,4,,,,,
+conf3,R083,LF,4,2,False,could not find a feasible schedule for batch 'NEW1',6,False,,,1,4,,,,,
+conf3,R083,COORD,4,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf3,R084,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',12,False,,,1,5,,,,,
+conf3,R084,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',12,False,,,0,,,,,,
+conf3,R084,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',37,True,,,0,,,,,,
+conf3,R085,UNC,5,3,True,,,False,True,0,5,0;2;8;10;11,13,68.4,61,16,3
+conf3,R085,LF,5,3,True,,,False,True,0,2,2;11,13,68.4,61,16,3
+conf3,R085,COORD,5,3,True,,,False,True,0,2,8;26,13,68.4,61,16,3
+conf3,R086,UNC,5,2,True,,,False,True,0,5,0;2;7;9,15,68.2,258,114,9
+conf3,R086,LF,5,2,True,,,False,True,0,3,0;2;7,15,68.2,258,114,9
+conf3,R086,COORD,5,2,True,,,False,True,0,1,15,12,54.5,156,100,6
+conf3,R087,UNC,3,3,True,,,False,True,0,3,1;4;6,11,55.0,71,24,1
+conf3,R087,LF,3,3,True,,,False,True,0,1,4,11,55.0,71,24,1
+conf3,R087,COORD,3,3,True,,,False,True,0,1,15,11,55.0,49,32,4
+conf3,R088,UNC,3,3,True,,,False,True,0,3,5;12;13,5,26.3,26,20,12
+conf3,R088,LF,3,3,True,,,False,True,0,2,5;12,5,26.3,26,20,12
+conf3,R088,COORD,3,3,True,,,False,True,0,2,6;23,5,26.3,26,20,12
+conf3,R089,UNC,4,3,True,,,False,True,0,4,4;7;9,13,68.4,75,30,9
+conf3,R089,LF,4,3,True,,,False,True,0,3,4;9,13,68.4,75,30,9
+conf3,R089,COORD,4,3,True,,,False,True,0,2,8;15,13,68.4,75,30,9
+conf3,R090,UNC,4,3,True,,,False,True,0,4,0;3;5,12,60.0,127,55,16
+conf3,R090,LF,4,3,True,,,False,True,0,3,0;3;5,12,60.0,127,55,16
+conf3,R090,COORD,4,3,True,,,False,True,0,2,3;8,13,65.0,150,60,22
+conf3,R091,UNC,2,2,True,,,False,True,0,2,1;3,9,47.4,10,4,0
+conf3,R091,LF,2,2,True,,,False,True,0,1,1,9,47.4,10,4,0
+conf3,R091,COORD,2,2,True,,,False,True,0,1,8,9,47.4,10,4,0
+conf3,R092,UNC,5,3,True,,,False,True,0,5,3;6;10;12,15,71.4,204,84,6
+conf3,R092,LF,5,3,True,,,False,True,0,3,6;10;12,15,71.4,204,84,6
+conf3,R092,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',13,True,,,1,8,,,,,
+conf3,R093,UNC,3,2,True,,,False,True,0,3,2;3;11,5,26.3,12,11,6
+conf3,R093,LF,3,2,True,,,False,True,0,2,3;11,5,26.3,12,11,6
+conf3,R093,COORD,3,2,True,,,False,True,0,2,10;22,5,26.3,12,11,6
+conf3,R094,UNC,3,2,True,,,False,True,0,3,5;10,9,47.4,61,27,6
+conf3,R094,LF,3,2,True,,,False,True,0,3,5;10,9,47.4,61,27,6
+conf3,R094,COORD,3,2,True,,,False,True,0,2,10;26,9,47.4,61,27,6
+conf3,R095,UNC,2,2,True,,,False,True,0,2,5;9,14,70.0,120,56,10
+conf3,R095,LF,2,2,True,,,False,True,0,2,5;9,14,70.0,120,56,10
+conf3,R095,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',25,True,,,1,8,,,,,
+conf3,R096,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf3,R096,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf3,R096,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf3,R097,UNC,4,4,True,,,False,True,0,4,4;5;8;9,14,70.0,155,80,7
+conf3,R097,LF,4,4,True,,,False,True,0,3,4;8;9,14,70.0,155,80,7
+conf3,R097,COORD,4,4,True,,,False,True,0,1,9,14,70.0,155,80,7
+conf3,R098,UNC,2,2,True,,,False,True,0,2,5;6,12,60.0,90,40,3
+conf3,R098,LF,2,2,True,,,False,True,0,2,5;6,12,60.0,90,40,3
+conf3,R098,COORD,2,2,True,,,False,True,0,1,9,12,60.0,90,40,3
+conf3,R099,UNC,4,2,False,could not find a feasible schedule for batch 'NEW2',13,False,,,3,3;6;7,,,,,
+conf3,R099,LF,4,2,False,could not find a feasible schedule for batch 'NEW2',13,False,,,3,3;6;7,,,,,
+conf3,R099,COORD,4,2,False,could not find a feasible schedule for batch 'NEW2',30,True,,,1,8,,,,,
+conf3,R100,UNC,2,2,True,,,False,True,0,2,1;10,9,47.4,46,18,0
+conf3,R100,LF,2,2,True,,,False,True,0,1,10,9,47.4,46,18,0
+conf3,R100,COORD,2,2,True,,,False,True,0,1,10,9,47.4,46,18,0
+conf3,R101,UNC,3,2,True,,,False,True,0,3,3;6;7,10,50.0,77,28,0
+conf3,R101,LF,3,2,True,,,False,True,0,1,3,10,50.0,77,28,0
+conf3,R101,COORD,3,2,True,,,False,True,0,1,15,10,50.0,61,43,5
+conf3,R102,UNC,4,3,True,,,False,True,0,4,5;9;10;12,12,63.2,89,36,8
+conf3,R102,LF,4,3,True,,,False,True,0,3,5;9;12,12,63.2,89,36,8
+conf3,R102,COORD,4,3,True,,,False,True,0,3,8;10;28,12,63.2,89,36,8
+conf3,R103,UNC,4,2,True,,,False,True,0,4,4;13,0,0.0,0,0,0
+conf3,R103,LF,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf3,R103,COORD,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf3,R104,UNC,5,3,True,,,False,True,0,5,2;5;7;9;11,14,66.7,190,87,4
+conf3,R104,LF,5,3,True,,,False,True,0,2,2;11,13,61.9,156,90,3
+conf3,R104,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',31,True,,,1,10,,,,,
+conf3,R105,UNC,5,3,True,,,False,True,0,5,1;3;8;11,14,66.7,243,109,10
+conf3,R105,LF,5,3,True,,,False,True,0,3,3;8;11,14,66.7,243,109,10
+conf3,R105,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',25,True,,,1,8,,,,,
+conf3,R106,UNC,2,2,True,,,False,True,0,2,1;12,7,36.8,40,11,4
+conf3,R106,LF,2,2,True,,,False,True,0,2,1;12,7,36.8,40,11,4
+conf3,R106,COORD,2,2,True,,,False,True,0,2,9;22,7,36.8,40,11,4
+conf3,R107,UNC,2,2,True,,,False,True,0,2,3;13,2,10.5,23,6,0
+conf3,R107,LF,2,2,True,,,False,True,0,1,3,2,10.5,23,6,0
+conf3,R107,COORD,2,2,True,,,False,True,0,1,9,2,10.5,23,6,0
+conf3,R108,UNC,5,2,True,,,False,True,0,5,2;3;9;13,9,45.0,58,38,7
+conf3,R108,LF,5,2,True,,,False,True,0,2,9;13,9,45.0,58,38,7
+conf3,R108,COORD,5,2,True,,,False,True,0,1,15,9,45.0,58,38,7
+conf3,R109,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',11,False,,,3,0;7;9,,,,,
+conf3,R109,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',11,False,,,2,0;7,,,,,
+conf3,R109,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',16,True,,,1,8,,,,,
+conf3,R110,UNC,4,2,True,,,False,True,0,4,2;4;9,8,42.1,51,19,4
+conf3,R110,LF,4,2,True,,,False,True,0,2,2;4,8,42.1,51,19,4
+conf3,R110,COORD,4,2,True,,,False,True,0,2,3;10,8,42.1,51,19,4
+conf3,R111,UNC,5,3,True,,,False,True,0,5,0;2;4;6;8,15,71.4,309,102,12
+conf3,R111,LF,5,3,True,,,False,True,0,3,0;2;6,15,71.4,309,102,12
+conf3,R111,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',13,True,,,1,3,,,,,
+conf3,R112,UNC,2,2,True,,,False,True,0,2,10;11,9,45.0,92,46,22
+conf3,R112,LF,2,2,True,,,False,True,0,2,10;11,9,45.0,92,46,22
+conf3,R112,COORD,2,2,True,,,False,True,0,1,15,9,45.0,92,46,22
+conf3,R113,UNC,3,2,True,,,False,True,0,3,2;10;13,11,57.9,87,35,12
+conf3,R113,LF,3,2,True,,,False,True,0,1,2,11,57.9,87,35,12
+conf3,R113,COORD,3,2,True,,,False,True,0,1,8,11,57.9,87,35,12
+conf3,R114,UNC,4,2,True,,,False,True,0,4,0;3;8;13,12,63.2,36,19,2
+conf3,R114,LF,4,2,True,,,False,True,0,3,0;3;13,12,63.2,36,19,2
+conf3,R114,COORD,4,2,True,,,False,True,0,2,7;26,12,63.2,36,19,2
+conf3,R115,UNC,4,2,True,,,False,True,0,4,1;6;7;9,0,0.0,0,0,0
+conf3,R115,LF,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf3,R115,COORD,4,2,True,,,False,True,0,0,,0,0.0,0,0,0
+conf3,R116,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,1,1,,,,,
+conf3,R116,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,1,1,,,,,
+conf3,R116,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,0,,,,,,
+conf3,R117,UNC,2,2,True,,,False,True,0,2,4;12,12,60.0,96,38,16
+conf3,R117,LF,2,2,True,,,False,True,0,2,4;12,12,60.0,96,38,16
+conf3,R117,COORD,2,2,True,,,False,True,0,2,10;15,11,55.0,92,30,16
+conf3,R118,UNC,3,2,True,,,False,True,0,3,3;11;12,5,26.3,32,14,13
+conf3,R118,LF,3,2,True,,,False,True,0,2,11;12,5,26.3,32,14,13
+conf3,R118,COORD,3,2,True,,,False,True,0,1,15,5,26.3,32,14,13
+conf3,R119,UNC,4,2,True,,,False,True,0,4,2;4;9;11,13,61.9,172,65,5
+conf3,R119,LF,4,2,True,,,False,True,0,2,2;9,13,61.9,172,65,5
+conf3,R119,COORD,4,2,True,,,False,True,0,1,15,11,52.4,84,39,5
+conf3,R120,UNC,2,2,True,,,False,True,0,2,4;10,10,50.0,86,32,2
+conf3,R120,LF,2,2,True,,,False,True,0,1,4,10,50.0,86,32,2
+conf3,R120,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',24,True,,,0,,,,,,
+conf3,R121,UNC,5,3,True,,,False,True,0,5,0;4;5;6,13,61.9,181,72,3
+conf3,R121,LF,5,3,True,,,False,True,0,2,0;6,13,61.9,181,72,3
+conf3,R121,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',14,True,,,0,,,,,,
+conf3,R122,UNC,5,3,True,,,False,True,0,5,2;6;9;10;13,15,75.0,116,33,2
+conf3,R122,LF,5,3,True,,,False,True,0,2,2;6,15,75.0,116,33,2
+conf3,R122,COORD,5,3,True,,,False,True,0,2,3;15,14,70.0,87,29,3
+conf3,R123,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf3,R123,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf3,R123,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf3,R124,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf3,R124,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf3,R124,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',16,True,,,0,,,,,,
+conf3,R125,UNC,5,3,True,,,False,True,0,5,5;6;11;12;13,14,66.7,189,69,13
+conf3,R125,LF,5,3,True,,,False,True,0,5,5;6;11;12;13,14,66.7,189,69,13
+conf3,R125,COORD,5,3,True,,,False,True,0,3,10;11;15,13,61.9,125,47,5
+conf3,R126,UNC,5,4,True,,,False,True,0,5,2;6;9;12;13,13,61.9,201,97,14
+conf3,R126,LF,5,4,True,,,False,True,0,3,6;9;12,13,61.9,201,97,14
+conf3,R126,COORD,5,4,False,could not find a feasible schedule for batch 'NEW2',19,True,,,0,,,,,,
+conf3,R127,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,3,2;4;8,,,,,
+conf3,R127,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',10,False,,,3,2;4;8,,,,,
+conf3,R127,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',30,True,,,2,3;8,,,,,
+conf3,R128,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',7,False,,,0,,,,,,
+conf3,R128,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',7,False,,,0,,,,,,
+conf3,R128,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',30,True,,,0,,,,,,
+conf3,R129,UNC,5,3,True,,,False,True,0,5,1;4;10;11;13,14,66.7,230,99,17
+conf3,R129,LF,5,3,True,,,False,True,0,4,1;4;10;13,14,66.7,230,99,17
+conf3,R129,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',25,True,,,1,8,,,,,
+conf3,R130,UNC,4,2,True,,,False,True,0,4,3;6;12;13,5,26.3,32,19,15
+conf3,R130,LF,4,2,True,,,False,True,0,2,12;13,5,26.3,32,19,15
+conf3,R130,COORD,4,2,True,,,False,True,0,1,18,5,26.3,32,19,15
+conf3,R131,UNC,3,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf3,R131,LF,3,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf3,R131,COORD,3,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,0,,,,,,
+conf3,R132,UNC,3,2,True,,,False,True,0,3,1;10;12,12,63.2,79,46,3
+conf3,R132,LF,3,2,True,,,False,True,0,2,1;10,12,63.2,79,46,3
+conf3,R132,COORD,3,2,True,,,False,True,0,2,9;15,12,63.2,79,46,3
+conf3,R133,UNC,5,3,True,,,False,True,0,5,1;3;5;11;12,14,66.7,234,101,6
+conf3,R133,LF,5,3,True,,,False,True,0,4,1;3;5;11,14,66.7,234,101,6
+conf3,R133,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',22,True,,,1,8,,,,,
+conf3,R134,UNC,3,2,True,,,False,True,0,3,1;7;13,12,63.2,82,30,15
+conf3,R134,LF,3,2,True,,,False,True,0,2,1;13,12,63.2,82,30,15
+conf3,R134,COORD,3,2,True,,,False,True,0,2,3;21,12,63.2,82,30,15
+conf3,R135,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,1,2,,,,,
+conf3,R135,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,1,2,,,,,
+conf3,R135,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf3,R136,UNC,2,2,True,,,False,True,0,2,7;9,2,10.5,5,2,1
+conf3,R136,LF,2,2,True,,,False,True,0,1,9,2,10.5,5,2,1
+conf3,R136,COORD,2,2,True,,,False,True,0,1,26,2,10.5,5,2,1
+conf3,R137,UNC,2,2,True,,,False,True,0,2,2;9,12,60.0,109,52,0
+conf3,R137,LF,2,2,True,,,False,True,0,2,2;9,12,60.0,109,52,0
+conf3,R137,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',26,False,,,0,,,,,,
+conf3,R138,UNC,5,3,True,,,False,True,0,5,2;4;6,10,52.6,23,12,0
+conf3,R138,LF,5,3,True,,,False,True,0,3,2;4;6,10,52.6,23,12,0
+conf3,R138,COORD,5,3,True,,,False,True,0,1,8,10,52.6,23,12,0
+conf3,R139,UNC,5,4,False,could not find a feasible schedule for batch 'NEW1',12,False,,,4,0;4;11,,,,,
+conf3,R139,LF,5,4,False,could not find a feasible schedule for batch 'NEW1',12,False,,,1,4,,,,,
+conf3,R139,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',23,True,,,1,9,,,,,
+conf3,R140,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf3,R140,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',8,False,,,0,,,,,,
+conf3,R140,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',16,True,,,0,,,,,,
+conf3,R141,UNC,3,3,True,,,False,True,0,3,0;9,10,50.0,70,24,1
+conf3,R141,LF,3,3,True,,,False,True,0,1,9,10,50.0,70,24,1
+conf3,R141,COORD,3,3,True,,,False,True,0,1,15,10,50.0,48,32,4
+conf3,R142,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,2,0;1,,,,,
+conf3,R142,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,1,0,,,,,
+conf3,R142,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf3,R143,UNC,5,4,True,,,False,True,0,5,4;6;7;13,13,65.0,73,56,12
+conf3,R143,LF,5,4,True,,,False,True,0,3,4;6;13,13,65.0,73,56,12
+conf3,R143,COORD,5,4,False,could not find a feasible schedule for batch 'NEW1',39,True,,,1,8,,,,,
+conf3,R144,UNC,2,2,True,,,False,True,0,2,5;10,2,10.5,5,2,1
+conf3,R144,LF,2,2,True,,,False,True,0,1,5,2,10.5,5,2,1
+conf3,R144,COORD,2,2,True,,,False,True,0,1,26,2,10.5,5,2,1
+conf3,R145,UNC,4,3,True,,,False,True,0,4,0;4;7,15,75.0,127,48,2
+conf3,R145,LF,4,3,True,,,False,True,0,4,0;4;7,15,75.0,127,48,2
+conf3,R145,COORD,4,3,True,,,False,True,0,1,9,14,70.0,121,48,1
+conf3,R146,UNC,4,3,True,,,False,True,0,4,5;9;11,12,60.0,72,24,0
+conf3,R146,LF,4,3,True,,,False,True,0,2,5;9,12,60.0,72,24,0
+conf3,R146,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',12,True,,,0,,,,,,
+conf3,R147,UNC,2,2,True,,,False,True,0,2,1;3,7,36.8,37,9,1
+conf3,R147,LF,2,2,True,,,False,True,0,2,1;3,7,36.8,37,9,1
+conf3,R147,COORD,2,2,True,,,False,True,0,1,9,7,36.8,37,9,1
+conf3,R148,UNC,5,3,True,,,False,True,0,5,1;3;7;11;13,14,66.7,212,102,23
+conf3,R148,LF,5,3,True,,,False,True,0,4,1;7;11;13,14,66.7,212,102,23
+conf3,R148,COORD,5,3,False,could not find a feasible schedule for batch 'NEW2',26,True,,,1,9,,,,,
+conf3,R149,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',1,False,,,1,0,,,,,
+conf3,R149,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf3,R149,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',2,True,,,0,,,,,,
+conf3,R150,UNC,4,2,True,,,False,True,0,4,0;6;13,12,63.2,106,34,16
+conf3,R150,LF,4,2,True,,,False,True,0,3,0;6;13,12,63.2,106,34,16
+conf3,R150,COORD,4,2,True,,,False,True,0,2,8;15,9,47.4,73,31,24
+conf3,R151,UNC,3,2,True,,,False,True,0,3,1;10;12,13,61.9,196,96,21
+conf3,R151,LF,3,2,True,,,False,True,0,2,1;12,13,61.9,196,96,21
+conf3,R151,COORD,3,2,False,could not find a feasible schedule for batch 'NEW1',24,True,,,0,,,,,,
+conf3,R152,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf3,R152,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',1,False,,,0,,,,,,
+conf3,R152,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',4,True,,,0,,,,,,
+conf3,R153,UNC,5,3,True,,,False,True,0,5,0;2;6;8,14,70.0,170,61,12
+conf3,R153,LF,5,3,True,,,False,True,0,2,2,14,70.0,170,61,12
+conf3,R153,COORD,5,3,True,,,False,True,0,1,3,14,70.0,170,61,12
+conf3,R154,UNC,5,3,True,,,False,True,0,5,0;2;4;10,16,80.0,128,49,6
+conf3,R154,LF,5,3,True,,,False,True,0,4,2;4;10,16,80.0,128,49,6
+conf3,R154,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',19,True,,,1,3,,,,,
+conf3,R155,UNC,5,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,3,4;6;7,,,,,
+conf3,R155,LF,5,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,2,4;6,,,,,
+conf3,R155,COORD,5,3,False,could not find a feasible schedule for batch 'NEW1',9,True,,,0,,,,,,
+conf3,R156,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf3,R156,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',0,False,,,0,,,,,,
+conf3,R156,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',5,True,,,0,,,,,,
+conf3,R157,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,2,0;3,,,,,
+conf3,R157,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',3,False,,,0,,,,,,
+conf3,R157,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',16,True,,,0,,,,,,
+conf3,R158,UNC,2,2,True,,,False,True,0,2,0;3,10,50.0,84,31,1
+conf3,R158,LF,2,2,True,,,False,True,0,1,3,10,50.0,84,31,1
+conf3,R158,COORD,2,2,True,,,False,True,0,1,22,6,30.0,32,31,5
+conf3,R159,UNC,3,2,True,,,False,True,0,3,4;7;13,14,66.7,226,95,19
+conf3,R159,LF,3,2,True,,,False,True,0,3,4;7;13,14,66.7,226,95,19
+conf3,R159,COORD,3,2,True,,,False,True,0,2,10;25,12,57.1,151,63,16
+conf3,R160,UNC,2,2,True,,,False,True,0,2,0;11,14,70.0,126,49,19
+conf3,R160,LF,2,2,True,,,False,True,0,2,0;11,14,70.0,126,49,19
+conf3,R160,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',11,True,,,0,,,,,,
+conf3,R161,UNC,5,3,True,,,False,True,0,5,0;5;7;9;10,7,36.8,42,19,9
+conf3,R161,LF,5,3,True,,,False,True,0,2,5;7,7,36.8,42,19,9
+conf3,R161,COORD,5,3,True,,,False,True,0,1,10,8,42.1,43,19,10
+conf3,R162,UNC,4,3,True,,,False,True,0,4,5;11;12;13,11,55.0,107,47,12
+conf3,R162,LF,4,3,True,,,False,True,0,3,5;12;13,11,55.0,107,47,12
+conf3,R162,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',21,True,,,1,8,,,,,
+conf3,R163,UNC,3,3,True,,,False,True,0,3,3;11;13,9,45.0,77,54,8
+conf3,R163,LF,3,3,True,,,False,True,0,2,11;13,9,45.0,77,54,8
+conf3,R163,COORD,3,3,True,,,False,True,0,1,15,9,45.0,77,54,8
+conf3,R164,UNC,5,2,True,,,False,True,0,5,7;9;11;13,12,63.2,96,35,22
+conf3,R164,LF,5,2,True,,,False,True,0,4,7;9;13,12,63.2,96,35,22
+conf3,R164,COORD,5,2,True,,,False,True,0,3,7;9;18,12,63.2,94,35,19
+conf3,R165,UNC,4,4,True,,,False,True,0,4,2;3;7;12,14,70.0,108,38,2
+conf3,R165,LF,4,4,True,,,False,True,0,1,3,14,70.0,108,38,2
+conf3,R165,COORD,4,4,False,could not find a feasible schedule for batch 'NEW1',13,True,,,0,,,,,,
+conf3,R166,UNC,3,2,True,,,False,True,0,3,4;8;9,2,10.5,23,6,0
+conf3,R166,LF,3,2,True,,,False,True,0,1,8,2,10.5,23,6,0
+conf3,R166,COORD,3,2,True,,,False,True,0,1,9,2,10.5,23,6,0
+conf3,R167,UNC,2,2,True,,,False,True,0,2,0;2,13,65.0,141,64,7
+conf3,R167,LF,2,2,True,,,False,True,0,2,0;2,13,65.0,141,64,7
+conf3,R167,COORD,2,2,True,,,False,True,0,1,9,13,65.0,141,64,7
+conf3,R168,UNC,2,2,True,,,False,True,0,2,1;6,8,42.1,31,19,2
+conf3,R168,LF,2,2,True,,,False,True,0,1,1,8,42.1,31,19,2
+conf3,R168,COORD,2,2,True,,,False,True,0,1,3,8,42.1,31,19,2
+conf3,R169,UNC,4,4,True,,,False,True,0,4,0;4;13,14,70.0,121,57,16
+conf3,R169,LF,4,4,True,,,False,True,0,3,0;4;13,14,70.0,121,57,16
+conf3,R169,COORD,4,4,False,could not find a feasible schedule for batch 'NEW1',21,True,,,1,8,,,,,
+conf3,R170,UNC,2,2,True,,,False,True,0,2,10;12,9,45.0,69,55,9
+conf3,R170,LF,2,2,True,,,False,True,0,2,10;12,9,45.0,69,55,9
+conf3,R170,COORD,2,2,True,,,False,True,0,1,15,9,45.0,69,55,9
+conf3,R171,UNC,5,2,False,could not find a feasible schedule for batch 'NEW2',11,False,,,2,2;7,,,,,
+conf3,R171,LF,5,2,False,could not find a feasible schedule for batch 'NEW2',11,False,,,2,2;7,,,,,
+conf3,R171,COORD,5,2,False,could not find a feasible schedule for batch 'NEW1',10,True,,,0,,,,,,
+conf3,R172,UNC,3,3,True,,,False,True,0,3,1;5;9,12,60.0,81,36,0
+conf3,R172,LF,3,3,True,,,False,True,0,2,1;5,12,60.0,81,36,0
+conf3,R172,COORD,3,3,True,,,False,True,0,1,9,12,60.0,81,36,0
+conf3,R173,UNC,5,2,True,,,False,True,0,5,3;4;9,10,52.6,67,28,4
+conf3,R173,LF,5,2,True,,,False,True,0,3,4;9,10,52.6,67,28,4
+conf3,R173,COORD,5,2,True,,,False,True,0,2,8;26,10,52.6,51,21,4
+conf3,R174,UNC,2,2,True,,,False,True,0,2,1;5,14,70.0,122,49,7
+conf3,R174,LF,2,2,True,,,False,True,0,1,1,14,70.0,122,49,7
+conf3,R174,COORD,2,2,True,,,False,True,0,1,8,13,65.0,72,24,5
+conf3,R175,UNC,2,2,True,,,False,True,0,2,4;7,12,63.2,98,38,10
+conf3,R175,LF,2,2,True,,,False,True,0,2,4;7,12,63.2,98,38,10
+conf3,R175,COORD,2,2,True,,,False,True,0,1,8,12,63.2,98,38,10
+conf3,R176,UNC,5,3,True,,,False,True,0,5,0;6;8;9;13,15,71.4,262,109,6
+conf3,R176,LF,5,3,True,,,False,True,0,3,0;8;9,15,71.4,262,109,6
+conf3,R176,COORD,5,3,True,,,False,True,0,2,8;25,15,71.4,149,72,10
+conf3,R177,UNC,5,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,1,1,,,,,
+conf3,R177,LF,5,2,False,could not find a feasible schedule for batch 'NEW1',2,False,,,0,,,,,,
+conf3,R177,COORD,5,2,False,could not find a feasible schedule for batch 'NEW1',3,True,,,0,,,,,,
+conf3,R178,UNC,4,3,True,,,False,True,0,4,6;9;11;12,13,65.0,85,31,0
+conf3,R178,LF,4,3,True,,,False,True,0,2,6;9,13,65.0,85,31,0
+conf3,R178,COORD,4,3,True,,,False,True,0,2,7;18,11,55.0,45,25,3
+conf3,R179,UNC,5,3,True,,,False,True,0,5,4;7;9;10;11,5,26.3,5,6,0
+conf3,R179,LF,5,3,True,,,False,True,0,2,4;7,5,26.3,5,6,0
+conf3,R179,COORD,5,3,True,,,False,True,0,2,6;8,5,26.3,5,6,0
+conf3,R180,UNC,4,4,True,,,False,True,0,4,2;5;9,13,65.0,153,67,14
+conf3,R180,LF,4,4,True,,,False,True,0,3,2;5;9,13,65.0,153,67,14
+conf3,R180,COORD,4,4,True,,,False,True,0,1,9,13,65.0,153,67,14
+conf3,R181,UNC,2,2,True,,,False,True,0,2,8;10,4,21.1,21,9,4
+conf3,R181,LF,2,2,True,,,False,True,0,1,8,4,21.1,21,9,4
+conf3,R181,COORD,2,2,True,,,False,True,0,1,26,4,21.1,21,9,4
+conf3,R182,UNC,5,2,True,,,False,True,0,5,0;5;9;12,14,73.7,72,30,5
+conf3,R182,LF,5,2,True,,,False,True,0,4,0;5;9,14,73.7,72,30,5
+conf3,R182,COORD,5,2,True,,,False,True,0,2,8;26,14,73.7,72,30,5
+conf3,R183,UNC,4,4,True,,,False,True,0,4,0;12;13,12,60.0,126,45,10
+conf3,R183,LF,4,4,True,,,False,True,0,2,0;12,12,60.0,126,45,10
+conf3,R183,COORD,4,4,True,,,False,True,0,1,15,11,55.0,89,36,11
+conf3,R184,UNC,4,3,True,,,False,True,0,4,11;12;13,7,36.8,62,29,25
+conf3,R184,LF,4,3,True,,,False,True,0,3,11;12;13,7,36.8,62,29,25
+conf3,R184,COORD,4,3,True,,,False,True,0,1,15,7,36.8,62,29,25
+conf3,R185,UNC,2,2,True,,,False,True,0,2,3;5,10,52.6,46,9,1
+conf3,R185,LF,2,2,True,,,False,True,0,2,3;5,10,52.6,46,9,1
+conf3,R185,COORD,2,2,True,,,False,True,0,1,7,10,52.6,46,9,1
+conf3,R186,UNC,5,3,True,,,False,True,0,5,7;8;9;12;13,10,52.6,60,22,13
+conf3,R186,LF,5,3,True,,,False,True,0,2,8;9,10,52.6,60,22,13
+conf3,R186,COORD,5,3,True,,,False,True,0,1,10,10,52.6,60,22,13
+conf3,R187,UNC,2,2,True,,,False,True,0,2,11;13,6,31.6,29,5,10
+conf3,R187,LF,2,2,True,,,False,True,0,1,13,6,31.6,29,5,10
+conf3,R187,COORD,2,2,True,,,False,True,0,1,15,6,31.6,29,5,10
+conf3,R188,UNC,2,2,False,could not find a feasible schedule for batch 'NEW1',5,False,,,0,,,,,,
+conf3,R188,LF,2,2,False,could not find a feasible schedule for batch 'NEW1',5,False,,,0,,,,,,
+conf3,R188,COORD,2,2,False,could not find a feasible schedule for batch 'NEW1',30,True,,,0,,,,,,
+conf3,R189,UNC,2,2,True,,,False,True,0,2,1;9,10,50.0,88,47,0
+conf3,R189,LF,2,2,True,,,False,True,0,1,9,10,50.0,88,47,0
+conf3,R189,COORD,2,2,True,,,False,True,0,1,29,3,15.0,14,22,0
+conf3,R190,UNC,4,3,True,,,False,True,0,4,2;3;5;11,15,71.4,261,93,10
+conf3,R190,LF,4,3,True,,,False,True,0,2,2;5,15,71.4,261,93,10
+conf3,R190,COORD,4,3,True,,,False,True,0,1,22,9,42.9,62,37,2
+conf3,R191,UNC,2,2,True,,,False,True,0,2,2;11,5,26.3,5,6,0
+conf3,R191,LF,2,2,True,,,False,True,0,1,2,5,26.3,5,6,0
+conf3,R191,COORD,2,2,True,,,False,True,0,1,8,5,26.3,5,6,0
+conf3,R192,UNC,5,3,True,,,False,True,0,5,0;6;7;11,9,47.4,34,11,11
+conf3,R192,LF,5,3,True,,,False,True,0,3,6;7;11,9,47.4,34,11,11
+conf3,R192,COORD,5,3,True,,,False,True,0,2,7;18,9,47.4,34,11,11
+conf3,R193,UNC,5,3,True,,,False,True,0,5,0;3;11;12;13,13,68.4,60,22,4
+conf3,R193,LF,5,3,True,,,False,True,0,3,3;12;13,13,68.4,60,22,4
+conf3,R193,COORD,5,3,True,,,False,True,0,2,9;23,13,68.4,60,22,4
+conf3,R194,UNC,4,3,True,,,False,True,0,4,4;6;7;9,9,45.0,51,35,5
+conf3,R194,LF,4,3,True,,,False,True,0,2,6;9,9,45.0,51,35,5
+conf3,R194,COORD,4,3,True,,,False,True,0,1,15,9,45.0,51,35,5
+conf3,R195,UNC,5,3,True,,,False,True,0,5,0;8;9;12;13,13,65.0,141,50,4
+conf3,R195,LF,5,3,True,,,False,True,0,3,0;8;12,13,65.0,141,50,4
+conf3,R195,COORD,5,3,True,,,False,True,0,3,3;10;18,13,65.0,141,50,7
+conf3,R196,UNC,3,2,True,,,False,True,0,3,2;5;8,9,47.4,23,9,0
+conf3,R196,LF,3,2,True,,,False,True,0,2,2;8,9,47.4,23,9,0
+conf3,R196,COORD,3,2,True,,,False,True,0,1,8,9,47.4,23,9,0
+conf3,R197,UNC,4,3,False,could not find a feasible schedule for batch 'NEW1',5,False,,,1,0,,,,,
+conf3,R197,LF,4,3,False,could not find a feasible schedule for batch 'NEW1',5,False,,,0,,,,,,
+conf3,R197,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',16,True,,,0,,,,,,
+conf3,R198,UNC,4,2,True,,,False,True,0,4,2;6;12;13,9,47.4,64,21,11
+conf3,R198,LF,4,2,True,,,False,True,0,1,6,9,47.4,64,21,11
+conf3,R198,COORD,4,2,True,,,False,True,0,1,10,9,47.4,64,21,11
+conf3,R199,UNC,5,3,True,,,False,True,0,5,4;5;7;9;12,16,72.7,237,87,3
+conf3,R199,LF,5,3,True,,,False,True,0,4,4;5;7;9,16,72.7,237,87,3
+conf3,R199,COORD,5,3,True,,,False,True,0,2,8;11,16,72.7,228,89,4
+conf3,R200,UNC,4,3,True,,,False,True,0,4,4;5;6;11,13,61.9,126,58,1
+conf3,R200,LF,4,3,True,,,False,True,0,2,5;11,13,61.9,126,58,1
+conf3,R200,COORD,4,3,False,could not find a feasible schedule for batch 'NEW1',13,True,,,0,,,,,,

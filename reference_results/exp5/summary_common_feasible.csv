@@ -1,0 +1,10 @@
+configuration,policy,runs,feasible,targets_met,unresolved_pending,total_scheduler_calls,scheduler_calls_mean,scheduler_calls_median,scheduler_calls_p90,scheduler_calls_max,changed_batches_mean,changed_batches_median,changed_batches_p90,changed_batches_max,abs_shift_mean,abs_shift_median,abs_shift_p90,abs_shift_max,idle_tank_days_mean,idle_tank_days_median,idle_tank_days_p90,idle_tank_days_max,net_shift_mean,net_shift_median,net_shift_p90,net_shift_max
+conf1,UNC,122,122,122,0,428,3.51,4,5,5,9.78,11,14,16,90.62,74,207,399,7.06,6,17,31,33.16,29,69,134
+conf1,LF,122,122,122,0,258,2.11,2,3,5,9.8,11,14,16,90.66,74,207,399,7.09,6,17,31,33.16,29,69,134
+conf1,COORD,122,122,122,0,166,1.36,1,2,3,9.25,10,14,15,77.48,61,166,327,6.75,5,16,28,29.95,24,57,118
+conf2,UNC,150,150,150,0,527,3.51,4,5,5,5.05,5,9,12,22.05,10,64,201,7.24,7,16,29,24.52,21,57,111
+conf2,LF,150,150,150,0,302,2.01,2,3,5,5.05,5,9,12,21.67,10,62,201,7.25,7,16,29,24.43,21,57,111
+conf2,COORD,150,150,150,0,194,1.29,1,2,3,4.27,4,8,11,14.91,8,39,148,8.43,8,17,34,22.15,21,46,91
+conf3,UNC,122,122,122,0,428,3.51,4,5,5,9.82,11,15,16,85.98,69,175,399,6.34,5,15,30,36.1,30,76,138
+conf3,LF,122,122,122,0,257,2.11,2,3,5,9.84,11,15,16,86.01,69,175,399,6.37,5,15,30,36.1,30,76,138
+conf3,COORD,122,122,122,0,165,1.35,1,2,3,9.36,10,14,16,72.26,61,150,304,6.29,5,15,25,32.27,29,63,120

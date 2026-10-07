@@ -1,0 +1,31 @@
+configuration,scenario,policy,simulation_day,decision_cycle,active_signals,coordination_decision,trigger_reason,scheduler_invoked,schedule_version
+conf1,CF1,UNC,4,cycle_1,day_off,REPLAN,no assessment - every signal replans unconditionally,True,1
+conf1,CF1,UNC,6,cycle_2,ingredient_shortage,REPLAN,no assessment - every signal replans unconditionally,True,2
+conf1,CF1,LF,4,cycle_1,day_off,KEEP,no modifiable brewing or bottling scheduled that day,False,0
+conf1,CF1,LF,6,cycle_2,ingredient_shortage,REPLAN,"local assessment requires plan revision (safely deferrable to day 9, not deferred): shortage outlasts the batch's currently scheduled brew day",True,1
+conf1,CF1,COORD,4,cycle_1,day_off,KEEP,no modifiable brewing or bottling scheduled that day,False,0
+conf1,CF1,COORD,6,cycle_2,ingredient_shortage,PENDING,deferred until day 9,False,0
+conf1,CF1,COORD,9,cycle_3,ingredient_shortage,REPLAN,latest safe point reached: ingredient_shortage,True,1
+conf1,CF2,UNC,4,cycle_1,sales,REPLAN,no assessment - every signal replans unconditionally,True,1
+conf1,CF2,UNC,6,cycle_2,ingredient_shortage,REPLAN,no assessment - every signal replans unconditionally,True,2
+conf1,CF2,LF,4,cycle_1,sales,REPLAN,"local assessment requires plan revision (safely deferrable to day 14, not deferred): new order must be scheduled before its requested brewing day",True,1
+conf1,CF2,LF,6,cycle_2,ingredient_shortage,REPLAN,"local assessment requires plan revision (safely deferrable to day 9, not deferred): shortage outlasts the batch's currently scheduled brew day",True,2
+conf1,CF2,COORD,4,cycle_1,sales,PENDING,deferred until day 14,False,0
+conf1,CF2,COORD,6,cycle_2,ingredient_shortage,PENDING,deferred until day 9,False,0
+conf1,CF2,COORD,9,cycle_3,sales;ingredient_shortage,REPLAN,latest safe point reached: ingredient_shortage,True,1
+conf1,CF3,UNC,4,cycle_1,maintenance,REPLAN,no assessment - every signal replans unconditionally,True,1
+conf1,CF3,UNC,5,cycle_2,sales,REPLAN,no assessment - every signal replans unconditionally,True,2
+conf1,CF3,UNC,6,cycle_3,ingredient_shortage,REPLAN,no assessment - every signal replans unconditionally,True,3
+conf1,CF3,LF,4,cycle_1,maintenance,REPLAN,"local assessment requires plan revision (safely deferrable to day 9, not deferred): maintenance window collides with a future modifiable allocation on f3",True,1
+conf1,CF3,LF,5,cycle_2,sales,REPLAN,"local assessment requires plan revision (safely deferrable to day 14, not deferred): new order must be scheduled before its requested brewing day",True,2
+conf1,CF3,LF,6,cycle_3,ingredient_shortage,KEEP,the batch isn't scheduled before the shortage resolves,False,2
+conf1,CF3,COORD,4,cycle_1,maintenance,PENDING,deferred until day 9,False,0
+conf1,CF3,COORD,5,cycle_2,sales,PENDING,deferred until day 14,False,0
+conf1,CF3,COORD,6,cycle_3,ingredient_shortage,PENDING,deferred until day 9,False,0
+conf1,CF3,COORD,9,cycle_4,maintenance;sales;ingredient_shortage,REPLAN,latest safe point reached: maintenance/ingredient_shortage,True,1
+conf1,CF4,UNC,8,cycle_1,sales,REPLAN,no assessment - every signal replans unconditionally,True,1
+conf1,CF4,UNC,9,cycle_2,fermentation,REPLAN,no assessment - every signal replans unconditionally,True,2
+conf1,CF4,LF,8,cycle_1,sales,REPLAN,"local assessment requires plan revision (safely deferrable to day 14, not deferred): new order must be scheduled before its requested brewing day",True,1
+conf1,CF4,LF,9,cycle_2,fermentation,REPLAN,local assessment requires plan revision: later completion collides with a future modifiable allocation on f3,True,2
+conf1,CF4,COORD,8,cycle_1,sales,PENDING,deferred until day 14,False,0
+conf1,CF4,COORD,9,cycle_2,sales;fermentation,REPLAN,latest safe point reached: fermentation,True,1

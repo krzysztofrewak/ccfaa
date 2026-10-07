@@ -1,0 +1,15 @@
+sweep,version,verdict,combinations,plan_changed,plan_unchanged,replan_changed,replan_unchanged,infeasible,disagreements_plan_changed,disagreements_replan_effect
+exp2,current,KEEP,56,0,56,0,56,0,0,0
+exp2,current,PENDING,39,39,0,39,0,0,0,0
+exp2,current,REPLAN,10,10,0,10,0,0,0,0
+exp2b,current,KEEP,1664,0,1664,0,1664,0,0,0
+exp2b,current,PENDING,368,368,0,368,0,0,0,0
+exp2b,current,REPLAN,48,48,0,48,0,0,0,0
+exp2c,current,KEEP,192,192,0,0,192,0,192,0
+exp2c,current,PENDING,711,667,44,711,0,0,44,0
+exp2c,current,REPLAN,45,39,6,45,0,0,6,0
+exp2d,current,KEEP,5524,0,5524,0,5524,0,0,0
+exp2d,current,PENDING,12793,12793,0,12793,0,0,0,0
+exp2d,current,REPLAN,891,891,0,891,0,0,0,0
+exp2e,current,PENDING,576,459,0,459,0,117,0,0
+exp2e,current,REPLAN,100,57,0,57,0,43,0,0

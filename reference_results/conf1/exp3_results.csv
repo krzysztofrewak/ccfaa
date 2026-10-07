@@ -1,0 +1,13 @@
+configuration,scenario,policy,signals_received,replanning_actions,scheduler_invocations,replanning_days,changed_batches,net_schedule_shift,idle_fermenter_days,shifted_brews,shifted_bottlings,abs_brew_shift_days,abs_bottling_shift_days,total_abs_schedule_shift,plan_batches,pct_changed_batches,feasible,target_feasible
+conf1,CF1,UNC,2,2,2,4;6,3,6,0,2,2,11,12,23,19,15.8,True,True
+conf1,CF1,LF,2,1,1,6,3,6,0,2,2,11,12,23,19,15.8,True,True
+conf1,CF1,COORD,2,1,1,9,3,6,0,2,2,11,12,23,19,15.8,True,True
+conf1,CF2,UNC,2,2,2,4;6,12,41,7,11,11,62,63,125,20,60.0,True,True
+conf1,CF2,LF,2,2,2,4;6,12,41,7,11,11,62,63,125,20,60.0,True,True
+conf1,CF2,COORD,2,1,1,9,11,58,3,9,9,52,54,106,20,55.0,True,True
+conf1,CF3,UNC,3,3,3,4;5;6,12,49,14,11,11,78,78,156,20,60.0,True,True
+conf1,CF3,LF,3,2,2,4;5,12,49,14,11,11,78,78,156,20,60.0,True,True
+conf1,CF3,COORD,3,1,1,9,12,45,12,11,11,71,71,142,20,60.0,True,True
+conf1,CF4,UNC,2,2,2,8;9,13,38,7,11,12,57,60,117,20,65.0,True,True
+conf1,CF4,LF,2,2,2,8;9,13,38,7,11,12,57,60,117,20,65.0,True,True
+conf1,CF4,COORD,2,1,1,9,13,38,7,11,12,57,60,117,20,65.0,True,True

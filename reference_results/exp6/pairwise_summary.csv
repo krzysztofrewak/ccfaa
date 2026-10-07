@@ -1,0 +1,13 @@
+configuration,pair,combinations,scheduler_calls_lower,scheduler_calls_equal,scheduler_calls_higher,changed_batches_lower,changed_batches_equal,changed_batches_higher,abs_shift_lower,abs_shift_equal,abs_shift_higher,idle_tank_days_lower,idle_tank_days_equal,idle_tank_days_higher,net_shift_lower,net_shift_equal,net_shift_higher
+conf1,COORD_BD vs UNC,122,118,4,0,17,102,3,26,91,5,18,95,9,22,97,3
+conf1,COORD_BD vs LF,122,67,55,0,17,104,1,26,93,3,18,97,7,22,97,3
+conf1,COORD_BD vs COORD,122,0,118,4,0,108,14,2,104,16,11,107,4,3,104,15
+conf2,COORD_BD vs UNC,150,142,8,0,29,118,3,22,123,5,14,126,10,20,127,3
+conf2,COORD_BD vs LF,150,76,74,0,29,120,1,21,126,3,14,128,8,20,127,3
+conf2,COORD_BD vs COORD,150,0,139,11,2,127,21,2,124,24,35,110,5,6,124,20
+conf3,COORD_BD vs UNC,122,117,5,0,14,104,4,27,91,4,14,95,13,19,98,5
+conf3,COORD_BD vs LF,122,67,54,1,14,106,2,26,94,2,14,97,11,19,98,5
+conf3,COORD_BD vs COORD,122,0,117,5,0,107,15,1,104,17,8,107,7,5,105,12
+all,COORD_BD vs UNC,394,377,17,0,60,324,10,75,305,14,46,316,32,61,322,11
+all,COORD_BD vs LF,394,210,183,1,60,330,4,73,313,8,46,322,26,61,322,11
+all,COORD_BD vs COORD,394,0,374,20,2,342,50,5,332,57,54,324,16,14,333,47

@@ -1,0 +1,12 @@
+configuration,scenario_id,failure_day,failing_batch,failing_batch_is_new_order,other_signals_active_at_failure,failure_after_order_decision_day,order_arrival_day,order_requested_brew_day,order_alone_feasible,feasible_with_movable_commitments,lf_brew_day,mechanism
+conf1,R076,18,NEW1,True,,False,12,19,True,True,19,interaction with signals already incorporated
+conf1,R092,12,NEW1,True,NewBatchRequirementSignal,False,10,13,False,True,13,order infeasible on its own under the variant rule
+conf1,R146,11,NEW1,True,FermentationDelaySignal,False,9,12,False,True,12,order infeasible on its own under the variant rule
+conf1,R169,17,NEW1,True,,False,13,18,True,True,18,interaction with signals already incorporated
+conf1,R200,11,NEW1,True,NewBatchRequirementSignal,False,5,13,False,True,13,order infeasible on its own under the variant rule
+conf2,R092,12,NEW1,True,NewBatchRequirementSignal,False,10,13,True,True,13,interaction with other pending signals
+conf3,R076,18,NEW1,True,,False,12,19,True,True,19,interaction with signals already incorporated
+conf3,R092,12,NEW1,True,NewBatchRequirementSignal,False,10,13,False,True,13,order infeasible on its own under the variant rule
+conf3,R146,11,NEW1,True,FermentationDelaySignal,False,9,12,False,True,12,order infeasible on its own under the variant rule
+conf3,R169,17,NEW1,True,,False,13,18,True,True,18,interaction with signals already incorporated
+conf3,R200,11,NEW1,True,NewBatchRequirementSignal,False,5,13,False,True,13,order infeasible on its own under the variant rule

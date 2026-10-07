@@ -1,0 +1,13 @@
+configuration,scenario,scheduler_invocations_UNC,scheduler_invocations_LF,scheduler_invocations_COORD,replanning_days_UNC,replanning_days_LF,replanning_days_COORD,changed_batches_UNC,changed_batches_LF,changed_batches_COORD,pct_changed_batches_UNC,pct_changed_batches_LF,pct_changed_batches_COORD,total_abs_schedule_shift_UNC,total_abs_schedule_shift_LF,total_abs_schedule_shift_COORD,net_schedule_shift_UNC,net_schedule_shift_LF,net_schedule_shift_COORD,idle_fermenter_days_UNC,idle_fermenter_days_LF,idle_fermenter_days_COORD,target_feasible_UNC,target_feasible_LF,target_feasible_COORD,same_final_UNC_vs_LF,same_final_LF_vs_COORD,same_final_UNC_vs_COORD
+conf1,CF1,2,1,1,4;6,6,9,3,3,3,15.8,15.8,15.8,23,23,23,6,6,6,0,0,0,True,True,True,True,True,True
+conf1,CF2,2,2,1,4;6,4;6,9,12,12,11,60.0,60.0,55.0,125,125,106,41,41,58,7,7,3,True,True,True,True,False,False
+conf1,CF3,3,2,1,4;5;6,4;5,9,12,12,12,60.0,60.0,60.0,156,156,142,49,49,45,14,14,12,True,True,True,True,False,False
+conf1,CF4,2,2,1,8;9,8;9,9,13,13,13,65.0,65.0,65.0,117,117,117,38,38,38,7,7,7,True,True,True,True,True,True
+conf2,CF1,2,1,1,4;6,6,9,1,1,1,6.7,6.7,6.7,11,11,11,5,5,5,0,0,0,True,True,True,True,True,True
+conf2,CF2,2,2,1,4;6,4;6,9,2,2,2,12.5,12.5,12.5,11,11,11,26,26,26,0,0,0,True,True,True,True,True,True
+conf2,CF3,3,2,1,4;5;6,4;5,9,3,3,3,18.8,18.8,18.8,20,20,20,30,30,30,5,5,5,True,True,True,True,True,True
+conf2,CF4,2,2,1,8;9,8;9,9,3,3,3,18.8,18.8,18.8,9,9,9,23,23,23,0,0,0,True,True,True,True,True,True
+conf3,CF1,2,1,1,4;6,6,9,2,2,2,10.5,10.5,10.5,23,23,23,6,6,6,0,0,0,True,True,True,True,True,True
+conf3,CF2,2,2,1,4;6,4;6,9,12,12,12,60.0,60.0,60.0,131,131,84,62,62,38,7,7,3,True,True,True,True,False,False
+conf3,CF3,3,2,1,4;5;6,4;5,9,12,12,12,60.0,60.0,60.0,135,135,148,56,56,66,9,9,12,True,True,True,True,False,False
+conf3,CF4,2,2,1,8;9,8;9,9,12,12,12,60.0,60.0,60.0,89,89,89,38,38,38,0,0,0,True,True,True,True,True,True

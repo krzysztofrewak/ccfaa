@@ -1,0 +1,4 @@
+configuration,unique_batches,fermenter_assignments,split_batches,fermenter_count,capacity_distribution,fermenters,total_capacity_hl,kettle_yield_hl,max_brews_per_day,max_bottling_runs_per_day,days_off,planned_volume_hl,horizon,occupied_tank_days,available_tank_days,time_utilisation,occupied_hl_days,available_hl_days,volumetric_utilisation,last_baseline_end_day
+conf1,19,22,3,7,3 x 10 hl + 4 x 5 hl,f1:10 f2:10 f3:10 f4:5 f5:5 f6:5 f7:5,50.0,10.0,5,5,7 14 21 28 35 42 49 56 63,160,days 0-41,280,294,0.9524,2010,2100.0,0.9571,56
+conf2,15,18,3,7,3 x 10 hl + 4 x 5 hl,f1:10 f2:10 f3:10 f4:5 f5:5 f6:5 f7:5,50.0,10.0,5,5,7 14 21 28 35 42 49 56 63,120,days 0-41,233,294,0.7925,1540,2100.0,0.7333,56
+conf3,19,25,6,8,2 x 10 hl + 6 x 5 hl,f2:10 f3:10 f4:5 f5:5 f6:5 f7:5 f8:5 f9:5,50.0,10.0,5,5,7 14 21 28 35 42 49 56 63,160,days 0-41,320,336,0.9524,2010,2100.0,0.9571,56
