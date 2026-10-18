@@ -1,4 +1,4 @@
-from brewery_agentic_replanning.policies import (
+from brewery_schedule_digital_twin.policies import (
     CoordinatedPolicy,
     LocallyFilteredPolicy,
     ManualPolicy,

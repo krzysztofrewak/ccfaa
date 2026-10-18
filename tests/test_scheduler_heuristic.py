@@ -1,14 +1,14 @@
 import pytest
 
-from brewery_agentic_replanning.domain import (
+from brewery_schedule_digital_twin.domain import (
     Batch,
     Brewery,
     FermentationAssignment,
-    Fermenter,
     Recipe,
     Schedule,
+    Vessel,
 )
-from brewery_agentic_replanning.scheduling import HeuristicScheduler, SchedulingError
+from brewery_schedule_digital_twin.scheduling import HeuristicScheduler, SchedulingError
 
 
 def test_schedules_a_single_batch_on_the_planned_day(brewery: Brewery, recipe: Recipe) -> None:
@@ -77,7 +77,7 @@ def test_pending_batch_keeps_its_already_declared_fermentation_days(brewery: Bre
     schedule.add_assignment(
         FermentationAssignment(
             batch_id="001",
-            fermenter=brewery.fermenters[0],
+            fermenter=brewery.vessels[0],
             volume_hl=10.0,
             start_day=5,
             base_fermentation_days=recipe.fermentation_days + 2,
@@ -96,7 +96,7 @@ def test_keeps_a_feasible_pending_batch_exactly_where_it_was(brewery: Brewery, r
     schedule.add_assignment(
         FermentationAssignment(
             batch_id="001",
-            fermenter=brewery.fermenters[1],
+            fermenter=brewery.vessels[1],
             volume_hl=10.0,
             start_day=5,
             base_fermentation_days=recipe.fermentation_days,
@@ -117,7 +117,7 @@ def test_moves_a_pending_batch_off_a_newly_declared_day_off(brewery: Brewery, re
     schedule.add_assignment(
         FermentationAssignment(
             batch_id="001",
-            fermenter=brewery.fermenters[0],
+            fermenter=brewery.vessels[0],
             volume_hl=10.0,
             start_day=5,
             base_fermentation_days=recipe.fermentation_days,
@@ -140,7 +140,7 @@ def test_falls_back_to_a_fresh_search_when_the_anchor_fermenter_is_no_longer_fre
     schedule.add_assignment(
         FermentationAssignment(
             batch_id="001",
-            fermenter=brewery.fermenters[0],
+            fermenter=brewery.vessels[0],
             volume_hl=10.0,
             start_day=5,
             base_fermentation_days=recipe.fermentation_days,
@@ -161,7 +161,7 @@ def test_falls_back_when_the_batch_can_no_longer_brew_before_its_anchor_day(brew
     schedule.add_assignment(
         FermentationAssignment(
             batch_id="001",
-            fermenter=brewery.fermenters[0],
+            fermenter=brewery.vessels[0],
             volume_hl=10.0,
             start_day=5,
             base_fermentation_days=recipe.fermentation_days,
@@ -177,7 +177,7 @@ def test_falls_back_when_the_batch_can_no_longer_brew_before_its_anchor_day(brew
 def test_splits_batch_across_fermenters_when_none_fits_alone(recipe: Recipe) -> None:
     brewery = Brewery(
         name="Small Tanks Brewery",
-        fermenters=[Fermenter("f", 1, 5.0), Fermenter("f", 2, 5.0)],
+        vessels=[Vessel.unitank("f", 1, 5.0), Vessel.unitank("f", 2, 5.0)],
         kettle_yield_hl=10.0,
         max_brews_per_day=1,
         max_bottling_runs_per_day=2,
@@ -193,6 +193,30 @@ def test_splits_batch_across_fermenters_when_none_fits_alone(recipe: Recipe) -> 
     assert sum(a.volume_hl for a in assignments) == 10.0
 
 
+def test_uses_only_vessels_with_the_full_role(recipe: Recipe) -> None:
+    brewery = Brewery(
+        name="Mixed Brewery",
+        vessels=[
+            Vessel.fermenter("fv", 1, 10.0),
+            Vessel.lagering_tank("lt", 1, 10.0),
+            Vessel.general_vessel("gv", 1, 10.0),
+            Vessel.unitank("ut", 1, 10.0),
+        ],
+        kettle_yield_hl=10.0,
+        max_brews_per_day=2,
+        max_bottling_runs_per_day=2,
+    )
+    schedule = Schedule()
+    schedule.add_batch(Batch("001", "B1", recipe, planned_brew_day=0))
+    schedule.add_batch(Batch("002", "B2", recipe, planned_brew_day=0))
+
+    result = HeuristicScheduler().replan(brewery, schedule, current_day=0)
+
+    assert [a.fermenter.id for a in result.assignments_of("001")] == ["ut1"]
+    assert [a.fermenter.id for a in result.assignments_of("002")] == ["ut1"]
+    assert result.brew_day_of("002") == 10
+
+
 def test_does_not_move_locked_assignments(brewery: Brewery, recipe: Recipe) -> None:
     schedule = Schedule()
     schedule.add_batch(Batch("001", "B1", recipe, planned_brew_day=0))
@@ -200,7 +224,7 @@ def test_does_not_move_locked_assignments(brewery: Brewery, recipe: Recipe) -> N
     schedule.add_assignment(
         FermentationAssignment(
             batch_id="001",
-            fermenter=brewery.fermenters[0],
+            fermenter=brewery.vessels[0],
             volume_hl=10.0,
             start_day=0,
             base_fermentation_days=10,
@@ -246,7 +270,7 @@ def test_raises_when_deadline_is_infeasible(brewery: Brewery, recipe: Recipe) ->
 def test_bottling_capacity_counts_one_slot_per_fermenter_not_per_batch(recipe: Recipe) -> None:
     brewery = Brewery(
         name="Mixed Tanks Brewery",
-        fermenters=[Fermenter("f", 1, 5.0), Fermenter("f", 2, 5.0), Fermenter("f", 3, 10.0)],
+        vessels=[Vessel.unitank("f", 1, 5.0), Vessel.unitank("f", 2, 5.0), Vessel.unitank("f", 3, 10.0)],
         kettle_yield_hl=10.0,
         max_brews_per_day=2,
         max_bottling_runs_per_day=2,
@@ -273,7 +297,7 @@ def test_bottling_capacity_counts_one_slot_per_fermenter_not_per_batch(recipe: R
 def _mixed_brewery(*capacities: float) -> Brewery:
     return Brewery(
         name="Mixed Tanks Brewery",
-        fermenters=[Fermenter("f", i, c) for i, c in enumerate(capacities, start=1)],
+        vessels=[Vessel.unitank("f", i, c) for i, c in enumerate(capacities, start=1)],
         kettle_yield_hl=10.0,
         max_brews_per_day=5,
         max_bottling_runs_per_day=5,
@@ -289,7 +313,7 @@ def _declared(
         schedule.add_assignment(
             FermentationAssignment(
                 batch_id=batch_id,
-                fermenter=brewery.fermenter_by_id(fermenter_id),
+                fermenter=brewery.vessel_by_id(fermenter_id),
                 volume_hl=volume_hl,
                 start_day=brew_day,
                 base_fermentation_days=recipe.fermentation_days,

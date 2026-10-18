@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <title>Coordinating Cross-Functional AI Agents in a Brewery Digital Twin</title>
+    <title>Brewery Schedule Digital Twin</title>
   </head>
   <body class="w-full h-full bg-paper-100 p-8"
         x-data="{
@@ -161,7 +161,7 @@
             return tanks.map((tank) => tank.fermenter + ': ' + tank.start + '-' + tank.end).join(', ');
           }
         }">
-    <h1 class="mb-4 text-2xl">Coordinating Cross-Functional AI Agents in a Brewery Digital Twin</h1>
+    <h1 class="mb-4 text-2xl">Brewery Schedule Digital Twin</h1>
 
     <template x-if="metrics">
       <div class="mb-6 flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-600">

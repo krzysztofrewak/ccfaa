@@ -7,7 +7,7 @@ __pycache__/
 .idea/
 .claude/
 
-experiments/results/
+experiments/*/results/
 public/data/
 
 *.tex

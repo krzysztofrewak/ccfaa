@@ -2,12 +2,12 @@ from collections.abc import Callable, Sequence
 
 import pytest
 
-from brewery_agentic_replanning.agents import default_agents
-from brewery_agentic_replanning.domain import Batch, Brewery, FermentationAssignment, Fermenter, Recipe, Schedule
-from brewery_agentic_replanning.policies import ReplanningPolicy
-from brewery_agentic_replanning.scheduling import HeuristicScheduler
-from brewery_agentic_replanning.signals import Signal
-from brewery_agentic_replanning.simulation import BreweryDigitalTwin
+from brewery_schedule_digital_twin.agents import default_agents
+from brewery_schedule_digital_twin.domain import Batch, Brewery, FermentationAssignment, Recipe, Schedule, Vessel
+from brewery_schedule_digital_twin.policies import ReplanningPolicy
+from brewery_schedule_digital_twin.scheduling import HeuristicScheduler
+from brewery_schedule_digital_twin.signals import Signal
+from brewery_schedule_digital_twin.simulation import BreweryDigitalTwin
 
 
 @pytest.fixture
@@ -19,7 +19,7 @@ def recipe() -> Recipe:
 def brewery() -> Brewery:
     return Brewery(
         name="Test Brewery",
-        fermenters=[Fermenter("f", 1, 10.0), Fermenter("f", 2, 10.0)],
+        vessels=[Vessel.unitank("f", 1, 10.0), Vessel.unitank("f", 2, 10.0)],
         kettle_yield_hl=10.0,
         max_brews_per_day=1,
         max_bottling_runs_per_day=1,
@@ -29,7 +29,7 @@ def brewery() -> Brewery:
 def _three_tank_brewery() -> Brewery:
     return Brewery(
         name="Test Brewery",
-        fermenters=[Fermenter("f", 1, 10.0), Fermenter("f", 2, 10.0), Fermenter("f", 3, 10.0)],
+        vessels=[Vessel.unitank("f", 1, 10.0), Vessel.unitank("f", 2, 10.0), Vessel.unitank("f", 3, 10.0)],
         kettle_yield_hl=10.0,
         max_brews_per_day=3,
         max_bottling_runs_per_day=3,
@@ -48,7 +48,7 @@ def _three_batch_schedule(brewery: Brewery, recipe: Recipe) -> Schedule:
         schedule.add_assignment(
             FermentationAssignment(
                 batch_id=batch_id,
-                fermenter=brewery.fermenters[fermenter],
+                fermenter=brewery.vessels[fermenter],
                 volume_hl=10.0,
                 start_day=brew_day,
                 base_fermentation_days=recipe.fermentation_days,

@@ -1,8 +1,15 @@
-from brewery_agentic_replanning.domain import Batch, Brewery, FermentationAssignment, Fermenter, Recipe, Schedule
-from brewery_agentic_replanning.metrics import compute_metrics
+from brewery_schedule_digital_twin.domain import (
+    Batch,
+    Brewery,
+    FermentationAssignment,
+    Recipe,
+    Schedule,
+    Vessel,
+)
+from brewery_schedule_digital_twin.metrics import compute_metrics
 
 
-def _assignment(batch_id: str, fermenter: Fermenter, start_day: int, fermentation_days: int) -> FermentationAssignment:
+def _assignment(batch_id: str, fermenter: Vessel, start_day: int, fermentation_days: int) -> FermentationAssignment:
     return FermentationAssignment(
         batch_id=batch_id,
         fermenter=fermenter,
@@ -15,12 +22,12 @@ def _assignment(batch_id: str, fermenter: Fermenter, start_day: int, fermentatio
 def test_compute_metrics_counts_changed_batches_and_shift(recipe: Recipe) -> None:
     brewery = Brewery(
         name="Metrics Brewery",
-        fermenters=[Fermenter("f", 1, 10.0), Fermenter("f", 2, 10.0)],
+        vessels=[Vessel.unitank("f", 1, 10.0), Vessel.unitank("f", 2, 10.0)],
         kettle_yield_hl=10.0,
         max_brews_per_day=1,
         max_bottling_runs_per_day=1,
     )
-    f1, f2 = brewery.fermenters
+    f1, f2 = brewery.vessels
 
     original = Schedule()
     original.add_batch(Batch("001", "B1", recipe, planned_brew_day=0))
@@ -44,12 +51,12 @@ def test_compute_metrics_counts_changed_batches_and_shift(recipe: Recipe) -> Non
 def test_compute_metrics_counts_idle_gaps(recipe: Recipe) -> None:
     brewery = Brewery(
         name="Metrics Brewery",
-        fermenters=[Fermenter("f", 1, 10.0)],
+        vessels=[Vessel.unitank("f", 1, 10.0)],
         kettle_yield_hl=10.0,
         max_brews_per_day=1,
         max_bottling_runs_per_day=1,
     )
-    (f1,) = brewery.fermenters
+    (f1,) = brewery.vessels
 
     original = Schedule()
     replanned = Schedule()

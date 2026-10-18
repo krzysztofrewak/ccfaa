@@ -1,6 +1,6 @@
 import pytest
 
-from brewery_agentic_replanning.domain import (
+from brewery_schedule_digital_twin.domain import (
     Batch,
     Brewery,
     FermentationAssignment,
@@ -12,7 +12,7 @@ from brewery_agentic_replanning.domain import (
 def test_fermentation_assignment_end_day_defaults_to_natural_end(brewery: Brewery) -> None:
     assignment = FermentationAssignment(
         batch_id="001",
-        fermenter=brewery.fermenters[0],
+        fermenter=brewery.vessels[0],
         volume_hl=10.0,
         start_day=0,
         base_fermentation_days=10,
@@ -27,7 +27,7 @@ def test_fermentation_assignment_end_day_defaults_to_natural_end(brewery: Brewer
 def test_fermentation_assignment_bottling_day_is_the_last_occupied_day(brewery: Brewery) -> None:
     assignment = FermentationAssignment(
         batch_id="001",
-        fermenter=brewery.fermenters[0],
+        fermenter=brewery.vessels[0],
         volume_hl=10.0,
         start_day=0,
         base_fermentation_days=10,
@@ -44,7 +44,7 @@ def test_fermentation_assignment_bottling_day_is_the_last_occupied_day(brewery: 
 def test_fermentation_assignment_end_day_never_precedes_natural_end(brewery: Brewery) -> None:
     assignment = FermentationAssignment(
         batch_id="001",
-        fermenter=brewery.fermenters[0],
+        fermenter=brewery.vessels[0],
         volume_hl=10.0,
         start_day=0,
         base_fermentation_days=10,
@@ -60,7 +60,7 @@ def test_fermentation_assignment_rejects_volume_over_capacity(brewery: Brewery) 
     with pytest.raises(ValueError):
         FermentationAssignment(
             batch_id="001",
-            fermenter=brewery.fermenters[0],
+            fermenter=brewery.vessels[0],
             volume_hl=999.0,
             start_day=0,
             base_fermentation_days=10,
@@ -73,7 +73,7 @@ def test_schedule_lock_started_assignments(brewery: Brewery, recipe: Recipe) -> 
     schedule.add_assignment(
         FermentationAssignment(
             batch_id="001",
-            fermenter=brewery.fermenters[0],
+            fermenter=brewery.vessels[0],
             volume_hl=10.0,
             start_day=5,
             base_fermentation_days=10,
@@ -93,7 +93,7 @@ def test_schedule_clone_is_independent(brewery: Brewery, recipe: Recipe) -> None
     schedule.add_assignment(
         FermentationAssignment(
             batch_id="001",
-            fermenter=brewery.fermenters[0],
+            fermenter=brewery.vessels[0],
             volume_hl=10.0,
             start_day=0,
             base_fermentation_days=10,
@@ -121,7 +121,7 @@ def test_schedule_horizon_days_uses_latest_end_day(brewery: Brewery, recipe: Rec
     schedule.add_assignment(
         FermentationAssignment(
             batch_id="001",
-            fermenter=brewery.fermenters[0],
+            fermenter=brewery.vessels[0],
             volume_hl=10.0,
             start_day=0,
             base_fermentation_days=10,
@@ -137,7 +137,7 @@ def _one_batch(brewery: Brewery, recipe: Recipe, rows: list[tuple[int, float]], 
         schedule.add_assignment(
             FermentationAssignment(
                 batch_id="001",
-                fermenter=brewery.fermenters[fermenter_index],
+                fermenter=brewery.vessels[fermenter_index],
                 volume_hl=volume_hl,
                 start_day=0,
                 base_fermentation_days=recipe.fermentation_days,
