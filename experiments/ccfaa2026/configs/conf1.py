@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from brewery_schedule_digital_twin.domain import Batch, Brewery, Recipe, Vessel
+import math
+
+from brewery_schedule_digital_twin.domain import Batch, BottlingLine, Brewery, Brewhouse, Recipe, Vessel
 from brewery_schedule_digital_twin.signals import (
     DayOffSignal,
     FermentationDelaySignal,
@@ -43,9 +45,9 @@ def build_brewery() -> Brewery:
     return Brewery(
         name="Digital Twin Brewery",
         vessels=vessels,
-        kettle_yield_hl=10.0,
-        max_brews_per_day=5,
-        max_bottling_runs_per_day=5,
+        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=5)],
+        # A line that bottles any tank in one run, so bottling is limited by runs a day only.
+        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=5)],
         days_off=set(DAYS_OFF),
     )
 

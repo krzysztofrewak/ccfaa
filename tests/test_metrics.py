@@ -1,6 +1,10 @@
+import math
+
 from brewery_schedule_digital_twin.domain import (
     Batch,
+    BottlingLine,
     Brewery,
+    Brewhouse,
     FermentationAssignment,
     Recipe,
     Schedule,
@@ -23,9 +27,8 @@ def test_compute_metrics_counts_changed_batches_and_shift(recipe: Recipe) -> Non
     brewery = Brewery(
         name="Metrics Brewery",
         vessels=[Vessel.unitank("f", 1, 10.0), Vessel.unitank("f", 2, 10.0)],
-        kettle_yield_hl=10.0,
-        max_brews_per_day=1,
-        max_bottling_runs_per_day=1,
+        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
+        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
     )
     f1, f2 = brewery.vessels
 
@@ -52,9 +55,8 @@ def test_compute_metrics_counts_idle_gaps(recipe: Recipe) -> None:
     brewery = Brewery(
         name="Metrics Brewery",
         vessels=[Vessel.unitank("f", 1, 10.0)],
-        kettle_yield_hl=10.0,
-        max_brews_per_day=1,
-        max_bottling_runs_per_day=1,
+        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
+        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
     )
     (f1,) = brewery.vessels
 

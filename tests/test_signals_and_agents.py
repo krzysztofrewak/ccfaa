@@ -1,3 +1,5 @@
+import math
+
 import pytest
 
 from brewery_schedule_digital_twin.agents import (
@@ -7,7 +9,16 @@ from brewery_schedule_digital_twin.agents import (
     ProcurementAgent,
     SalesAgent,
 )
-from brewery_schedule_digital_twin.domain import Batch, Brewery, FermentationAssignment, Recipe, Schedule
+from brewery_schedule_digital_twin.domain import (
+    Batch,
+    BottlingLine,
+    Brewery,
+    Brewhouse,
+    FermentationAssignment,
+    Recipe,
+    Schedule,
+    Vessel,
+)
 from brewery_schedule_digital_twin.scheduling import HeuristicScheduler
 from brewery_schedule_digital_twin.signals import (
     DayOffSignal,
@@ -368,7 +379,7 @@ def test_fermentation_agent_assess_defers_an_early_finish_that_bottles_on_a_full
 
     assert assessment.decision == "PENDING"
     assert assessment.latest_safe_decision_point == 6
-    assert "bottling limit" in assessment.reason
+    assert "limit of line 'line'" in assessment.reason
 
 
 def test_fermentation_agent_assess_keeps_an_early_finish_onto_a_free_working_day(
@@ -572,3 +583,75 @@ def test_sales_agent_assess_replans_an_order_arriving_after_its_decision_day(bre
     assessment = SalesAgent().assess(brewery, Schedule(), signal, current_day=6)
 
     assert (assessment.decision, assessment.latest_safe_decision_point) == ("REPLAN", 3)
+
+
+def _two_line_brewery(runs_per_day: int = 1, run_volume_l: float = math.inf) -> Brewery:
+    return Brewery(
+        name="Two Lines",
+        vessels=[Vessel.unitank("f", i, 50.0) for i in (1, 2)],
+        brewhouses=[Brewhouse("brewhouse", yield_l=5_000, max_brews_per_day=2)],
+        bottling_lines=[
+            BottlingLine("bottles", run_volume_l=run_volume_l, max_runs_per_day=runs_per_day),
+            BottlingLine("cans", run_volume_l=run_volume_l, max_runs_per_day=runs_per_day),
+        ],
+    )
+
+
+def _early_finish_next_to(
+    brewery: Brewery, recipe: Recipe, own: dict[str, object], other: dict[str, object]
+) -> tuple[Schedule, FermentationDelaySignal]:
+    """Batch 001 finishing two days early in f1, and batch 002 bottled in f2 on day 7."""
+    schedule = Schedule()
+    schedule.add_batch(Batch("001", "B1", recipe, planned_brew_day=0))
+    schedule.add_batch(Batch("002", "B2", recipe, planned_brew_day=-3))
+    schedule.add_assignment(
+        FermentationAssignment("001", brewery.vessels[0], 10.0, 0, 10, locked=True, **own)  # type: ignore[arg-type]
+    )
+    schedule.add_assignment(
+        FermentationAssignment(
+            "002",
+            brewery.vessels[1],
+            10.0,
+            -3,
+            10,
+            bottling_day=7,
+            locked=True,
+            **other,  # type: ignore[arg-type]
+        )
+    )
+    signal = FermentationDelaySignal(day=4, batch_id="001", fermenter_id="f1", extra_days=-2)
+    FermentationAgent().apply(brewery, schedule, signal)
+    return schedule, signal
+
+
+def test_fermentation_agent_ignores_a_full_day_on_another_line(recipe: Recipe) -> None:
+    brewery = _two_line_brewery()
+    schedule, signal = _early_finish_next_to(brewery, recipe, {"bottling_line": "bottles"}, {"bottling_line": "cans"})
+
+    assert FermentationAgent().assess(brewery, schedule, signal, current_day=4).decision == "KEEP"
+
+
+def test_fermentation_agent_defers_an_early_finish_onto_its_own_full_line(recipe: Recipe) -> None:
+    brewery = _two_line_brewery()
+    schedule, signal = _early_finish_next_to(brewery, recipe, {"bottling_line": "cans"}, {"bottling_line": "cans"})
+
+    assessment = FermentationAgent().assess(brewery, schedule, signal, current_day=4)
+
+    assert assessment.decision == "PENDING"
+    assert "day 7, already at the limit of line 'cans' (1 runs)" in assessment.reason
+
+
+def test_fermentation_agent_counts_every_run_of_a_bottling_over_several_days(recipe: Recipe) -> None:
+    brewery = _two_line_brewery(runs_per_day=2, run_volume_l=500)
+    schedule, signal = _early_finish_next_to(
+        brewery,
+        recipe,
+        {"bottling_line": "cans"},
+        {"bottling_line": "cans", "bottling_runs": (7, 8, 8)},
+    )
+    own = schedule.assignment_for("001", "f1")
+    own.bottling_day, own.bottling_runs = 7, (7, 8)
+
+    assessment = FermentationAgent().assess(brewery, schedule, signal, current_day=4)
+
+    assert "day 8, already at the limit of line 'cans' (2 runs)" in assessment.reason

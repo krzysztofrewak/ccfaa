@@ -14,7 +14,7 @@ Every experiment runs on a named configuration from `experiments/ccfaa2026/confi
 | `conf2`       | conf1 with four batches removed (reduced production load)        |
 | `conf3`       | conf1 with fermenter f1 replaced by two 5 hl fermenters          |
 
-`experiments/ccfaa2026/config.py` lists what a configuration module must define. All fermenters of these configurations are unitanks (`Vessel.unitank`, role `FULL`): a batch spends its whole fermentation, `Recipe.fermentation_days`, in the tank it was brewed into.
+`experiments/ccfaa2026/config.py` lists what a configuration module must define. All fermenters of these configurations are unitanks (`Vessel.unitank`, role `FULL`): a batch spends its whole fermentation, `Recipe.fermentation_days`, in the tank it was brewed into. Each configuration has one 10 hl brewhouse (5 brews a day) and one bottling line that bottles any tank in one run (`run_volume_l=math.inf`, 5 runs a day), so bottling is limited by the number of runs only, as in the original model.
 
 ## Experiments
 

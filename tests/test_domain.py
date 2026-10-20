@@ -1,6 +1,8 @@
+import math
+
 import pytest
 
-from brewery_schedule_digital_twin.domain import Brewery, Recipe, Vessel, VesselRole
+from brewery_schedule_digital_twin.domain import BottlingLine, Brewery, Brewhouse, Recipe, Vessel, VesselRole
 
 
 def test_recipe_rejects_non_positive_fermentation_days() -> None:
@@ -71,9 +73,8 @@ def test_brewery_lists_vessels_with_each_role() -> None:
     brewery = Brewery(
         name="Mixed Brewery",
         vessels=[unitank, fermenter, lagering_tank, general],
-        kettle_yield_hl=10.0,
-        max_brews_per_day=1,
-        max_bottling_runs_per_day=1,
+        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
+        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
     )
 
     assert brewery.vessels_with(VesselRole.FULL) == [unitank]
@@ -86,9 +87,8 @@ def test_brewery_rejects_duplicate_vessel_ids() -> None:
         Brewery(
             name="Broken",
             vessels=[Vessel.fermenter("t", 1, 10.0), Vessel.lagering_tank("t", 1, 10.0)],
-            kettle_yield_hl=10.0,
-            max_brews_per_day=1,
-            max_bottling_runs_per_day=1,
+            brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
+            bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
         )
 
 
@@ -109,9 +109,8 @@ def test_brewery_rejects_invalid_throughput(brewery: Brewery) -> None:
         Brewery(
             name="Broken",
             vessels=brewery.vessels,
-            kettle_yield_hl=10.0,
-            max_brews_per_day=0,
-            max_bottling_runs_per_day=1,
+            brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=0)],
+            bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
         )
 
 

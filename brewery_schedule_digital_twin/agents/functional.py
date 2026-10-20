@@ -95,12 +95,19 @@ class FermentationAgent(Agent[FermentationDelaySignal]):
 
     @staticmethod
     def _bottling_conflict(brewery: Brewery, schedule: Schedule, assignment: FermentationAssignment) -> str | None:
-        day = assignment.effective_bottling_day
-        if not brewery.is_working_day(day):
-            return f"day {day}, a non-working day"
-        others = sum(1 for a in schedule.assignments if a is not assignment and a.effective_bottling_day == day)
-        if others >= brewery.max_bottling_runs_per_day:
-            return f"day {day}, already at its bottling limit ({brewery.max_bottling_runs_per_day} runs)"
+        """The first bottling run day of ``assignment`` that is a day off or over the limit of its line."""
+        line = brewery.bottling_line(assignment.bottling_line)
+        runs = assignment.effective_bottling_runs
+        for day in sorted(set(runs)):
+            if not brewery.is_working_day(day):
+                return f"day {day}, a non-working day"
+            others = sum(
+                a.effective_bottling_runs.count(day)
+                for a in schedule.assignments
+                if a is not assignment and brewery.bottling_line(a.bottling_line) is line
+            )
+            if others + runs.count(day) > line.max_runs_per_day:
+                return f"day {day}, already at the limit of line {line.name!r} ({line.max_runs_per_day} runs)"
         return None
 
 
@@ -171,8 +178,8 @@ class OperationsAgent(Agent[DayOffSignal]):
         colliding = [
             a
             for a in schedule.assignments
-            if (a.start_day == signal.off_day and not a.has_started(current_day))
-            or (a.effective_bottling_day == signal.off_day and not a.bottling_done(current_day))
+            if (signal.off_day in a.fill_days and not a.has_started(current_day))
+            or (signal.off_day in a.effective_bottling_runs and not a.bottling_done(current_day))
         ]
         if not colliding:
             return Assessment(
