@@ -45,7 +45,7 @@ from brewery_schedule_digital_twin.signals import (
 )
 from brewery_schedule_digital_twin.simulation import BreweryDigitalTwin
 from experiments.ccfaa2026 import exp3_cross_functional as exp3
-from experiments.ccfaa2026.common import placements, write_csv
+from experiments.ccfaa2026.common import hl, placements, write_csv
 from experiments.ccfaa2026.config import RESULTS_DIR, ExperimentConfig, load_config
 
 CONFIGURATIONS = ["conf1", "conf2", "conf3"]
@@ -64,10 +64,10 @@ def configuration_summary(cfg: ExperimentConfig) -> dict:
     brewery, schedule = cfg.baseline()
     lo, hi = UTILISATION_HORIZON
     horizon = hi - lo
-    capacity = sum(f.capacity_hl for f in brewery.vessels)
+    capacity = sum(hl(f.capacity) for f in brewery.vessels)
     tank_days = sum(_days_in_horizon(a.start_day, a.end_day) for a in schedule.assignments)
-    volume_days = sum(a.volume_hl * _days_in_horizon(a.start_day, a.end_day) for a in schedule.assignments)
-    distribution = Counter(f.capacity_hl for f in brewery.vessels)
+    volume_days = sum(hl(a.volume) * _days_in_horizon(a.start_day, a.end_day) for a in schedule.assignments)
+    distribution = Counter(hl(f.capacity) for f in brewery.vessels)
     return {
         "configuration": cfg.name,
         "unique_batches": len(schedule.batches),
@@ -77,13 +77,13 @@ def configuration_summary(cfg: ExperimentConfig) -> dict:
         "capacity_distribution": " + ".join(
             f"{n} x {cap:g} hl" for cap, n in sorted(distribution.items(), reverse=True)
         ),
-        "fermenters": " ".join(f"{f.id}:{f.capacity_hl:g}" for f in brewery.vessels),
+        "fermenters": " ".join(f"{f.id}:{hl(f.capacity):g}" for f in brewery.vessels),
         "total_capacity_hl": capacity,
-        "kettle_yield_hl": brewery.kettle_yield_hl,
+        "kettle_yield_hl": brewery.kettle_yield / 100,
         "max_brews_per_day": brewery.max_brews_per_day,
         "max_bottling_runs_per_day": brewery.max_bottling_runs_per_day,
         "days_off": " ".join(str(d) for d in sorted(brewery.days_off)),
-        "planned_volume_hl": sum(a.volume_hl for a in schedule.assignments),
+        "planned_volume_hl": sum(hl(a.volume) for a in schedule.assignments),
         "horizon": f"days {lo}-{hi - 1}",
         "occupied_tank_days": tank_days,
         "available_tank_days": len(brewery.vessels) * horizon,
@@ -99,9 +99,9 @@ def _allocation_problems(brewery: Brewery, schedule: Schedule) -> list[str]:
     problems = []
     for batch_id in schedule.batches:
         rows = schedule.assignments_of(batch_id)
-        total = sum(a.volume_hl for a in rows)
-        if total > brewery.kettle_yield_hl:
-            problems.append(f"{batch_id}: {total} hl > kettle yield {brewery.kettle_yield_hl}")
+        total = sum(hl(a.volume) for a in rows)
+        if total > brewery.kettle_yield / 100:
+            problems.append(f"{batch_id}: {total} hl > kettle yield {brewery.kettle_yield / 100}")
         if len({a.fermenter.id for a in rows}) != len(rows):
             problems.append(f"{batch_id}: same tank used twice")
         if len({a.start_day for a in rows}) != 1 or len({a.effective_bottling_day for a in rows}) != 1:
@@ -123,12 +123,12 @@ def baseline_validation(cfg: ExperimentConfig) -> list[dict]:
     problems = schedule.validate(brewery)
     checks.append(("schedule_validate", not problems, "; ".join(problems) or "no problems reported"))
 
-    over = [a for a in schedule.assignments if a.volume_hl > a.fermenter.capacity_hl]
+    over = [a for a in schedule.assignments if a.volume > a.fermenter.capacity]
     checks.append(
         (
             "tank_capacity",
             not over,
-            "; ".join(f"{a.batch_id} {a.volume_hl} hl > {a.fermenter.id}" for a in over)
+            "; ".join(f"{a.batch_id} {hl(a.volume)} hl > {a.fermenter.id}" for a in over)
             or f"every assignment <= its tank's capacity ({len(schedule.assignments)} checked)",
         )
     )
@@ -375,7 +375,7 @@ def input_identity(cfg: ExperimentConfig) -> list[dict]:
             twin, events = exp3.build_twin(cfg, scenario_name, policy_name, recipes)
             brewery = twin.brewery
             brewery_state = (
-                tuple((f.id, f.capacity_hl) for f in brewery.vessels),
+                tuple((f.id, hl(f.capacity)) for f in brewery.vessels),
                 sorted(brewery.days_off),
                 brewery.max_brews_per_day,
                 brewery.max_bottling_runs_per_day,
@@ -426,7 +426,7 @@ def _snapshot_volumes(path: Path) -> dict[str, float]:
 
 
 def volume_preservation(cfg: ExperimentConfig, result_rows: list[dict]) -> list[dict]:
-    kettle_yield = cfg.build_brewery().kettle_yield_hl
+    kettle_yield = cfg.build_brewery().kettle_yield / 100
     rows = []
     for result in result_rows:
         baseline = _snapshot_volumes(cfg.results_dir / "exp3" / result["scenario"] / "baseline.csv")

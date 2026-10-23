@@ -47,9 +47,17 @@ class HeuristicScheduler(Scheduler):
 
     Each vessel is bottled on the line that finishes it soonest (in the
     fewest runs on a tie), in as many runs a day as the line has free, so bottling is as short as
-    possible. Bottling starts on the same day for every vessel of a batch.
+    possible. Bottling starts on the same day for every vessel of a batch,
+    unless the batch needs more runs than all lines take a day: then only
+    its first vessel starts that day and each further vessel starts on the
+    first day its line has a free run.
     A target bottling day is the day bottling ends: bottling starts on the
     latest day from which its last run falls on the target.
+
+    A locked vessel keeps its bottling if it has started or still follows
+    the end of fermentation, on working days and within the line's runs;
+    the others are rebottled in order of fermentation end, each on the
+    first day it fits.
     """
 
     def __init__(self, max_horizon_days: int = 3650) -> None:
@@ -59,7 +67,7 @@ class HeuristicScheduler(Scheduler):
         schedule.lock_started_assignments(current_day)
 
         locked = [a for a in schedule.assignments if a.locked]
-        self._reconcile_locked_bottling_days(brewery, locked)
+        self._reconcile_locked_bottling_days(brewery, locked, current_day)
 
         new_schedule = Schedule(batches=dict(schedule.batches))
         for assignment in locked:
@@ -74,32 +82,32 @@ class HeuristicScheduler(Scheduler):
             if not self._keep_existing_placement(
                 brewery, new_schedule, batch, existing, fermentation_days, current_day
             ):
-                volume_hl = self._batch_volume(batch, existing, brewery.kettle_yield_hl)
-                brews = self._brew_plan(batch, volume_hl, brewery.kettle_yield_hl)
+                volume = self._batch_volume(batch, existing, brewery.kettle_yield)
+                brews = self._brew_plan(batch, volume, brewery.kettle_yield)
                 self._schedule_batch(brewery, new_schedule, batch, current_day, fermentation_days, brews)
 
         return new_schedule
 
     @staticmethod
-    def _batch_volume(batch: Batch, existing: list[FermentationAssignment], kettle_yield_hl: float) -> float:
+    def _batch_volume(batch: Batch, existing: list[FermentationAssignment], kettle_yield: float) -> float:
         if existing:
-            volume_hl = sum(a.volume_hl for a in existing)
-        elif batch.volume_hl is not None:
-            volume_hl = batch.volume_hl
+            volume = sum(a.volume for a in existing)
+        elif batch.volume is not None:
+            volume = batch.volume
         else:
-            volume_hl = kettle_yield_hl
-        return float(volume_hl)
+            volume = kettle_yield
+        return float(volume)
 
     @staticmethod
-    def _brew_plan(batch: Batch, volume_hl: float, kettle_yield_hl: float) -> list[tuple[Recipe | None, float]]:
+    def _brew_plan(batch: Batch, volume: float, kettle_yield: float) -> list[tuple[Recipe | None, float]]:
         """The recipe and volume of each brew: the fewest equal brews per recipe."""
-        components: dict[Recipe | None, float] = {None: volume_hl}
+        components: dict[Recipe | None, float] = {None: volume}
         if batch.blend is not None:
-            components = {recipe: hl for recipe, hl in batch.blend.items()}
+            components = {recipe: part for recipe, part in batch.blend.items()}
         plan: list[tuple[Recipe | None, float]] = []
-        for recipe, component_hl in components.items():
-            count = math.ceil(component_hl / kettle_yield_hl - 1e-9)
-            plan += [(recipe, component_hl / count)] * count
+        for recipe, component in components.items():
+            count = math.ceil(component / kettle_yield - 1e-9)
+            plan += [(recipe, component / count)] * count
         return plan
 
     def _keep_existing_placement(
@@ -137,24 +145,24 @@ class HeuristicScheduler(Scheduler):
         bottling = self._bottling_for_fixed_fermenters(
             brewery,
             schedule,
-            [(a.fermenter, a.volume_hl) for a in existing],
+            [(a.fermenter, a.volume) for a in existing],
             brew_day,
             natural_end_day,
             batch.target_bottling_day,
         )
         if bottling is None:
             return False
-        bottling_day, plan = bottling
+        _, plan = bottling
 
         for assignment, (line, runs) in zip(existing, plan, strict=True):
             schedule.add_assignment(
                 FermentationAssignment(
                     batch_id=batch.id,
                     fermenter=assignment.fermenter,
-                    volume_hl=assignment.volume_hl,
+                    volume=assignment.volume,
                     start_day=assignment.start_day,
                     base_fermentation_days=fermentation_days,
-                    bottling_day=bottling_day,
+                    bottling_day=runs[0],
                     fills=assignment.fills,
                     bottling_line=line,
                     bottling_runs=self._stored_runs(runs),
@@ -198,16 +206,25 @@ class HeuristicScheduler(Scheduler):
             bottling_day += 1
         return None
 
-    def _reconcile_locked_bottling_days(self, brewery: Brewery, locked: list[FermentationAssignment]) -> None:
+    def _reconcile_locked_bottling_days(
+        self, brewery: Brewery, locked: list[FermentationAssignment], current_day: int
+    ) -> None:
+        """Keeps the bottling of locked assignments that started or is still feasible and replans the rest."""
         reconciled = Schedule()
+        replanned = []
         for assignment in sorted(locked, key=lambda a: a.natural_end_day):
+            if self._keeps_bottling(brewery, reconciled, assignment, current_day):
+                reconciled.add_assignment(assignment)
+            else:
+                replanned.append(assignment)
+        for assignment in replanned:
             earliest = assignment.last_fermentation_day
             if assignment.bottling_day is not None:
                 earliest = max(earliest, assignment.bottling_day)
             for day in range(earliest, earliest + self._max_horizon_days):
                 if not brewery.is_working_day(day):
                     continue
-                plan = self._plan_bottling(brewery, reconciled, [(assignment.fermenter, assignment.volume_hl)], day)
+                plan = self._plan_bottling(brewery, reconciled, [(assignment.fermenter, assignment.volume)], day)
                 if plan is None:
                     continue
                 [(line, runs)] = plan
@@ -220,6 +237,31 @@ class HeuristicScheduler(Scheduler):
                     f"could not find a feasible bottling day for already-fermenting batch {assignment.batch_id!r}"
                 )
             reconciled.add_assignment(assignment)
+
+    @staticmethod
+    def _keeps_bottling(
+        brewery: Brewery, reconciled: Schedule, assignment: FermentationAssignment, current_day: int
+    ) -> bool:
+        """Whether the bottling already started, or still follows fermentation and fits the line and working days."""
+        if assignment.bottling_day is None:
+            return False
+        if assignment.bottling_day < current_day:
+            return True
+        if assignment.bottling_day < assignment.last_fermentation_day:
+            return False
+        try:
+            line = brewery.bottling_line(assignment.bottling_line)
+        except KeyError:
+            return False
+        runs = assignment.effective_bottling_runs
+        return (
+            len(runs) >= line.runs_for(assignment.volume)
+            and all(brewery.is_working_day(day) for day in runs)
+            and all(
+                reconciled.bottling_runs_on(brewery, line.name, day) + runs.count(day) <= line.max_runs_per_day
+                for day in set(runs)
+            )
+        )
 
     @staticmethod
     def _priority_key(batch: Batch) -> tuple[int, int, int]:
@@ -237,7 +279,7 @@ class HeuristicScheduler(Scheduler):
         brew_plan: list[tuple[Recipe | None, float]],
     ) -> None:
         earliest_day = max(current_day, batch.planned_brew_day)
-        volume_hl = sum(volume for _, volume in brew_plan)
+        total = sum(volume for _, volume in brew_plan)
 
         for first_day in range(earliest_day, earliest_day + self._max_horizon_days):
             slots = self._brew_slots(brewery, schedule, first_day, [volume for _, volume in brew_plan])
@@ -246,11 +288,11 @@ class HeuristicScheduler(Scheduler):
 
             natural_end_day = max(day for day, _ in slots) + fermentation_days
             slot = self._find_bottling_slot(
-                brewery, schedule, volume_hl, first_day, natural_end_day, batch.target_bottling_day
+                brewery, schedule, total, first_day, natural_end_day, batch.target_bottling_day
             )
             if slot is None:
                 continue
-            bottling_day, fermenters, plan = slot
+            _, fermenters, plan = slot
 
             brews = [
                 (Brew(batch.id, number, day, recipe, brewhouse), volume)
@@ -258,7 +300,7 @@ class HeuristicScheduler(Scheduler):
                     zip(slots, brew_plan, strict=True), start=1
                 )
             ]
-            self._commit(schedule, batch, fermenters, brews, bottling_day, plan, fermentation_days)
+            self._commit(schedule, batch, fermenters, brews, plan, fermentation_days)
             return
 
         raise SchedulingError(f"could not find a feasible schedule for batch {batch.id!r}")
@@ -299,7 +341,7 @@ class HeuristicScheduler(Scheduler):
         slots: list[tuple[int, str | None]] = []
         for volume in volumes:
             brewhouses = sorted(
-                (b for b in brewery.brewhouses if b.yield_hl >= volume - 1e-9), key=lambda b: b.yield_hl
+                (b for b in brewery.brewhouses if b.kettle_yield >= volume - 1e-9), key=lambda b: b.kettle_yield
             )
             slot = next(
                 ((day, brewhouse) for day in days for brewhouse in brewhouses if has_room(brewhouse, day)), None
@@ -316,24 +358,28 @@ class HeuristicScheduler(Scheduler):
     def _plan_bottling(
         self, brewery: Brewery, schedule: Schedule, vessels: list[tuple[Vessel, float]], start_day: int
     ) -> BottlingPlan | None:
-        """The line and run days of each vessel, all starting on ``start_day``, or None.
+        """The line and run days of each vessel, starting on ``start_day``, or None.
 
         Each vessel goes to the line that finishes it soonest, in the fewest
         runs on a tie, taking every free run of that line on each working
-        day. The line is None in a brewery with only one.
+        day. Every vessel starts on ``start_day`` unless the vessels need
+        more runs than the lines take a day; then only the first one does.
+        The line is None in a brewery with only one.
         """
         used: Counter[tuple[str, int]] = Counter()
+        fewest_runs = sum(min(line.runs_for(volume) for line in brewery.bottling_lines) for _, volume in vessels)
+        together = fewest_runs <= brewery.max_bottling_runs_per_day
 
         def free(line: BottlingLine, day: int) -> int:
             return line.max_runs_per_day - schedule.bottling_runs_on(brewery, line.name, day) - used[(line.name, day)]
 
         plan: BottlingPlan = []
-        for _, volume_hl in vessels:
+        for index, (_, volume) in enumerate(vessels):
             best: tuple[BottlingLine, list[int]] | None = None
             for line in brewery.bottling_lines:
-                if free(line, start_day) <= 0:
+                if (together or index == 0) and free(line, start_day) <= 0:
                     continue
-                needed = line.runs_for(volume_hl)
+                needed = line.runs_for(volume)
                 runs: list[int] = []
                 day = start_day
                 while len(runs) < needed and day < start_day + self._max_horizon_days:
@@ -394,29 +440,29 @@ class HeuristicScheduler(Scheduler):
         return runs if len(runs) > 1 else ()
 
     @staticmethod
-    def _allocations(fermenters: list[Vessel], volume_hl: float) -> list[float]:
+    def _allocations(fermenters: list[Vessel], volume: float) -> list[float]:
         allocations: list[float] = []
-        remaining = volume_hl
+        remaining = volume
         for fermenter in fermenters:
-            allocations.append(min(remaining, fermenter.capacity_hl))
+            allocations.append(min(remaining, fermenter.capacity))
             remaining -= allocations[-1]
         return allocations
 
     @staticmethod
-    def _filled(fermenters: list[Vessel], volume_hl: float) -> list[tuple[Vessel, float]]:
-        return list(zip(fermenters, HeuristicScheduler._allocations(fermenters, volume_hl), strict=True))
+    def _filled(fermenters: list[Vessel], volume: float) -> list[tuple[Vessel, float]]:
+        return list(zip(fermenters, HeuristicScheduler._allocations(fermenters, volume), strict=True))
 
     def _find_bottling_slot(
         self,
         brewery: Brewery,
         schedule: Schedule,
-        volume_hl: float,
+        volume: float,
         brew_day: int,
         natural_end_day: int,
         target_bottling_day: int | None,
     ) -> tuple[int, list[Vessel], BottlingPlan] | None:
         last_fermentation_day = natural_end_day - 1
-        fermenters = self._find_fermenters(brewery, schedule, volume_hl, brew_day, natural_end_day)
+        fermenters = self._find_fermenters(brewery, schedule, volume, brew_day, natural_end_day)
         if fermenters is None:
             return None
 
@@ -426,11 +472,11 @@ class HeuristicScheduler(Scheduler):
             if target_bottling_day > last_fermentation_day and not self._still_free(
                 brewery, schedule, fermenters, brew_day, target_bottling_day + 1
             ):
-                fermenters = self._find_fermenters(brewery, schedule, volume_hl, brew_day, target_bottling_day + 1)
+                fermenters = self._find_fermenters(brewery, schedule, volume, brew_day, target_bottling_day + 1)
                 if fermenters is None:
                     return None
             ending = self._bottling_ending_on(
-                brewery, schedule, self._filled(fermenters, volume_hl), last_fermentation_day, target_bottling_day
+                brewery, schedule, self._filled(fermenters, volume), last_fermentation_day, target_bottling_day
             )
             if ending is None:
                 return None
@@ -441,11 +487,11 @@ class HeuristicScheduler(Scheduler):
             if bottling_day > last_fermentation_day and not self._still_free(
                 brewery, schedule, fermenters, brew_day, bottling_day + 1
             ):
-                fermenters = self._find_fermenters(brewery, schedule, volume_hl, brew_day, bottling_day + 1)
+                fermenters = self._find_fermenters(brewery, schedule, volume, brew_day, bottling_day + 1)
                 if fermenters is None:
                     return None
             if brewery.is_working_day(bottling_day):
-                slot = self._bottle_from(brewery, schedule, fermenters, volume_hl, brew_day, bottling_day)
+                slot = self._bottle_from(brewery, schedule, fermenters, volume, brew_day, bottling_day)
                 if slot is not None:
                     return slot
             bottling_day += 1
@@ -456,20 +502,20 @@ class HeuristicScheduler(Scheduler):
         brewery: Brewery,
         schedule: Schedule,
         fermenters: list[Vessel],
-        volume_hl: float,
+        volume: float,
         brew_day: int,
         bottling_day: int,
     ) -> tuple[int, list[Vessel], BottlingPlan] | None:
         """Bottling of ``fermenters`` from ``bottling_day``; other vessels if these are busy until it ends."""
-        plan = self._plan_bottling(brewery, schedule, self._filled(fermenters, volume_hl), bottling_day)
+        plan = self._plan_bottling(brewery, schedule, self._filled(fermenters, volume), bottling_day)
         if plan is None:
             return None
         if self._free_until_bottled(brewery, schedule, fermenters, brew_day, plan):
             return bottling_day, fermenters, plan
-        alternative = self._find_fermenters(brewery, schedule, volume_hl, brew_day, self._end_of(plan))
+        alternative = self._find_fermenters(brewery, schedule, volume, brew_day, self._end_of(plan))
         if alternative is None:
             return None
-        plan = self._plan_bottling(brewery, schedule, self._filled(alternative, volume_hl), bottling_day)
+        plan = self._plan_bottling(brewery, schedule, self._filled(alternative, volume), bottling_day)
         if plan is None or not self._free_until_bottled(brewery, schedule, alternative, brew_day, plan):
             return None
         return bottling_day, alternative, plan
@@ -496,7 +542,7 @@ class HeuristicScheduler(Scheduler):
         self,
         brewery: Brewery,
         schedule: Schedule,
-        volume_hl: float,
+        volume: float,
         start_day: int,
         end_day: int,
     ) -> list[Vessel] | None:
@@ -512,17 +558,17 @@ class HeuristicScheduler(Scheduler):
             )
         ]
 
-        single_fits = [f for f in available if f.capacity_hl >= volume_hl]
+        single_fits = [f for f in available if f.capacity >= volume]
         if single_fits:
-            return [min(single_fits, key=lambda f: f.capacity_hl)]
+            return [min(single_fits, key=lambda f: f.capacity)]
 
         combination: list[Vessel] = []
-        remaining = volume_hl
-        for fermenter in sorted(available, key=lambda f: f.capacity_hl, reverse=True):
+        remaining = volume
+        for fermenter in sorted(available, key=lambda f: f.capacity, reverse=True):
             if remaining <= 0:
                 break
             combination.append(fermenter)
-            remaining -= fermenter.capacity_hl
+            remaining -= fermenter.capacity
         if remaining > 0:
             return None
         return combination
@@ -533,19 +579,18 @@ class HeuristicScheduler(Scheduler):
         batch: Batch,
         fermenters: list[Vessel],
         brews: list[tuple[Brew, float]],
-        bottling_day: int,
         bottling: BottlingPlan,
         fermentation_days: int,
     ) -> None:
-        volume_hl = sum(volume for _, volume in brews)
-        allocations = HeuristicScheduler._allocations(fermenters, volume_hl)
+        total = sum(volume for _, volume in brews)
+        allocations = HeuristicScheduler._allocations(fermenters, total)
 
         if len(brews) == 1 and brews[0][0].brewhouse is None:
             # One brew in the only brewhouse: the implicit fill on start_day says it all.
             fills_by_vessel: list[list[Fill]] = [[] for _ in fermenters]
         elif batch.blend is not None:
             fills_by_vessel = [
-                [Fill(brew, volume * allocated / volume_hl) for brew, volume in brews] for allocated in allocations
+                [Fill(brew, volume * allocated / total) for brew, volume in brews] for allocated in allocations
             ]
         else:
             fills_by_vessel = HeuristicScheduler._pour_in_order(brews, allocations)
@@ -558,10 +603,10 @@ class HeuristicScheduler(Scheduler):
                 FermentationAssignment(
                     batch_id=batch.id,
                     fermenter=fermenter,
-                    volume_hl=allocated,
+                    volume=allocated,
                     start_day=min((fill.brew.day for fill in fills), default=brew_day),
                     base_fermentation_days=fermentation_days,
-                    bottling_day=bottling_day,
+                    bottling_day=runs[0],
                     fills=tuple(fills),
                     bottling_line=line,
                     bottling_runs=HeuristicScheduler._stored_runs(runs),

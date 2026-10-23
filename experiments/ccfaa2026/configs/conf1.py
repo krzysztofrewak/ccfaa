@@ -13,41 +13,43 @@ from brewery_schedule_digital_twin.signals import (
 )
 
 INITIAL_ASSIGNMENTS = [
-    ("001", "new_england_ipa", "f4", -8, 5),
-    ("002", "session_pale_ale", "f5", -6, 5),
-    ("002", "session_pale_ale", "f6", -6, 5),
-    ("003", "barleywine", "f7", -5, 5),
-    ("004", "session_pale_ale", "f1", 0, 10, 16),
-    ("005", "hazy_ipa", "f2", -2, 10),
-    ("006", "witbier", "f3", 0, 10),
-    ("007", "new_england_ipa", "f4", 4, 5),
-    ("008", "amarillo_single_hop", "f5", 9, 5),
-    ("008", "amarillo_single_hop", "f6", 9, 5),
-    ("009", "hefeweizen", "f2", 11, 10),
-    ("010", "amarillo_single_hop", "f3", 10, 10),
-    ("011", "hazy_ipa", "f1", 16, 10, 14),
-    ("012", "hefeweizen", "f4", 16, 5),
-    ("013", "hazy_ipa", "f2", 19, 10),
-    ("014", "amarillo_single_hop", "f5", 23, 5),
-    ("014", "amarillo_single_hop", "f6", 23, 5),
-    ("015", "barleywine", "f4", 24, 5),
-    ("016", "saison", "f7", 27, 5, 17),
-    ("017", "witbier", "f1", 30, 10),
-    ("018", "dry_stout", "f3", 24, 10),
-    ("019", "hefeweizen", "f2", 32, 10),
+    ("001", "new_england_ipa", "f4", -8, 500),
+    ("002", "session_pale_ale", "f5", -6, 500),
+    ("002", "session_pale_ale", "f6", -6, 500),
+    ("003", "barleywine", "f7", -5, 500),
+    ("004", "session_pale_ale", "f1", 0, 1_000, 16),
+    ("005", "hazy_ipa", "f2", -2, 1_000),
+    ("006", "witbier", "f3", 0, 1_000),
+    ("007", "new_england_ipa", "f4", 4, 500),
+    ("008", "amarillo_single_hop", "f5", 9, 500),
+    ("008", "amarillo_single_hop", "f6", 9, 500),
+    ("009", "hefeweizen", "f2", 11, 1_000),
+    ("010", "amarillo_single_hop", "f3", 10, 1_000),
+    ("011", "hazy_ipa", "f1", 16, 1_000, 14),
+    ("012", "hefeweizen", "f4", 16, 500),
+    ("013", "hazy_ipa", "f2", 19, 1_000),
+    ("014", "amarillo_single_hop", "f5", 23, 500),
+    ("014", "amarillo_single_hop", "f6", 23, 500),
+    ("015", "barleywine", "f4", 24, 500),
+    ("016", "saison", "f7", 27, 500, 17),
+    ("017", "witbier", "f1", 30, 1_000),
+    ("018", "dry_stout", "f3", 24, 1_000),
+    ("019", "hefeweizen", "f2", 32, 1_000),
 ]
 
 DAYS_OFF = {7, 14, 21, 28, 35, 42, 49, 56, 63}
 
 
 def build_brewery() -> Brewery:
-    vessels = [Vessel.unitank("f", i, 10.0) for i in range(1, 4)] + [Vessel.unitank("f", i, 5.0) for i in range(4, 8)]
+    vessels = [Vessel.unitank("f", i, 1_000.0) for i in range(1, 4)] + [
+        Vessel.unitank("f", i, 500.0) for i in range(4, 8)
+    ]
     return Brewery(
         name="Digital Twin Brewery",
         vessels=vessels,
-        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=5)],
+        brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=5)],
         # A line that bottles any tank in one run, so bottling is limited by runs a day only.
-        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=5)],
+        bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=5)],
         days_off=set(DAYS_OFF),
     )
 

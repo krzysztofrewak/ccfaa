@@ -24,7 +24,7 @@ def _assignment(
     return FermentationAssignment(
         batch_id=batch_id,
         fermenter=brewery.vessels[fermenter],
-        volume_hl=10.0,
+        volume=1_000.0,
         start_day=start_day,
         base_fermentation_days=10,
         **kwargs,

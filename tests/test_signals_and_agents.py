@@ -88,7 +88,7 @@ def test_fermentation_agent_extends_the_targeted_assignment(brewery: Brewery, re
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=0,
             base_fermentation_days=10,
             locked=True,
@@ -109,7 +109,7 @@ def test_fermentation_agent_shortens_the_targeted_assignment(brewery: Brewery, r
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=0,
             base_fermentation_days=10,
             locked=True,
@@ -173,7 +173,7 @@ def test_operations_agent_reports_no_effect_when_the_day_was_already_off(brewery
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=20,
             base_fermentation_days=10,
         )
@@ -194,7 +194,7 @@ def test_operations_agent_reports_an_effect_when_work_was_scheduled_on_the_day(
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=20,
             base_fermentation_days=10,
         )
@@ -242,7 +242,7 @@ def test_operations_agent_assess_defers_a_future_collision_until_its_safe_point(
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=20,
             base_fermentation_days=10,
         )
@@ -266,7 +266,7 @@ def test_procurement_agent_assess_keeps_a_shortage_resolved_before_the_brew_day(
         FermentationAssignment(
             batch_id="003",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=12,
             base_fermentation_days=recipe.fermentation_days,
         )
@@ -285,7 +285,7 @@ def test_procurement_agent_assess_defers_a_real_shortage_until_the_brew_day(brew
         FermentationAssignment(
             batch_id="003",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=9,
             base_fermentation_days=recipe.fermentation_days,
         )
@@ -309,7 +309,7 @@ def test_fermentation_agent_assess_keeps_an_early_completion(brewery: Brewery, r
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=0,
             base_fermentation_days=10,
             locked=True,
@@ -329,7 +329,7 @@ def _early_finish(brewery: Brewery, recipe: Recipe, extra_days: int, **assignmen
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=0,
             base_fermentation_days=10,
             locked=True,
@@ -367,7 +367,7 @@ def test_fermentation_agent_assess_defers_an_early_finish_that_bottles_on_a_full
         FermentationAssignment(
             batch_id="002",
             fermenter=brewery.vessels[1],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=-2,
             base_fermentation_days=10,
             locked=True,
@@ -423,7 +423,7 @@ def test_fermentation_agent_assess_keeps_a_later_completion_with_no_collision(br
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=0,
             base_fermentation_days=10,
             locked=True,
@@ -445,7 +445,7 @@ def test_fermentation_agent_assess_ignores_a_collision_with_a_locked_assignment(
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=0,
             base_fermentation_days=10,
             locked=True,
@@ -456,7 +456,7 @@ def test_fermentation_agent_assess_ignores_a_collision_with_a_locked_assignment(
         FermentationAssignment(
             batch_id="002",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=9,
             base_fermentation_days=10,
             locked=True,
@@ -478,7 +478,7 @@ def test_fermentation_agent_assess_defers_a_collision_with_a_modifiable_allocati
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=0,
             base_fermentation_days=10,
             locked=True,
@@ -489,7 +489,7 @@ def test_fermentation_agent_assess_defers_a_collision_with_a_modifiable_allocati
         FermentationAssignment(
             batch_id="002",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=11,
             base_fermentation_days=10,
         )
@@ -524,7 +524,7 @@ def test_maintenance_agent_assess_keeps_a_collision_with_only_a_locked_assignmen
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=0,
             base_fermentation_days=10,
             locked=True,
@@ -546,7 +546,7 @@ def test_maintenance_agent_assess_defers_a_collision_with_a_modifiable_allocatio
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=12,
             base_fermentation_days=10,
         )
@@ -585,14 +585,14 @@ def test_sales_agent_assess_replans_an_order_arriving_after_its_decision_day(bre
     assert (assessment.decision, assessment.latest_safe_decision_point) == ("REPLAN", 3)
 
 
-def _two_line_brewery(runs_per_day: int = 1, run_volume_l: float = math.inf) -> Brewery:
+def _two_line_brewery(runs_per_day: int = 1, run_volume: float = math.inf) -> Brewery:
     return Brewery(
         name="Two Lines",
-        vessels=[Vessel.unitank("f", i, 50.0) for i in (1, 2)],
-        brewhouses=[Brewhouse("brewhouse", yield_l=5_000, max_brews_per_day=2)],
+        vessels=[Vessel.unitank("f", i, 5_000.0) for i in (1, 2)],
+        brewhouses=[Brewhouse("brewhouse", kettle_yield=5_000, max_brews_per_day=2)],
         bottling_lines=[
-            BottlingLine("bottles", run_volume_l=run_volume_l, max_runs_per_day=runs_per_day),
-            BottlingLine("cans", run_volume_l=run_volume_l, max_runs_per_day=runs_per_day),
+            BottlingLine("bottles", run_volume=run_volume, max_runs_per_day=runs_per_day),
+            BottlingLine("cans", run_volume=run_volume, max_runs_per_day=runs_per_day),
         ],
     )
 
@@ -605,13 +605,13 @@ def _early_finish_next_to(
     schedule.add_batch(Batch("001", "B1", recipe, planned_brew_day=0))
     schedule.add_batch(Batch("002", "B2", recipe, planned_brew_day=-3))
     schedule.add_assignment(
-        FermentationAssignment("001", brewery.vessels[0], 10.0, 0, 10, locked=True, **own)  # type: ignore[arg-type]
+        FermentationAssignment("001", brewery.vessels[0], 1_000.0, 0, 10, locked=True, **own)  # type: ignore[arg-type]
     )
     schedule.add_assignment(
         FermentationAssignment(
             "002",
             brewery.vessels[1],
-            10.0,
+            1_000.0,
             -3,
             10,
             bottling_day=7,
@@ -642,7 +642,7 @@ def test_fermentation_agent_defers_an_early_finish_onto_its_own_full_line(recipe
 
 
 def test_fermentation_agent_counts_every_run_of_a_bottling_over_several_days(recipe: Recipe) -> None:
-    brewery = _two_line_brewery(runs_per_day=2, run_volume_l=500)
+    brewery = _two_line_brewery(runs_per_day=2, run_volume=500)
     schedule, signal = _early_finish_next_to(
         brewery,
         recipe,

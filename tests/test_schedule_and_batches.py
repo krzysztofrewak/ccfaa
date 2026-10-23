@@ -13,7 +13,7 @@ def test_fermentation_assignment_end_day_defaults_to_natural_end(brewery: Brewer
     assignment = FermentationAssignment(
         batch_id="001",
         fermenter=brewery.vessels[0],
-        volume_hl=10.0,
+        volume=1_000.0,
         start_day=0,
         base_fermentation_days=10,
     )
@@ -28,7 +28,7 @@ def test_fermentation_assignment_bottling_day_is_the_last_occupied_day(brewery: 
     assignment = FermentationAssignment(
         batch_id="001",
         fermenter=brewery.vessels[0],
-        volume_hl=10.0,
+        volume=1_000.0,
         start_day=0,
         base_fermentation_days=10,
         extra_delay_days=2,
@@ -45,7 +45,7 @@ def test_fermentation_assignment_end_day_never_precedes_natural_end(brewery: Bre
     assignment = FermentationAssignment(
         batch_id="001",
         fermenter=brewery.vessels[0],
-        volume_hl=10.0,
+        volume=1_000.0,
         start_day=0,
         base_fermentation_days=10,
         bottling_day=10,
@@ -61,7 +61,7 @@ def test_fermentation_assignment_rejects_volume_over_capacity(brewery: Brewery) 
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=999.0,
+            volume=99_900.0,
             start_day=0,
             base_fermentation_days=10,
         )
@@ -74,7 +74,7 @@ def test_schedule_lock_started_assignments(brewery: Brewery, recipe: Recipe) -> 
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=5,
             base_fermentation_days=10,
         )
@@ -94,7 +94,7 @@ def test_schedule_clone_is_independent(brewery: Brewery, recipe: Recipe) -> None
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=0,
             base_fermentation_days=10,
         )
@@ -122,7 +122,7 @@ def test_schedule_horizon_days_uses_latest_end_day(brewery: Brewery, recipe: Rec
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=0,
             base_fermentation_days=10,
         )
@@ -133,12 +133,12 @@ def test_schedule_horizon_days_uses_latest_end_day(brewery: Brewery, recipe: Rec
 def _one_batch(brewery: Brewery, recipe: Recipe, rows: list[tuple[int, float]], **batch_kwargs) -> Schedule:
     schedule = Schedule()
     schedule.add_batch(Batch("001", "B1", recipe, planned_brew_day=0, **batch_kwargs))
-    for fermenter_index, volume_hl in rows:
+    for fermenter_index, volume in rows:
         schedule.add_assignment(
             FermentationAssignment(
                 batch_id="001",
                 fermenter=brewery.vessels[fermenter_index],
-                volume_hl=volume_hl,
+                volume=volume,
                 start_day=0,
                 base_fermentation_days=recipe.fermentation_days,
             )
@@ -147,28 +147,28 @@ def _one_batch(brewery: Brewery, recipe: Recipe, rows: list[tuple[int, float]], 
 
 
 def test_validate_accepts_a_partial_brew(brewery: Brewery, recipe: Recipe) -> None:
-    assert _one_batch(brewery, recipe, [(0, 5.0)]).validate(brewery) == []
+    assert _one_batch(brewery, recipe, [(0, 500.0)]).validate(brewery) == []
 
 
 def test_validate_rejects_a_batch_above_the_kettle_yield(brewery: Brewery, recipe: Recipe) -> None:
-    problems = _one_batch(brewery, recipe, [(0, 10.0), (1, 5.0)]).validate(brewery)
-    assert any("totals 15 hl" in p for p in problems)
+    problems = _one_batch(brewery, recipe, [(0, 1_000.0), (1, 500.0)]).validate(brewery)
+    assert any("totals 1500 l" in p for p in problems)
 
 
 def test_validate_rejects_an_assignment_over_tank_capacity(brewery: Brewery, recipe: Recipe) -> None:
-    schedule = _one_batch(brewery, recipe, [(0, 5.0)])
-    schedule.assignments[0].volume_hl = 12.0
+    schedule = _one_batch(brewery, recipe, [(0, 500.0)])
+    schedule.assignments[0].volume = 1_200.0
 
     problems = schedule.validate(brewery)
 
-    assert any("capacity 10 hl" in p for p in problems)
+    assert any("capacity 1000 l" in p for p in problems)
 
 
 def test_validate_rejects_a_requested_volume_its_assignments_dont_match(brewery: Brewery, recipe: Recipe) -> None:
-    problems = _one_batch(brewery, recipe, [(0, 5.0)], volume_hl=10.0).validate(brewery)
-    assert any("requested 10 hl" in p for p in problems)
+    problems = _one_batch(brewery, recipe, [(0, 500.0)], volume=1_000.0).validate(brewery)
+    assert any("requested 1000 l" in p for p in problems)
 
 
 def test_batch_requested_volume_must_be_positive(recipe: Recipe) -> None:
     with pytest.raises(ValueError):
-        Batch("001", "B1", recipe, planned_brew_day=0, volume_hl=0.0)
+        Batch("001", "B1", recipe, planned_brew_day=0, volume=0.0)

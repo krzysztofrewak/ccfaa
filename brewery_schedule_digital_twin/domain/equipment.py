@@ -20,33 +20,35 @@ class VesselRole(Enum):
 
 @dataclass(frozen=True)
 class Vessel:
+    """Holds up to ``capacity`` litres of one batch."""
+
     name: str
     index: int
-    capacity_hl: float
+    capacity: float
     roles: frozenset[VesselRole]
 
     def __post_init__(self) -> None:
-        if self.capacity_hl <= 0:
-            raise ValueError(f"capacity_hl must be positive, got {self.capacity_hl}")
+        if self.capacity <= 0:
+            raise ValueError(f"capacity must be positive, got {self.capacity}")
         object.__setattr__(self, "roles", frozenset(self.roles))
         if not self.roles:
             raise ValueError(f"vessel {self.id} must have at least one role")
 
     @classmethod
-    def unitank(cls, name: str, index: int, capacity_hl: float) -> Vessel:
-        return cls(name, index, capacity_hl, frozenset({VesselRole.FULL}))
+    def unitank(cls, name: str, index: int, capacity: float) -> Vessel:
+        return cls(name, index, capacity, frozenset({VesselRole.FULL}))
 
     @classmethod
-    def fermenter(cls, name: str, index: int, capacity_hl: float) -> Vessel:
-        return cls(name, index, capacity_hl, frozenset({VesselRole.PRIMARY}))
+    def fermenter(cls, name: str, index: int, capacity: float) -> Vessel:
+        return cls(name, index, capacity, frozenset({VesselRole.PRIMARY}))
 
     @classmethod
-    def lagering_tank(cls, name: str, index: int, capacity_hl: float) -> Vessel:
-        return cls(name, index, capacity_hl, frozenset({VesselRole.SECONDARY}))
+    def lagering_tank(cls, name: str, index: int, capacity: float) -> Vessel:
+        return cls(name, index, capacity, frozenset({VesselRole.SECONDARY}))
 
     @classmethod
-    def general_vessel(cls, name: str, index: int, capacity_hl: float) -> Vessel:
-        return cls(name, index, capacity_hl, frozenset({VesselRole.PRIMARY, VesselRole.SECONDARY}))
+    def general_vessel(cls, name: str, index: int, capacity: float) -> Vessel:
+        return cls(name, index, capacity, frozenset({VesselRole.PRIMARY, VesselRole.SECONDARY}))
 
     @property
     def id(self) -> str:
@@ -58,26 +60,22 @@ class Vessel:
 
 @dataclass(frozen=True)
 class Brewhouse:
-    """Brews one recipe at a time, up to ``yield_l`` litres per brew."""
+    """Brews one recipe at a time, up to ``kettle_yield`` litres per brew."""
 
     name: str
-    yield_l: float
+    kettle_yield: float
     max_brews_per_day: int
 
     def __post_init__(self) -> None:
-        if self.yield_l <= 0:
-            raise ValueError(f"yield_l must be positive, got {self.yield_l}")
+        if self.kettle_yield <= 0:
+            raise ValueError(f"kettle_yield must be positive, got {self.kettle_yield}")
         if self.max_brews_per_day <= 0:
             raise ValueError(f"max_brews_per_day must be positive, got {self.max_brews_per_day}")
-
-    @property
-    def yield_hl(self) -> float:
-        return self.yield_l / 100
 
 
 @dataclass(frozen=True)
 class BottlingLine:
-    """Bottles or cans beer in runs of up to ``run_volume_l`` litres.
+    """Bottles or cans beer in runs of up to ``run_volume`` litres.
 
     A run takes beer from one vessel, so a vessel holding more than one run
     is bottled in several runs, possibly over several days. ``math.inf``
@@ -85,22 +83,32 @@ class BottlingLine:
     """
 
     name: str
-    run_volume_l: float
+    run_volume: float
     max_runs_per_day: int
 
     def __post_init__(self) -> None:
-        if self.run_volume_l <= 0:
-            raise ValueError(f"run_volume_l must be positive, got {self.run_volume_l}")
+        if self.run_volume <= 0:
+            raise ValueError(f"run_volume must be positive, got {self.run_volume}")
         if self.max_runs_per_day <= 0:
             raise ValueError(f"max_runs_per_day must be positive, got {self.max_runs_per_day}")
 
-    @property
-    def run_volume_hl(self) -> float:
-        return self.run_volume_l / 100
+    @classmethod
+    def by_daily_volume(cls, name: str, volume_per_day: float, step: float = 100) -> BottlingLine:
+        """A line limited only by the volume it bottles a day, from any number of vessels.
 
-    def runs_for(self, volume_hl: float) -> int:
-        """Runs needed to bottle one vessel holding ``volume_hl``."""
-        return max(1, math.ceil(volume_hl / self.run_volume_hl - 1e-9))
+        Bottling is counted in runs of ``step``, so a vessel takes as many
+        runs as it holds started steps and several vessels share the daily
+        volume. With the default step of 100 litres the limit is exact for
+        vessels holding whole hundreds of litres.
+        """
+        runs = volume_per_day / step
+        if runs != int(runs):
+            raise ValueError(f"volume_per_day {volume_per_day} is not a multiple of step {step}")
+        return cls(name, run_volume=step, max_runs_per_day=int(runs))
+
+    def runs_for(self, volume: float) -> int:
+        """Runs needed to bottle one vessel holding ``volume``."""
+        return max(1, math.ceil(volume / self.run_volume - 1e-9))
 
 
 @dataclass
@@ -131,9 +139,9 @@ class Brewery:
                 raise ValueError(f"{kind} must be unique, got duplicates {duplicates}")
 
     @property
-    def kettle_yield_hl(self) -> float:
+    def kettle_yield(self) -> float:
         """The largest brew any brewhouse makes."""
-        return max(brewhouse.yield_hl for brewhouse in self.brewhouses)
+        return max(brewhouse.kettle_yield for brewhouse in self.brewhouses)
 
     @property
     def max_brews_per_day(self) -> int:

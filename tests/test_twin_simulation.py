@@ -23,7 +23,7 @@ def _initial_schedule(brewery: Brewery, recipe: Recipe) -> Schedule:
         FermentationAssignment(
             batch_id="001",
             fermenter=brewery.vessels[0],
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=0,
             base_fermentation_days=10,
             locked=True,

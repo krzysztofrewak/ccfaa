@@ -52,9 +52,14 @@ def metric_columns(twin: BreweryDigitalTwin) -> dict:
     }
 
 
+def hl(volume: float) -> float:
+    """A volume in litres as the hectolitres the outputs report; whole hectolitres given as an int stay an int."""
+    return volume // 100 if isinstance(volume, int) and volume % 100 == 0 else volume / 100
+
+
 def placements(schedule: Schedule) -> set[tuple]:
     return {
-        (a.batch_id, a.fermenter.id, a.volume_hl, a.start_day, a.effective_bottling_day, a.end_day)
+        (a.batch_id, a.fermenter.id, hl(a.volume), a.start_day, a.effective_bottling_day, a.end_day)
         for a in schedule.assignments
     }
 

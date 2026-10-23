@@ -33,7 +33,7 @@ def compute_metrics(brewery: Brewery, original: Schedule, replanned: Schedule, c
 
 
 def _batch_signature(schedule: Schedule, batch_id: str) -> frozenset[tuple[str, float, int, int]]:
-    return frozenset((a.fermenter.id, a.volume_hl, a.start_day, a.end_day) for a in schedule.assignments_of(batch_id))
+    return frozenset((a.fermenter.id, a.volume, a.start_day, a.end_day) for a in schedule.assignments_of(batch_id))
 
 
 def _count_changed_batches(original: Schedule, replanned: Schedule) -> int:

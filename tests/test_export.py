@@ -19,9 +19,9 @@ from brewery_schedule_digital_twin.signals import DayOffSignal, FermentationDela
 def test_export_writes_expected_schema(tmp_path: Path, recipe: Recipe) -> None:
     brewery = Brewery(
         name="Export Brewery",
-        vessels=[Vessel.unitank("f", 1, 10.0)],
-        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
-        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
+        vessels=[Vessel.unitank("f", 1, 1_000.0)],
+        brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=1)],
+        bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=1)],
     )
     (fermenter,) = brewery.vessels
     brewery.mark_day_off(9)
@@ -30,7 +30,7 @@ def test_export_writes_expected_schema(tmp_path: Path, recipe: Recipe) -> None:
     original.add_batch(Batch("001", "B1", recipe, planned_brew_day=0))
     original.add_assignment(
         FermentationAssignment(
-            batch_id="001", fermenter=fermenter, volume_hl=10.0, start_day=0, base_fermentation_days=10
+            batch_id="001", fermenter=fermenter, volume=1_000.0, start_day=0, base_fermentation_days=10
         )
     )
 
@@ -38,7 +38,7 @@ def test_export_writes_expected_schema(tmp_path: Path, recipe: Recipe) -> None:
     replanned.add_batch(Batch("001", "B1", recipe, planned_brew_day=0))
     replanned.add_assignment(
         FermentationAssignment(
-            batch_id="001", fermenter=fermenter, volume_hl=10.0, start_day=2, base_fermentation_days=10
+            batch_id="001", fermenter=fermenter, volume=1_000.0, start_day=2, base_fermentation_days=10
         )
     )
 
@@ -92,9 +92,9 @@ def test_export_writes_expected_schema(tmp_path: Path, recipe: Recipe) -> None:
 def test_export_keeps_original_days_off_separate_from_current(tmp_path: Path, recipe: Recipe) -> None:
     brewery = Brewery(
         name="Export Brewery",
-        vessels=[Vessel.unitank("f", 1, 10.0)],
-        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
-        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
+        vessels=[Vessel.unitank("f", 1, 1_000.0)],
+        brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=1)],
+        bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=1)],
         days_off={7},
     )
     brewery.mark_day_off(9)
@@ -111,9 +111,9 @@ def test_export_keeps_original_days_off_separate_from_current(tmp_path: Path, re
 def test_export_calendar_never_shows_days_before_zero(tmp_path: Path, recipe: Recipe) -> None:
     brewery = Brewery(
         name="Export Brewery",
-        vessels=[Vessel.unitank("f", 1, 10.0)],
-        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
-        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
+        vessels=[Vessel.unitank("f", 1, 1_000.0)],
+        brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=1)],
+        bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=1)],
     )
     (fermenter,) = brewery.vessels
 
@@ -123,7 +123,7 @@ def test_export_calendar_never_shows_days_before_zero(tmp_path: Path, recipe: Re
         FermentationAssignment(
             batch_id="001",
             fermenter=fermenter,
-            volume_hl=10.0,
+            volume=1_000.0,
             start_day=-5,
             base_fermentation_days=10,
             locked=True,
@@ -151,22 +151,22 @@ def test_export_calendar_never_shows_days_before_zero(tmp_path: Path, recipe: Re
 def test_export_lists_every_tank_a_batch_used_on_one_row(tmp_path: Path, recipe: Recipe) -> None:
     brewery = Brewery(
         name="Export Brewery",
-        vessels=[Vessel.unitank("f", 1, 5.0), Vessel.unitank("f", 2, 5.0)],
-        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
-        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=2)],
+        vessels=[Vessel.unitank("f", 1, 500.0), Vessel.unitank("f", 2, 500.0)],
+        brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=1)],
+        bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=2)],
     )
     f1, f2 = brewery.vessels
 
     schedule = Schedule()
     schedule.add_batch(Batch("001", "B1", recipe, planned_brew_day=0))
     schedule.add_assignment(
-        FermentationAssignment(batch_id="001", fermenter=f1, volume_hl=5.0, start_day=0, base_fermentation_days=10)
+        FermentationAssignment(batch_id="001", fermenter=f1, volume=500.0, start_day=0, base_fermentation_days=10)
     )
     schedule.add_assignment(
         FermentationAssignment(
             batch_id="001",
             fermenter=f2,
-            volume_hl=5.0,
+            volume=500.0,
             start_day=0,
             base_fermentation_days=10,
             extra_delay_days=3,
@@ -191,22 +191,22 @@ def test_export_lists_every_tank_a_batch_used_on_one_row(tmp_path: Path, recipe:
 def test_export_flags_a_batch_that_moved_to_a_different_tank(tmp_path: Path, recipe: Recipe) -> None:
     brewery = Brewery(
         name="Export Brewery",
-        vessels=[Vessel.unitank("f", 1, 10.0), Vessel.unitank("f", 2, 10.0)],
-        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
-        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
+        vessels=[Vessel.unitank("f", 1, 1_000.0), Vessel.unitank("f", 2, 1_000.0)],
+        brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=1)],
+        bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=1)],
     )
     f1, f2 = brewery.vessels
 
     original = Schedule()
     original.add_batch(Batch("001", "B1", recipe, planned_brew_day=0))
     original.add_assignment(
-        FermentationAssignment(batch_id="001", fermenter=f1, volume_hl=10.0, start_day=0, base_fermentation_days=10)
+        FermentationAssignment(batch_id="001", fermenter=f1, volume=1_000.0, start_day=0, base_fermentation_days=10)
     )
 
     replanned = Schedule()
     replanned.add_batch(Batch("001", "B1", recipe, planned_brew_day=0))
     replanned.add_assignment(
-        FermentationAssignment(batch_id="001", fermenter=f2, volume_hl=10.0, start_day=5, base_fermentation_days=10)
+        FermentationAssignment(batch_id="001", fermenter=f2, volume=1_000.0, start_day=5, base_fermentation_days=10)
     )
 
     destination = tmp_path / "calendar.json"
@@ -224,9 +224,9 @@ def test_export_flags_a_batch_that_moved_to_a_different_tank(tmp_path: Path, rec
 def test_export_defaults_to_no_signals(tmp_path: Path, recipe: Recipe) -> None:
     brewery = Brewery(
         name="Export Brewery",
-        vessels=[Vessel.unitank("f", 1, 10.0)],
-        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
-        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
+        vessels=[Vessel.unitank("f", 1, 1_000.0)],
+        brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=1)],
+        bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=1)],
     )
     schedule = Schedule()
     destination = tmp_path / "calendar.json"

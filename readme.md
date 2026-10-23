@@ -25,6 +25,7 @@ pip install -e ".[dev]"
 | `scheduling` | the `Scheduler` interface and `HeuristicScheduler`                                                                                 |
 | `simulation` | `BreweryDigitalTwin`, which advances the simulation day by day                                                                     |
 | `metrics`    | schedule change measures relative to the baseline                                                                                  |
+| `generation` | `ScheduleGenerator`, which fills a running brewery with random batches up to a target occupancy, and `occupancy`                 |
 | `export`     | JSON export for the calendar viewer in `public/index.html`                                                                         |
 
 ## Vessels and recipes
@@ -50,16 +51,16 @@ A batch either stays in one `FULL` vessel, or ferments in a `PRIMARY` vessel and
 
 ## Brewhouses and bottling lines
 
-A `Brewery` takes a list of `Brewhouse`s and a list of `BottlingLine`s besides its vessels; it needs at least one of each:
+A `Brewery` takes a list of `Brewhouse`s and a list of `BottlingLine`s besides its vessels; it needs at least one of each. All volumes in the package (vessel capacities, batch, fill and run volumes, kettle yields) are in litres:
 
 | Equipment      | Settings                                                                                                     |
 |----------------|--------------------------------------------------------------------------------------------------------------|
-| `Brewhouse`    | `yield_l`: litres per brew; `max_brews_per_day`                                                              |
-| `BottlingLine` | `run_volume_l`: litres bottled or canned in one run (`math.inf` for any vessel in one run); `max_runs_per_day` |
+| `Brewhouse`    | `kettle_yield`: litres per brew; `max_brews_per_day`                                                         |
+| `BottlingLine` | `run_volume`: litres bottled or canned in one run (`math.inf` for any vessel in one run); `max_runs_per_day` |
 
-A brew names its brewhouse in `Brew.brewhouse`, and an assignment names its line in `FermentationAssignment.bottling_line`; None names the only one in a brewery that has one. A bottling run takes beer from one vessel, so a vessel holding more than one run volume is bottled in several runs, listed in `FermentationAssignment.bottling_runs` by day, and stays occupied until the last of them. `Brewery.kettle_yield_hl`, `max_brews_per_day` and `max_bottling_runs_per_day` sum up the equipment: the largest brew and the brews and runs a day of the whole brewery.
+A brew names its brewhouse in `Brew.brewhouse`, and an assignment names its line in `FermentationAssignment.bottling_line`; None names the only one in a brewery that has one. A bottling run takes beer from one vessel, so a vessel holding more than one run volume is bottled in several runs, listed in `FermentationAssignment.bottling_runs` by day, and stays occupied until the last of them. `BottlingLine.by_daily_volume(name, volume_per_day_l)` makes a line limited only by the volume it bottles a day: it counts runs of 1 hl, so several vessels share the daily volume. `Brewery.kettle_yield_hl`, `max_brews_per_day` and `max_bottling_runs_per_day` sum up the equipment: the largest brew and the brews and runs a day of the whole brewery.
 
-`HeuristicScheduler` brews each brew in the smallest brewhouse that makes it and has a free slot that day, so the brews of one batch may come from several brewhouses. It bottles each vessel on the line that finishes it soonest, taking every free run of the line on each working day, so bottling takes as few days as possible; the vessels of one batch start bottling on the same day, possibly on different lines.
+`HeuristicScheduler` brews each brew in the smallest brewhouse that makes it and has a free slot that day, so the brews of one batch may come from several brewhouses. It bottles each vessel on the line that finishes it soonest, taking every free run of the line on each working day, so bottling takes as few days as possible; the vessels of one batch start bottling on the same day, possibly on different lines, unless the batch needs more runs than all lines take a day: then each further vessel starts on the first day its line has a free run.
 
 ## Batches, brews and fills
 
@@ -83,7 +84,7 @@ Every experiment set has its own readme, brewery configurations, scripts and ref
 | Code                                 | Publication                                                                                         | Status      |
 |--------------------------------------|-----------------------------------------------------------------------------------------------------|-------------|
 | [`ccfaa2026`](experiments/ccfaa2026) | Coordinating Cross-Functional Agent Assessments for Production Replanning in a Brewery Digital Twin | complete    |
-| [`cbps2027`](experiments/cbps2027)   | Constraint-Based Production Scheduling in Heterogeneous Breweries with Batch Splitting and Merging  | in progress |
+| [`itch2027`](experiments/itch2027)   | The Impact of Tank Capacity Heterogeneity on Brewery Production Scheduling                          | in progress |
 
 A new experiment set goes to `experiments/<code>/`, where the code is an abbreviation of the publication title followed by the year, with a readme describing its experiments and outputs. Tests specific to an experiment set go to `tests/<code>/`.
 

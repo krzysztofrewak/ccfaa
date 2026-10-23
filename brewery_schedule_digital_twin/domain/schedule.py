@@ -46,7 +46,7 @@ class Schedule:
         volumes: dict[Brew, float] = {}
         for assignment in self.assignments:
             for fill in assignment.effective_fills:
-                volumes[fill.brew] = volumes.get(fill.brew, 0.0) + fill.volume_hl
+                volumes[fill.brew] = volumes.get(fill.brew, 0.0) + fill.volume
         return volumes
 
     def brews_on(self, day: int) -> int:
@@ -151,17 +151,17 @@ class Schedule:
             for day in brew_days:
                 if not brewery.is_working_day(day):
                     problems.append(f"batch {batch_id!r} is brewed on day {day}, a day off")
-            total_volume = sum(a.volume_hl for a in assignments)
-            if batch.volume_hl is not None and not math.isclose(total_volume, batch.volume_hl, abs_tol=1e-9):
+            total_volume = sum(a.volume for a in assignments)
+            if batch.volume is not None and not math.isclose(total_volume, batch.volume, abs_tol=1e-9):
                 problems.append(
-                    f"batch {batch_id!r} requested {batch.volume_hl:g} hl but its assignments total {total_volume:g} hl"
+                    f"batch {batch_id!r} requested {batch.volume:g} l but its assignments total {total_volume:g} l"
                 )
             problems += self._recipe_problems(batch, assignments)
             for assignment in assignments:
-                if not 0 < assignment.volume_hl <= assignment.fermenter.capacity_hl:
+                if not 0 < assignment.volume <= assignment.fermenter.capacity:
                     problems.append(
-                        f"batch {batch_id!r} puts {assignment.volume_hl:g} hl into {assignment.fermenter.id!r} "
-                        f"(capacity {assignment.fermenter.capacity_hl:g} hl)"
+                        f"batch {batch_id!r} puts {assignment.volume:g} l into {assignment.fermenter.id!r} "
+                        f"(capacity {assignment.fermenter.capacity:g} l)"
                     )
 
         for fermenter in brewery.vessels:
@@ -178,10 +178,10 @@ class Schedule:
         for assignment in self.assignments:
             if not assignment.fills:
                 implicit = (assignment.batch_id, 1, assignment.start_day, None)
-                brew_volumes[implicit] = brew_volumes.get(implicit, 0.0) + assignment.volume_hl
+                brew_volumes[implicit] = brew_volumes.get(implicit, 0.0) + assignment.volume
             for fill in assignment.fills:
                 key = (assignment.batch_id, fill.brew.number, fill.brew.day, fill.brew.brewhouse)
-                brew_volumes[key] = brew_volumes.get(key, 0.0) + fill.volume_hl
+                brew_volumes[key] = brew_volumes.get(key, 0.0) + fill.volume
         brews_by_day: dict[tuple[str, int], set[str]] = {}
         for (batch_id, number, day, name), volume in sorted(
             brew_volumes.items(), key=lambda item: (f"{item[0][0]}/{item[0][1]}", item[0][2])
@@ -192,10 +192,10 @@ class Schedule:
             except KeyError as error:
                 problems.append(f"brew {brew_id!r}: {error.args[0]}")
                 continue
-            if volume > brewhouse.yield_hl + 1e-9:
+            if volume > brewhouse.kettle_yield + 1e-9:
                 problems.append(
-                    f"brew {brew_id!r} totals {volume:g} hl, more than the yield of brewhouse "
-                    f"{brewhouse.name!r} ({brewhouse.yield_hl:g} hl)"
+                    f"brew {brew_id!r} totals {volume:g} l, more than the yield of brewhouse "
+                    f"{brewhouse.name!r} ({brewhouse.kettle_yield:g} l)"
                 )
             brews_by_day.setdefault((brewhouse.name, day), set()).add(brew_id)
         for (name, day), brew_ids in sorted(brews_by_day.items(), key=lambda item: (item[0][1], item[0][0])):
@@ -212,7 +212,7 @@ class Schedule:
             except KeyError as error:
                 problems.append(f"batch {assignment.batch_id!r} in {assignment.fermenter.id!r}: {error.args[0]}")
                 continue
-            needed = line.runs_for(assignment.volume_hl)
+            needed = line.runs_for(assignment.volume)
             if len(assignment.effective_bottling_runs) < needed:
                 problems.append(
                     f"batch {assignment.batch_id!r} in {assignment.fermenter.id!r} needs {needed} bottling runs "
@@ -269,7 +269,7 @@ class Schedule:
         for assignment in assignments:
             for fill in assignment.effective_fills:
                 recipe = batch.recipe_of(fill.brew)
-                volumes[recipe] = volumes.get(recipe, 0.0) + fill.volume_hl
+                volumes[recipe] = volumes.get(recipe, 0.0) + fill.volume
 
         problems = [
             f"batch {batch.id!r} has brews of {recipe.name!r}, which is not in its blend"
@@ -279,5 +279,5 @@ class Schedule:
         for recipe, declared in batch.blend.items():
             brewed = volumes.get(recipe, 0.0)
             if not math.isclose(brewed, declared, abs_tol=1e-9):
-                problems.append(f"batch {batch.id!r} blends {brewed:g} hl of {recipe.name!r}, declared {declared:g} hl")
+                problems.append(f"batch {batch.id!r} blends {brewed:g} l of {recipe.name!r}, declared {declared:g} l")
         return problems

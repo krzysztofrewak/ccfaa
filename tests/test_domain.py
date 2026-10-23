@@ -28,7 +28,7 @@ def test_recipe_rejects_non_positive_stage_days(stage_days: dict[str, int]) -> N
 
 
 def test_vessel_id_combines_name_and_index() -> None:
-    vessel = Vessel.unitank("f", 3, 10.0)
+    vessel = Vessel.unitank("f", 3, 1_000.0)
     assert vessel.id == "f3"
 
 
@@ -39,16 +39,16 @@ def test_vessel_rejects_non_positive_capacity() -> None:
 
 def test_vessel_rejects_empty_roles() -> None:
     with pytest.raises(ValueError):
-        Vessel("v", 1, 10.0, frozenset())
+        Vessel("v", 1, 1_000.0, frozenset())
 
 
 @pytest.mark.parametrize(
     ("vessel", "roles"),
     [
-        (Vessel.unitank("ut", 1, 10.0), {VesselRole.FULL}),
-        (Vessel.fermenter("fv", 1, 10.0), {VesselRole.PRIMARY}),
-        (Vessel.lagering_tank("lt", 1, 10.0), {VesselRole.SECONDARY}),
-        (Vessel.general_vessel("gv", 1, 10.0), {VesselRole.PRIMARY, VesselRole.SECONDARY}),
+        (Vessel.unitank("ut", 1, 1_000.0), {VesselRole.FULL}),
+        (Vessel.fermenter("fv", 1, 1_000.0), {VesselRole.PRIMARY}),
+        (Vessel.lagering_tank("lt", 1, 1_000.0), {VesselRole.SECONDARY}),
+        (Vessel.general_vessel("gv", 1, 1_000.0), {VesselRole.PRIMARY, VesselRole.SECONDARY}),
     ],
 )
 def test_named_constructors_set_roles(vessel: Vessel, roles: set[VesselRole]) -> None:
@@ -57,24 +57,24 @@ def test_named_constructors_set_roles(vessel: Vessel, roles: set[VesselRole]) ->
 
 
 def test_vessel_accepts_any_combination_of_roles() -> None:
-    vessel = Vessel("b", 1, 0.2, frozenset(VesselRole))
+    vessel = Vessel("b", 1, 20.0, frozenset(VesselRole))
     assert vessel.roles == frozenset(VesselRole)
 
 
 def test_vessel_with_the_same_roles_equals_one_from_a_named_constructor() -> None:
-    assert Vessel("ut", 1, 10.0, frozenset({VesselRole.FULL})) == Vessel.unitank("ut", 1, 10.0)
+    assert Vessel("ut", 1, 1_000.0, frozenset({VesselRole.FULL})) == Vessel.unitank("ut", 1, 1_000.0)
 
 
 def test_brewery_lists_vessels_with_each_role() -> None:
-    unitank = Vessel.unitank("ut", 1, 10.0)
-    fermenter = Vessel.fermenter("fv", 1, 10.0)
-    lagering_tank = Vessel.lagering_tank("lt", 1, 20.0)
-    general = Vessel.general_vessel("gv", 1, 5.0)
+    unitank = Vessel.unitank("ut", 1, 1_000.0)
+    fermenter = Vessel.fermenter("fv", 1, 1_000.0)
+    lagering_tank = Vessel.lagering_tank("lt", 1, 2_000.0)
+    general = Vessel.general_vessel("gv", 1, 500.0)
     brewery = Brewery(
         name="Mixed Brewery",
         vessels=[unitank, fermenter, lagering_tank, general],
-        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
-        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
+        brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=1)],
+        bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=1)],
     )
 
     assert brewery.vessels_with(VesselRole.FULL) == [unitank]
@@ -86,9 +86,9 @@ def test_brewery_rejects_duplicate_vessel_ids() -> None:
     with pytest.raises(ValueError):
         Brewery(
             name="Broken",
-            vessels=[Vessel.fermenter("t", 1, 10.0), Vessel.lagering_tank("t", 1, 10.0)],
-            brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
-            bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
+            vessels=[Vessel.fermenter("t", 1, 1_000.0), Vessel.lagering_tank("t", 1, 1_000.0)],
+            brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=1)],
+            bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=1)],
         )
 
 
@@ -109,8 +109,8 @@ def test_brewery_rejects_invalid_throughput(brewery: Brewery) -> None:
         Brewery(
             name="Broken",
             vessels=brewery.vessels,
-            brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=0)],
-            bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
+            brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=0)],
+            bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=1)],
         )
 
 

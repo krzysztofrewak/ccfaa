@@ -11,10 +11,10 @@ REPLACEMENT_FERMENTERS = ("f8", "f9")
 
 
 def _relocate(row: tuple) -> list[tuple]:
-    batch_id, recipe_key, fermenter_id, brew_day, volume_hl, *rest = row
+    batch_id, recipe_key, fermenter_id, brew_day, volume, *rest = row
     if fermenter_id != REPLACED_FERMENTER:
         return [row]
-    share = volume_hl // len(REPLACEMENT_FERMENTERS)
+    share = volume // len(REPLACEMENT_FERMENTERS)
     return [(batch_id, recipe_key, tank, brew_day, share, *rest) for tank in REPLACEMENT_FERMENTERS]
 
 
@@ -24,13 +24,15 @@ CF_ADAPTATIONS: dict[str, str] = {}
 
 
 def build_brewery() -> Brewery:
-    vessels = [Vessel.unitank("f", i, 10.0) for i in range(2, 4)] + [Vessel.unitank("f", i, 5.0) for i in range(4, 10)]
+    vessels = [Vessel.unitank("f", i, 1_000.0) for i in range(2, 4)] + [
+        Vessel.unitank("f", i, 500.0) for i in range(4, 10)
+    ]
     return Brewery(
         name="Digital Twin Brewery",
         vessels=vessels,
-        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=5)],
+        brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=5)],
         # A line that bottles any tank in one run, so bottling is limited by runs a day only.
-        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=5)],
+        bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=5)],
         days_off=set(conf1.DAYS_OFF),
     )
 

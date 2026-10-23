@@ -7,7 +7,7 @@ outputs to ``experiments/ccfaa2026/results/<name>/``.
 A configuration module defines:
 
     INITIAL_ASSIGNMENTS      the baseline calendar, rows of (batch_id,
-                             recipe_key, fermenter_id, brew_day, volume_hl
+                             recipe_key, fermenter_id, brew_day, volume in litres
                              [, fermentation_days])
     build_brewery()          -> Brewery
     build_recipes()          -> dict[str, Recipe]
@@ -54,7 +54,7 @@ def declare_initial_schedule(
 ) -> Schedule:
     schedule = Schedule()
     for row in initial_assignments:
-        batch_id, recipe_key, fermenter_id, brew_day, volume_hl, *fermentation_days_override = row
+        batch_id, recipe_key, fermenter_id, brew_day, volume, *fermentation_days_override = row
         recipe = recipes[recipe_key]
         if batch_id not in schedule.batches:
             schedule.add_batch(Batch(batch_id, f"{recipe.name} #{batch_id}", recipe, planned_brew_day=brew_day))
@@ -62,7 +62,7 @@ def declare_initial_schedule(
             FermentationAssignment(
                 batch_id=batch_id,
                 fermenter=brewery.vessel_by_id(fermenter_id),
-                volume_hl=volume_hl,
+                volume=volume,
                 start_day=brew_day,
                 base_fermentation_days=(
                     fermentation_days_override[0] if fermentation_days_override else recipe.fermentation_days

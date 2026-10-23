@@ -17,7 +17,7 @@ def _assignment(batch_id: str, fermenter: Vessel, start_day: int, fermentation_d
     return FermentationAssignment(
         batch_id=batch_id,
         fermenter=fermenter,
-        volume_hl=10.0,
+        volume=1_000.0,
         start_day=start_day,
         base_fermentation_days=fermentation_days,
     )
@@ -26,9 +26,9 @@ def _assignment(batch_id: str, fermenter: Vessel, start_day: int, fermentation_d
 def test_compute_metrics_counts_changed_batches_and_shift(recipe: Recipe) -> None:
     brewery = Brewery(
         name="Metrics Brewery",
-        vessels=[Vessel.unitank("f", 1, 10.0), Vessel.unitank("f", 2, 10.0)],
-        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
-        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
+        vessels=[Vessel.unitank("f", 1, 1_000.0), Vessel.unitank("f", 2, 1_000.0)],
+        brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=1)],
+        bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=1)],
     )
     f1, f2 = brewery.vessels
 
@@ -54,9 +54,9 @@ def test_compute_metrics_counts_changed_batches_and_shift(recipe: Recipe) -> Non
 def test_compute_metrics_counts_idle_gaps(recipe: Recipe) -> None:
     brewery = Brewery(
         name="Metrics Brewery",
-        vessels=[Vessel.unitank("f", 1, 10.0)],
-        brewhouses=[Brewhouse("brewhouse", yield_l=1_000, max_brews_per_day=1)],
-        bottling_lines=[BottlingLine("line", run_volume_l=math.inf, max_runs_per_day=1)],
+        vessels=[Vessel.unitank("f", 1, 1_000.0)],
+        brewhouses=[Brewhouse("brewhouse", kettle_yield=1_000, max_brews_per_day=1)],
+        bottling_lines=[BottlingLine("line", run_volume=math.inf, max_runs_per_day=1)],
     )
     (f1,) = brewery.vessels
 

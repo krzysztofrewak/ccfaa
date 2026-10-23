@@ -46,7 +46,7 @@ from brewery_schedule_digital_twin.signals import (
     Signal,
 )
 from brewery_schedule_digital_twin.simulation import BreweryDigitalTwin
-from experiments.ccfaa2026.common import write_csv
+from experiments.ccfaa2026.common import hl, write_csv
 from experiments.ccfaa2026.config import ExperimentConfig, from_cli
 
 END_DAY = 15
@@ -148,7 +148,7 @@ def write_schedule_snapshot(path: Path, schedule: Schedule) -> None:
             {
                 "batch_id": a.batch_id,
                 "fermenter_id": a.fermenter.id,
-                "volume_hl": a.volume_hl,
+                "volume_hl": hl(a.volume),
                 "start_day": a.start_day,
                 "base_fermentation_days": a.base_fermentation_days,
                 "extra_delay_days": a.extra_delay_days,

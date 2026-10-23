@@ -18,13 +18,13 @@ class Batch:
     The batch volume is the sum of its assignments' volumes. A batch up to
     the kettle yield is one brew, possibly split across several vessels; a
     larger batch takes several brews, possibly merged into one vessel.
-    ``volume_hl`` is the requested volume of a batch that has no
+    ``volume`` is the requested volume of a batch that has no
     assignments yet; None means a full kettle yield.
 
-    ``blend`` declares a blend: the volume in hl brewed from each recipe.
+    ``blend`` declares a blend: the volume in litres brewed from each recipe.
     Each brew is of one recipe and the brews are mixed in the vessels. The
     batch's ``recipe`` still sets the fermentation time. A blend's volume
-    is the sum of its components, so ``volume_hl`` may be left out. A batch
+    is the sum of its components, so ``volume`` may be left out. A batch
     without ``blend`` takes brews of its own recipe only.
     """
 
@@ -33,7 +33,7 @@ class Batch:
     recipe: Recipe
     planned_brew_day: int
     target_bottling_day: int | None = None
-    volume_hl: float | None = None
+    volume: float | None = None
     blend: Mapping[Recipe, float] | None = field(default=None, hash=False)
 
     def __post_init__(self) -> None:
@@ -44,12 +44,12 @@ class Batch:
                 raise ValueError(f"blend volumes must be positive, got {dict(self.blend)}")
             object.__setattr__(self, "blend", MappingProxyType(dict(self.blend)))
             total = sum(self.blend.values())
-            if self.volume_hl is None:
-                object.__setattr__(self, "volume_hl", total)
-            elif not math.isclose(self.volume_hl, total, abs_tol=1e-9):
-                raise ValueError(f"volume_hl {self.volume_hl} differs from the blend total {total}")
-        if self.volume_hl is not None and self.volume_hl <= 0:
-            raise ValueError(f"volume_hl must be positive, got {self.volume_hl}")
+            if self.volume is None:
+                object.__setattr__(self, "volume", total)
+            elif not math.isclose(self.volume, total, abs_tol=1e-9):
+                raise ValueError(f"volume {self.volume} differs from the blend total {total}")
+        if self.volume is not None and self.volume <= 0:
+            raise ValueError(f"volume must be positive, got {self.volume}")
 
     def recipe_of(self, brew: Brew) -> Recipe:
         return brew.recipe if brew.recipe is not None else self.recipe
@@ -84,11 +84,11 @@ class Fill:
     """The part of a brew that is poured into one vessel."""
 
     brew: Brew
-    volume_hl: float
+    volume: float
 
     def __post_init__(self) -> None:
-        if self.volume_hl <= 0:
-            raise ValueError(f"volume_hl must be positive, got {self.volume_hl}")
+        if self.volume <= 0:
+            raise ValueError(f"volume must be positive, got {self.volume}")
 
 
 @dataclass
@@ -109,7 +109,7 @@ class FermentationAssignment:
 
     batch_id: str
     fermenter: Vessel
-    volume_hl: float
+    volume: float
     start_day: int
     base_fermentation_days: int
     extra_delay_days: int = 0
@@ -123,10 +123,10 @@ class FermentationAssignment:
     )
 
     def __post_init__(self) -> None:
-        if self.volume_hl <= 0:
-            raise ValueError(f"volume_hl must be positive, got {self.volume_hl}")
-        if self.volume_hl > self.fermenter.capacity_hl:
-            raise ValueError(f"volume_hl {self.volume_hl} exceeds capacity of fermenter {self.fermenter.id}")
+        if self.volume <= 0:
+            raise ValueError(f"volume must be positive, got {self.volume}")
+        if self.volume > self.fermenter.capacity:
+            raise ValueError(f"volume {self.volume} exceeds capacity of fermenter {self.fermenter.id}")
         if self.bottling_runs and (self.bottling_day is None or min(self.bottling_runs) != self.bottling_day):
             raise ValueError(f"bottling runs of batch {self.batch_id!r} must start on bottling_day {self.bottling_day}")
         if not self.fills:
@@ -135,17 +135,17 @@ class FermentationAssignment:
             raise ValueError(f"fills of batch {self.batch_id!r} must come from its own brews")
         if min(fill.brew.day for fill in self.fills) != self.start_day:
             raise ValueError(f"the first fill of batch {self.batch_id!r} must be on start_day {self.start_day}")
-        if not math.isclose(sum(fill.volume_hl for fill in self.fills), self.volume_hl, abs_tol=1e-9):
-            raise ValueError(f"fills of batch {self.batch_id!r} must add up to volume_hl {self.volume_hl}")
+        if not math.isclose(sum(fill.volume for fill in self.fills), self.volume, abs_tol=1e-9):
+            raise ValueError(f"fills of batch {self.batch_id!r} must add up to volume {self.volume}")
 
     @property
     def effective_fills(self) -> tuple[Fill, ...]:
         if self.fills:
             return self.fills
-        key = (self.batch_id, self.start_day, self.volume_hl)
+        key = (self.batch_id, self.start_day, self.volume)
         if self._implicit_fills is None or self._implicit_fills[0] != key:
             # Cached: schedulers ask for the implicit fill of every assignment many times.
-            self._implicit_fills = (key, (Fill(Brew(self.batch_id, 1, self.start_day), self.volume_hl),))
+            self._implicit_fills = (key, (Fill(Brew(self.batch_id, 1, self.start_day), self.volume),))
         return self._implicit_fills[1]
 
     @property

@@ -111,7 +111,7 @@ class CalendarExporter:
         return {
             "name": fermenter.name,
             "index": fermenter.index,
-            "capacity": f"{fermenter.capacity_hl:g}hl",
+            "capacity": f"{fermenter.capacity / 100:g}hl",
             "maintenance": [
                 {"start": start, "end": end} for start, end in brewery.fermenter_maintenance_windows(fermenter.id)
             ],

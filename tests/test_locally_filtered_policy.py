@@ -51,7 +51,7 @@ def _verdicts(twin: BreweryDigitalTwin) -> list[str]:
 
 def _placements(schedule: Schedule) -> set[tuple]:
     return {
-        (a.batch_id, a.fermenter.id, a.volume_hl, a.start_day, a.end_day, a.effective_bottling_day)
+        (a.batch_id, a.fermenter.id, a.volume, a.start_day, a.end_day, a.effective_bottling_day)
         for a in schedule.assignments
     }
 
