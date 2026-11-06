@@ -1,21 +1,21 @@
 import pytest
 
-from brewery_agentic_replanning.agents import (
+from brewery_schedule_digital_twin.agents import (
     FermentationAgent,
     MaintenanceAgent,
     OperationsAgent,
     ProcurementAgent,
 )
-from brewery_agentic_replanning.domain import Batch, Brewery, FermentationAssignment, Recipe, Schedule
-from brewery_agentic_replanning.policies import ManualPolicy
-from brewery_agentic_replanning.scheduling import HeuristicScheduler
-from brewery_agentic_replanning.signals import (
+from brewery_schedule_digital_twin.domain import Batch, Brewery, FermentationAssignment, Recipe, Schedule
+from brewery_schedule_digital_twin.policies import ManualPolicy
+from brewery_schedule_digital_twin.scheduling import HeuristicScheduler
+from brewery_schedule_digital_twin.signals import (
     DayOffSignal,
     FermentationDelaySignal,
     FermenterMaintenanceSignal,
     IngredientShortageSignal,
 )
-from brewery_agentic_replanning.simulation import BreweryDigitalTwin
+from brewery_schedule_digital_twin.simulation import BreweryDigitalTwin
 
 
 def _assignment(
@@ -23,8 +23,8 @@ def _assignment(
 ) -> FermentationAssignment:
     return FermentationAssignment(
         batch_id=batch_id,
-        fermenter=brewery.fermenters[fermenter],
-        volume_hl=10.0,
+        fermenter=brewery.vessels[fermenter],
+        volume=1_000.0,
         start_day=start_day,
         base_fermentation_days=10,
         **kwargs,

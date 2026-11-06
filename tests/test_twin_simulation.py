@@ -1,11 +1,11 @@
 import pytest
 
-from brewery_agentic_replanning.agents import FermentationAgent, OperationsAgent
-from brewery_agentic_replanning.domain import Batch, Brewery, FermentationAssignment, Recipe, Schedule
-from brewery_agentic_replanning.policies import ManualPolicy, ReplanningPolicy, UncoordinatedPolicy
-from brewery_agentic_replanning.scheduling import HeuristicScheduler
-from brewery_agentic_replanning.signals import DayOffSignal, FermentationDelaySignal
-from brewery_agentic_replanning.simulation import BreweryDigitalTwin
+from brewery_schedule_digital_twin.agents import FermentationAgent, OperationsAgent
+from brewery_schedule_digital_twin.domain import Batch, Brewery, FermentationAssignment, Recipe, Schedule
+from brewery_schedule_digital_twin.policies import ManualPolicy, ReplanningPolicy, UncoordinatedPolicy
+from brewery_schedule_digital_twin.scheduling import HeuristicScheduler
+from brewery_schedule_digital_twin.signals import DayOffSignal, FermentationDelaySignal
+from brewery_schedule_digital_twin.simulation import BreweryDigitalTwin
 
 
 class ReplanOnEffect(ReplanningPolicy):
@@ -22,8 +22,8 @@ def _initial_schedule(brewery: Brewery, recipe: Recipe) -> Schedule:
     schedule.add_assignment(
         FermentationAssignment(
             batch_id="001",
-            fermenter=brewery.fermenters[0],
-            volume_hl=10.0,
+            fermenter=brewery.vessels[0],
+            volume=1_000.0,
             start_day=0,
             base_fermentation_days=10,
             locked=True,

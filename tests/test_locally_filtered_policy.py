@@ -3,21 +3,21 @@ from itertools import pairwise
 
 import pytest
 
-from brewery_agentic_replanning.domain import Batch, Recipe, Schedule
-from brewery_agentic_replanning.policies import (
+from brewery_schedule_digital_twin.domain import Batch, Recipe, Schedule
+from brewery_schedule_digital_twin.policies import (
     AssessingPolicy,
     CoordinatedPolicy,
     LocallyFilteredPolicy,
     UncoordinatedPolicy,
 )
-from brewery_agentic_replanning.signals import (
+from brewery_schedule_digital_twin.signals import (
     DayOffSignal,
     FermenterMaintenanceSignal,
     IngredientShortageSignal,
     NewBatchRequirementSignal,
     Signal,
 )
-from brewery_agentic_replanning.simulation import BreweryDigitalTwin
+from brewery_schedule_digital_twin.simulation import BreweryDigitalTwin
 
 RunTwin = Callable[..., BreweryDigitalTwin]
 
@@ -51,7 +51,7 @@ def _verdicts(twin: BreweryDigitalTwin) -> list[str]:
 
 def _placements(schedule: Schedule) -> set[tuple]:
     return {
-        (a.batch_id, a.fermenter.id, a.volume_hl, a.start_day, a.end_day, a.effective_bottling_day)
+        (a.batch_id, a.fermenter.id, a.volume, a.start_day, a.end_day, a.effective_bottling_day)
         for a in schedule.assignments
     }
 
@@ -199,7 +199,7 @@ def test_every_policy_produces_a_feasible_schedule(run_twin: RunTwin, policy_nam
     twin = run_twin(POLICIES[policy_name](), _mixed_signals())
     brewery, schedule = twin.brewery, twin.schedule
 
-    for fermenter in brewery.fermenters:
+    for fermenter in brewery.vessels:
         windows = sorted((a.start_day, a.end_day) for a in schedule.assignments_on_fermenter(fermenter.id))
         for earlier, later in pairwise(windows):
             assert earlier[1] <= later[0], f"{fermenter.id} double-booked: {earlier} vs {later}"

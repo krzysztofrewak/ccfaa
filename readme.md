@@ -1,10 +1,10 @@
-# Coordinating Cross-Functional Agent Assessments for Production Replanning in a Brewery Digital Twin
+# Brewery Schedule Digital Twin
 
-A digital twin of a batch brewery receives signals from four production functions. Domain agents assess each signal against the current production state as KEEP, PENDING or REPLAN, and a replanning policy decides when the shared schedule is reconstructed by a greedy scheduler. Three policies are compared: uncoordinated event-driven, locally filtered event-driven and coordinated replanning.
+A digital twin of a batch brewery for experiments on production scheduling and replanning. The twin keeps a fermentation schedule for a configurable set of fermenters, advances it day by day and reacts to signals from production functions such as fermentation delays, ingredient shortages, new orders, days off and maintenance windows. Each experiment set built on the twin belongs to one publication and lives in its own directory under `experiments/`.
 
 ## Installation
 
-Python 3.10 or newer is required. The package has no runtime dependencies.
+Python 3.10 or newer is required. The only runtime dependency is [OR-Tools](https://developers.google.com/optimization), for the CP-SAT scheduler.
 
 ```bash
 python -m venv .venv
@@ -14,104 +14,102 @@ pip install -e ".[dev]"
 
 ## Package
 
-`brewery_agentic_replanning`:
+`brewery_schedule_digital_twin`:
 
-| Module       | Contents                                                                                                                         |
-|--------------|----------------------------------------------------------------------------------------------------------------------------------|
-| `domain`     | `Recipe`, `Fermenter`, `Brewery`, `Batch`, `FermentationAssignment`, `Schedule`                                                  |
-| `signals`    | `FermentationDelaySignal`, `IngredientShortageSignal`, `NewBatchRequirementSignal`, `DayOffSignal`, `FermenterMaintenanceSignal` |
-| `agents`     | one agent per signal type (Production, Procurement, Sales and Operations functions), each with `apply()` and `assess()`          |
-| `policies`   | `UncoordinatedPolicy` (UNC), `LocallyFilteredPolicy` (LF), `CoordinatedPolicy` (COORD), and `ManualPolicy` for scripted replanning|
-| `scheduling` | the `Scheduler` interface and `HeuristicScheduler`                                                                               |
-| `simulation` | `BreweryDigitalTwin`, which advances the simulation day by day                                                                   |
-| `metrics`    | schedule change measures relative to the baseline                                                                                |
-| `export`     | JSON export for the calendar viewer in `public/index.html`                                                                       |
+| Module       | Contents                                                                                                                           |
+|--------------|------------------------------------------------------------------------------------------------------------------------------------|
+| `domain`     | `Recipe`, `Vessel` and `VesselRole`, `Brewhouse`, `BottlingLine`, `Brewery`, `Batch`, `Brew`, `Fill`, `FermentationAssignment`, `Schedule`                      |
+| `signals`    | `FermentationDelaySignal`, `IngredientShortageSignal`, `NewBatchRequirementSignal`, `DayOffSignal`, `FermenterMaintenanceSignal`   |
+| `agents`     | one agent per signal type (Production, Procurement, Sales and Operations functions), each with `apply()` and `assess()`            |
+| `policies`   | `UncoordinatedPolicy` (UNC), `LocallyFilteredPolicy` (LF), `CoordinatedPolicy` (COORD), and `ManualPolicy` for scripted replanning |
+| `scheduling` | the `Scheduler` interface, `HeuristicScheduler`, `CpSatScheduler`, `DifferentialEvolutionScheduler`, `SCHEDULERS` (the schedulers by name) and `repair_cost` |
+| `simulation` | `BreweryDigitalTwin`, which advances the simulation day by day                                                                     |
+| `metrics`    | schedule change measures relative to the baseline                                                                                  |
+| `generation` | `ScheduleGenerator`, which fills a running brewery with random batches up to a target occupancy, and `occupancy`                 |
+| `export`     | JSON export for the calendar viewer in `public/index.html`                                                                         |
 
-## Brewery configurations
+## Vessels and recipes
 
-Every experiment runs on a named configuration from `experiments/configs/` and accepts `--config <name>` (default `conf1`):
+A brewery is configured with any list of vessels. A `Vessel` has a name, an index, a capacity and a set of roles saying what it can hold a batch for:
 
-| Configuration | Description                                                      |
-|---------------|------------------------------------------------------------------|
-| `conf1`       | reference brewery: 3 × 10 hl and 4 × 5 hl fermenters, 19 batches |
-| `conf2`       | conf1 with four batches removed (reduced production load)        |
-| `conf3`       | conf1 with fermenter f1 replaced by two 5 hl fermenters          |
+| Role        | Use                                                          | Recipe time                   |
+|-------------|--------------------------------------------------------------|-------------------------------|
+| `FULL`      | the whole fermentation, without a transfer                   | `fermentation_days`           |
+| `PRIMARY`   | primary fermentation, followed by a transfer                 | `primary_fermentation_days`   |
+| `SECONDARY` | secondary fermentation, after a transfer from another vessel | `secondary_fermentation_days` |
 
-`experiments/config.py` lists what a configuration module must define.
+A batch either stays in one `FULL` vessel, or ferments in a `PRIMARY` vessel and is transferred to a different `SECONDARY` vessel. The three recipe times are independent: the stage times need not add up to `fermentation_days`, and they are optional. Any combination of roles is allowed; named constructors cover the common vessels:
+
+| Constructor             | Roles                  |
+|-------------------------|------------------------|
+| `Vessel.unitank`        | `FULL`                 |
+| `Vessel.fermenter`      | `PRIMARY`              |
+| `Vessel.lagering_tank`  | `SECONDARY`            |
+| `Vessel.general_vessel` | `PRIMARY`, `SECONDARY` |
+
+All schedulers keep a batch in one vessel for `fermentation_days`, so they only use `FULL` vessels; scheduling with transfers is not implemented yet.
+
+## Brewhouses and bottling lines
+
+A `Brewery` takes a list of `Brewhouse`s and a list of `BottlingLine`s besides its vessels; it needs at least one of each. All volumes in the package (vessel capacities, batch, fill and run volumes, kettle yields) are in litres:
+
+| Equipment      | Settings                                                                                                     |
+|----------------|--------------------------------------------------------------------------------------------------------------|
+| `Brewhouse`    | `kettle_yield`: litres per brew; `max_brews_per_day`                                                         |
+| `BottlingLine` | `run_volume`: litres bottled or canned in one run (`math.inf` for any vessel in one run); `max_runs_per_day` |
+
+A brew names its brewhouse in `Brew.brewhouse`, and an assignment names its line in `FermentationAssignment.bottling_line`; None names the only one in a brewery that has one. A bottling run takes beer from one vessel, so a vessel holding more than one run volume is bottled in several runs, listed in `FermentationAssignment.bottling_runs` by day, and stays occupied until the last of them. `BottlingLine.by_daily_volume(name, volume_per_day_l)` makes a line limited only by the volume it bottles a day: it counts runs of 1 hl, so several vessels share the daily volume. `Brewery.kettle_yield_hl`, `max_brews_per_day` and `max_bottling_runs_per_day` sum up the equipment: the largest brew and the brews and runs a day of the whole brewery.
+
+`HeuristicScheduler` brews each brew in the smallest brewhouse that makes it and has a free slot that day, so the brews of one batch may come from several brewhouses. It bottles each vessel on the line that finishes it soonest, taking every free run of the line on each working day, so bottling takes as few days as possible; the vessels of one batch start bottling on the same day, possibly on different lines, unless the batch needs more runs than all lines take a day: then each further vessel starts on the first day its line has a free run.
+
+## Batches, brews and fills
+
+A `Batch` is a quantity of one beer. It is brewed in one or more `Brew`s, each at most the yield of its brewhouse, and poured into vessels as `Fill`s, so a batch can be split and merged at the same time:
+
+- split: one brew is poured into several vessels, for example a 10 hl brew into two 5 hl vessels;
+- merge: several brews are poured into one vessel, for example two 50 hl brews into a 100 hl vessel.
+
+A `FermentationAssignment` is a batch's beer in one vessel. Without `fills` it holds a single brew poured on `start_day`; with `fills` it lists the brews poured into it. Fermentation starts with the first fill and ends `fermentation_days` after the last one. All brews of a batch are brewed within `Brewery.max_brew_spread_days` (2 by default) of the first.
+
+A blend is declared explicitly on the batch, as the volume brewed from each recipe: `Batch(..., recipe=STOUT, blend={STOUT: 70.0, PORTER: 30.0})`. Each brew is of one recipe, set in `Brew.recipe`, and the brews are mixed in the vessels. The batch's `recipe` sets the fermentation time. A batch without `blend` takes brews of its own recipe only.
+
+`Schedule.validate()` lists errors, among them brews above the yield of their brewhouse, more brews or bottling runs in a day than a brewhouse or line allows, too few bottling runs for a vessel's volume, brews spread over more days than allowed, brews of another recipe in a batch that declares no blend and blends whose brewed volumes differ from the declared ones.
+
+`HeuristicScheduler` brews a batch above the largest brew in the fewest equal brews, as close together as the brewhouses allow, and fills its vessels with them in order. It brews a blend recipe by recipe, each in the fewest equal brews, and spreads every brew over the vessels in proportion to their volumes, so each vessel holds the declared blend. `tests/test_scheduler_contract.py` holds the rules every scheduler has to keep on every brewery configuration; a new scheduler is checked by adding it to `SCHEDULERS` there.
+
+## Schedulers
+
+A `Scheduler` repairs a schedule in `replan(brewery, schedule, current_day)`: it locks every batch that has started and returns a new schedule in which locked assignments keep their fermenter and brew days. The digital twin takes any scheduler, and `scheduling.SCHEDULERS` names the three there are, so an experiment can swap them:
+
+| Name        | Scheduler            | Approach                                                                                                                                 |
+|-------------|----------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| `heuristic` | `HeuristicScheduler` | greedy list scheduling: keeps every placement that is still feasible and moves the others to the earliest feasible day, batch by batch |
+| `cpsat`     | `CpSatScheduler`     | one CP-SAT model ([OR-Tools](https://developers.google.com/optimization/cp/cp_solver)) of all decisions not yet taken, solved at once    |
+| `de`        | `DifferentialEvolutionScheduler` | differential evolution over the batch order, keeping and vessel choice of `HeuristicScheduler`, which decodes every genome   |
+
+`repair_cost(original, repaired, current_day, weights)` measures how far a repaired schedule departs from the one being repaired, with `RepairWeights`: every day a brew or the last bottling run of a planned batch or of a locked vessel moves, a planned batch put into other vessels and a brew moved to another brewhouse, and, for batches without a placement, the days they are brewed and bottled after their earliest day. `CpSatScheduler` and `DifferentialEvolutionScheduler` minimise it, and it compares any schedulers on the same scale.
+
+`CpSatScheduler` decides the day and brewhouse of each brew, the vessels of each batch and the line and days of each vessel's bottling runs, and also the bottling of locked vessels that has not started. A batch keeps the brews it has, or gets the fewest equal brews per recipe; its vessels are one of up to `max_placements` options: its current placement, the one `HeuristicScheduler` finds and the least wasteful single vessels and minimal combinations of `FULL` vessels. Its objective is `repair_cost`. `HeuristicScheduler`'s schedule bounds the horizon and, completed in a first solve of up to half the time limit, is the solver's starting solution, so its `repair_cost` is never above the heuristic's; the solver stops after `time_limit_seconds` (10 by default) with the best schedule it found, and raises `SchedulingError` if it found none; with `workers=1` (the default) the search is deterministic up to the time limit. `solver_parameters` passes further CP-SAT parameters by name. `last_report`, a `CpSatReport`, gives the solver status of the last replan (`OPTIMAL` if proven optimal, `FEASIBLE` if the best found in time), the cost of its schedule and the solver's lower bound on it, and whether the starting solution was completed and returned.
+
+`DifferentialEvolutionScheduler` searches the decisions `HeuristicScheduler` takes rather than the schedule itself. A genome holds three keys in [0, 1] per batch that is not locked: the order key sets the order the batches are placed in, a keep key of 0.5 or more lets a batch keep its current placement while it is feasible, and the vessel key picks, of the vessels that hold the batch alone, the one at that fraction of them by capacity (0 is the smallest, the heuristic's choice). The greedy list scheduler decodes a genome into a schedule, and its cost is `repair_cost`. The population of `population_size` (20) starts with the genome of the heuristic's own schedule and evolves by DE/rand/1/bin with `mutation` F (0.5) and `crossover` CR (0.9), a trial replacing its target if it costs no more, for `generations` (50) or `time_limit_seconds` (10), whichever ends first. The result is therefore never worse than the heuristic's; `last_report`, an `EvolutionReport`, gives its cost and the heuristic's, the number of decoded schedules and of generations, and whether the time limit stopped the search. With a fixed `seed` the search is deterministic unless the time limit stops it. Since the decoder is greedy, the search only reaches the schedules the heuristic can build in some order and choice of vessels; vessel combinations, brew days and bottling are still the heuristic's.
 
 ## Experiments
 
-Experiments are run from the repository root as modules, for example `python -m experiments.exp2 --config conf1`. Every experiment is deterministic and writes its outputs to `experiments/results/`, which is not tracked; the outputs of a complete run are distributed in [`reference_results/`](#reference-results).
+Every experiment set has its own readme, brewery configurations, scripts and reference results. Experiments are run from the repository root as modules, for example `python -m experiments.ccfaa2026.exp2`.
 
-| Experiment                | Description                                                                                                                                                                                                                                                   |
-|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `exp0`                    | Walkthrough: the configuration's `exp0_events` are applied and the brewery is replanned once; writes the calendar for the viewer.                                                                                                                             |
-| `exp1`                    | Single signals from `exp1_scenarios`, each applied to a fresh baseline and replanned on day 4; prints the schedule change measures.                                                                                                                           |
-| `exp2`                    | Sweep of non-working-day signals: signal day, day off and replanning day in 0–13 (1,015 instances).                                                                                                                                                           |
-| `exp2b`                   | Sweep of ingredient shortages: signal day, every batch not yet brewed, availability 1–13 days later (2,080 instances).                                                                                                                                        |
-| `exp2c`                   | Sweep of fermentation completion deviations of −3…−1 and +1…+7 days for every active tank (948 instances).                                                                                                                                                    |
-| `exp2d`                   | Sweep of maintenance windows for every fermenter, starting 0–13 days after the signal and lasting 1–14 days (19,208 instances).                                                                                                                               |
-| `exp2e`                   | Sweep of new production requirements with brewing 0–13 days after the signal and bottling slack of 0, 3, 7 or 14 days (676 instances).                                                                                                                        |
-| `exp2_assessment_check`   | Agreement of each agent assessment with the effect of replanning, for all `exp2*` instances. Requires the `exp2*` results.                                                                                                                                    |
-| `exp3_cross_functional`   | Scenarios CF1–CF4 under the three policies on one configuration.                                                                                                                                                                                              |
-| `exp4_configurations`     | Baseline validation and `exp3_cross_functional` on conf1–conf3, with combined results in `experiments/results/combined/`.                                                                                                                                     |
-| `exp5_random_scenarios`   | Robustness check: 200 random cross-functional scenarios (seed 20260930) on conf1–conf3 under the three policies, with the legacy Sales rule (`experiments/legacy.py`). Run `generate`, then `run`; outputs go to `experiments/results/exp5/`.                 |
-| `exp6_sales_rule_variant` | COORD with the current Sales rule on the exp5 scenarios, compared with the exp5 results under the legacy rule. Requires the exp5 outputs.                                                                                                                     |
-| `exp7_feasibility_check`  | LF, COORD and COORD_FC, COORD with an experimental deferral feasibility check (trial reconstructions on isolated copies), on the exp5 scenarios, with reconstructions, trial runs and computation time reported separately.                                   |
-| `exp8_holdout`            | Frozen hold-out test of the final method: 200 new random scenarios (seed 20261001, exp5 generator) on conf1–conf3 under UNC, LF and COORD with the production agents. Run `generate`, then `run`; `run` checks the recorded SHA-256 of the scenarios.         |
+| Code                                 | Publication                                                                                         | Status    |
+|--------------------------------------|-----------------------------------------------------------------------------------------------------|-----------|
+| [`ccfaa2026`](experiments/ccfaa2026) | Coordinating Cross-Functional Agent Assessments for Production Replanning in a Brewery Digital Twin | complete  |
+| [`itch2027`](experiments/itch2027)   | The Impact of Tank Capacity Heterogeneity on Brewery Production Scheduling                          | complete  |
 
-To run the single-signal sweeps, the assessment check and the comparison of configurations:
-
-```bash
-for e in exp2 exp2b exp2c exp2d exp2e exp2_assessment_check exp4_configurations; do
-    python -m experiments.$e
-done
-```
-
-### Outputs of the cross-functional experiment
-
-`exp3_results.csv` has one row per scenario and policy:
-
-| Column                                     | Meaning                                                                                                                                 |
-|--------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| `scheduler_invocations`, `replanning_days` | number and days of scheduler calls                                                                                                      |
-| `changed_batches`, `pct_changed_batches`   | batches whose assignments differ from the baseline, including new batches; the percentage is relative to all baseline and final batches |
-| `total_abs_schedule_shift`                 | sum of absolute brewing and bottling day changes of existing batches                                                                    |
-| `net_schedule_shift`                       | signed sum of changes in each fermenter's last completion day                                                                           |
-| `idle_fermenter_days`                      | unused fermenter days between day 15 and each fermenter's last completion                                                               |
-| `feasible`, `target_feasible`              | whether the scheduler succeeded and the new order met its target bottling day                                                           |
-
-`exp3_assessment_log.csv` has one row per agent assessment: `local_assessment` is the agent's verdict, `status` the policy's action on it and `latest_safe_day` the latest safe decision point. `exp3_decision_log.csv` has one row per decision cycle, listing the signals it covered and whether the scheduler was invoked. Schedule snapshots after every scheduler call are written to `exp3/<scenario>/<policy>/`.
-
-## Reference results
-
-`reference_results/` holds the outputs of one complete run of every experiment with the code in this repository. It has the same layout as `experiments/results/`, so a new run can be compared with it file by file:
-
-```bash
-diff -r experiments/results reference_results
-```
-
-| Path                                                                    | Experiment                | Contents                                                                                                                                                            |
-|-------------------------------------------------------------------------|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `conf1/exp0_calendar.json`                                              | `exp0`                    | calendar data for the viewer, copied from `public/data/conf1/calendar.json`                                                                                         |
-| `conf1/exp1_output.txt`                                                 | `exp1`                    | console output; the experiment writes no files                                                                                                                      |
-| `conf1/exp2*_results.csv`                                               | `exp2`–`exp2e`            | one row per single-signal instance                                                                                                                                  |
-| `conf1/exp2_assessment_verdicts.csv`, `conf1/exp2_assessment_check.csv` | `exp2_assessment_check`   | the agent assessment of every instance, and its agreement with the effect of replanning                                                                             |
-| `conf<n>/exp3_*.csv`, `conf<n>/exp3/`                                   | `exp3_cross_functional`   | results, assessment and decision logs and schedule snapshots per configuration                                                                                      |
-| `combined/`                                                             | `exp4_configurations`     | configuration summary, baseline validation, scenario definitions, input identity, the exp3 outputs of all configurations, policy comparison and volume preservation |
-| `exp5/`                                                                 | `exp5_random_scenarios`   | scenario definitions, run results, policy differences and summaries                                                                                                 |
-| `exp6/`                                                                 | `exp6_sales_rule_variant` | variant runs, feasibility, summaries and failure diagnosis                                                                                                          |
-| `exp7/`                                                                 | `exp7_feasibility_check`  | runs, feasibility, feasibility check events, cost and summaries                                                                                                     |
-| `exp8/`                                                                 | `exp8_holdout`            | the frozen scenario definitions with their SHA-256, run results, pairwise differences and summaries                                                                 |
-
-The `*_seconds` columns of `exp7/runs.csv` and `exp7/cost_summary.csv` are wall-clock times and differ between runs and machines; all other values are reproduced exactly. `exp8_holdout run` only accepts scenario definitions matching `exp8/scenario_definitions.sha256`, so the holdout is rerun by copying both files to `experiments/results/exp8/` instead of generating new ones.
+A new experiment set goes to `experiments/<code>/`, where the code is an abbreviation of the publication title followed by the year, with a readme describing its experiments and outputs. Tests specific to an experiment set go to `tests/<code>/`.
 
 ## Calendar viewer
 
-`public/index.html` shows the original and replanned schedules written by `exp0`. Serve the directory and open `index.html?config=<name>`:
+`public/index.html` shows an original and a replanned schedule exported with `brewery_schedule_digital_twin.export`. Serve the directory and open `index.html?config=<name>`, which reads `public/data/<name>/calendar.json`:
 
 ```bash
-python -m experiments.exp0
+python -m experiments.ccfaa2026.exp0
 python -m http.server -d public
 ```
 
@@ -122,8 +120,6 @@ pytest
 ruff check .
 mypy
 ```
-
-`tests/test_cross_functional_results.py` checks the scheduler invocation days and final schedule measures of all 36 runs (four scenarios, three configurations, three policies).
 
 ## License
 

@@ -1,9 +1,9 @@
 from collections.abc import Callable
 
-from brewery_agentic_replanning.domain import Brewery, Schedule
-from brewery_agentic_replanning.policies import CoordinatedPolicy, UncoordinatedPolicy
-from brewery_agentic_replanning.signals import DayOffSignal, FermenterMaintenanceSignal, IngredientShortageSignal
-from brewery_agentic_replanning.simulation import BreweryDigitalTwin
+from brewery_schedule_digital_twin.domain import Brewery, Schedule
+from brewery_schedule_digital_twin.policies import CoordinatedPolicy, UncoordinatedPolicy
+from brewery_schedule_digital_twin.signals import DayOffSignal, FermenterMaintenanceSignal, IngredientShortageSignal
+from brewery_schedule_digital_twin.simulation import BreweryDigitalTwin
 
 RunTwin = Callable[..., BreweryDigitalTwin]
 
