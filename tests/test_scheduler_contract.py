@@ -20,10 +20,17 @@ from brewery_schedule_digital_twin.domain import (
     Vessel,
     VesselRole,
 )
-from brewery_schedule_digital_twin.scheduling import HeuristicScheduler, Scheduler
+from brewery_schedule_digital_twin.scheduling import (
+    CpSatScheduler,
+    DifferentialEvolutionScheduler,
+    HeuristicScheduler,
+    Scheduler,
+)
 
 SCHEDULERS: dict[str, Callable[[], Scheduler]] = {
     "heuristic": HeuristicScheduler,
+    "cpsat": CpSatScheduler,
+    "de": DifferentialEvolutionScheduler,
 }
 
 ALE = Recipe(name="Ale", fermentation_days=10)

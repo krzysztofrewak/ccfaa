@@ -21,19 +21,21 @@ def occupancy(brewery: Brewery, schedule: Schedule, horizon_days: int) -> float:
 
 @dataclass(frozen=True)
 class _Tank:
-    """One vessel of a generated batch: the (brew index, volume) of its fills and the days of its bottling runs."""
+    """One vessel of a generated batch: the (brew index, volume) of its fills, its line and the days of its runs."""
 
     vessel: Vessel
     fills: tuple[tuple[int, float], ...]
+    line: int
     runs: tuple[int, ...]
 
 
 @dataclass(frozen=True)
 class _Planned:
-    """A generated batch before it is numbered: the day of each brew and the vessels they fill."""
+    """A generated batch before it is numbered: the day and brewhouse of each brew and the vessels they fill."""
 
     recipe: Recipe
     brew_days: tuple[int, ...]
+    brewhouses: tuple[int, ...]
     tanks: tuple[_Tank, ...]
 
     def start_day(self, tank: _Tank) -> int:
@@ -71,9 +73,13 @@ class ScheduleGenerator:
     so the kept batches are bottled again, in the order they were
     generated, before the occupancy is checked.
 
-    The brewery must have one brewhouse and one bottling line. Batches are
-    numbered by brew day and their planned brew day is the day of their
-    first brew, so the schedule validates as a baseline.
+    In a brewery of several brewhouses each brew is made, day by day, in
+    the brewhouses that make it, in the order they are listed, while they
+    have free slots, so the brews of one batch may come from several. In
+    one of several bottling lines each tank is bottled on the line that
+    finishes it soonest, the first listed on a tie. Batches are numbered by
+    brew day and their planned brew day is the day of their first brew, so
+    the schedule validates as a baseline.
     """
 
     def fill(
@@ -91,12 +97,9 @@ class ScheduleGenerator:
         if not recipes:
             raise ValueError("at least one recipe is needed")
 
-        if len(brewery.brewhouses) > 1 or len(brewery.bottling_lines) > 1:
-            raise ValueError("only a brewery with one brewhouse and one bottling line can be filled for now")
-
         chains = self._chains(brewery, recipes, horizon_days, rng)
         kept = self._thin_out(brewery, chains, fill_ratio, horizon_days, rng)
-        return self._schedule(kept)
+        return self._schedule(brewery, kept)
 
     @staticmethod
     def _chains(brewery: Brewery, recipes: Sequence[Recipe], horizon_days: int, rng: random.Random) -> list[_Planned]:
@@ -105,10 +108,8 @@ class ScheduleGenerator:
         if not tanks:
             raise ValueError(f"brewery {brewery.name!r} has no FULL vessels to fill")
         shortest = min(recipe.fermentation_days for recipe in recipes)
-        brewhouse = brewery.brewhouses[0]
-        line = brewery.bottling_lines[0]
-        brews: Counter[int] = Counter()
-        runs: Counter[int] = Counter()
+        brews: Counter[tuple[int, int]] = Counter()
+        runs: Counter[tuple[int, int]] = Counter()
 
         def split_with(vessel: Vessel, day: int) -> list[Vessel]:
             """The vessel and the tanks free on the same day that one brew still fills with it."""
@@ -121,21 +122,31 @@ class ScheduleGenerator:
                     volume += tank.capacity
             return chosen
 
-        def brew_days(day: int, count: int) -> tuple[int, ...] | None:
-            """The days of ``count`` brews, the first on ``day``, as early as the brewhouse allows."""
-            if not brewery.is_working_day(day) or brews[day] >= brewhouse.max_brews_per_day:
+        def brew_slots(day: int, volume: float) -> tuple[tuple[int, int], ...] | None:
+            """The (day, brewhouse) of the fewest brews of ``volume``, the first on ``day``, as early as possible."""
+            count = max(1, math.ceil(volume / brewery.kettle_yield - 1e-9))
+            able = [
+                (index, brewhouse)
+                for index, brewhouse in enumerate(brewery.brewhouses)
+                if brewhouse.kettle_yield + 1e-9 >= volume / count
+            ]
+            if not brewery.is_working_day(day) or all(brews[index, day] >= b.max_brews_per_day for index, b in able):
                 return None
-            days: list[int] = []
+            slots: list[tuple[int, int]] = []
             for candidate in range(day, day + brewery.max_brew_spread_days + 1):
                 if brewery.is_working_day(candidate):
-                    days += [candidate] * min(brewhouse.max_brews_per_day - brews[candidate], count - len(days))
-                if len(days) == count:
-                    return tuple(days)
+                    for index, brewhouse in able:
+                        free = brewhouse.max_brews_per_day - brews[index, candidate]
+                        slots += [(candidate, index)] * min(free, count - len(slots))
+                if len(slots) == count:
+                    return tuple(slots)
             return None
 
         def fits(days: tuple[int, ...], recipe: Recipe) -> bool:
             bottling_day = days[-1] + recipe.fermentation_days - 1
-            return brewery.is_working_day(bottling_day) and runs[bottling_day] < line.max_runs_per_day
+            return brewery.is_working_day(bottling_day) and any(
+                runs[index, bottling_day] < line.max_runs_per_day for index, line in enumerate(brewery.bottling_lines)
+            )
 
         # The first batch of every tank is already fermenting on day 0: if it
         # does not fit, it is brewed a day earlier rather than later.
@@ -152,7 +163,8 @@ class ScheduleGenerator:
             group = split_with(vessel, day)
             first = any(tank.id in first_pending for tank in group)
             volume = sum(tank.capacity for tank in group)
-            days = brew_days(day, max(1, math.ceil(volume / brewery.kettle_yield - 1e-9)))
+            slots = brew_slots(day, volume)
+            days = None if slots is None else tuple(slot_day for slot_day, _ in slots)
             candidates = rng.sample(list(recipes), len(recipes))
             recipe = next(
                 (
@@ -162,7 +174,7 @@ class ScheduleGenerator:
                 ),
                 None,
             )
-            if days is None or recipe is None:
+            if slots is None or days is None or recipe is None:
                 pending = vessel.id in first_pending
                 if pending and day - 1 + longest > 0:
                     free_from[vessel.id] = day - 1
@@ -170,8 +182,8 @@ class ScheduleGenerator:
                     first_pending.discard(vessel.id)
                     free_from[vessel.id] = max(day, 0) + 1 if pending else day + 1
                 continue
-            for brew_day in days:
-                brews[brew_day] += 1
+            for slot in slots:
+                brews[slot[1], slot[0]] += 1
             bottling_day = days[-1] + recipe.fermentation_days - 1
             planned_tanks = []
             for tank in group:
@@ -179,8 +191,8 @@ class ScheduleGenerator:
                     fills = tuple((index, volume / len(days)) for index in range(len(days)))
                 else:
                     fills = ((0, tank.capacity),)
-                planned_tanks.append(_Tank(tank, fills, _bottle(brewery, runs, bottling_day, tank.capacity)))
-            batch = _Planned(recipe, days, tuple(planned_tanks))
+                planned_tanks.append(_Tank(tank, fills, *_bottle(brewery, runs, bottling_day, tank.capacity)))
+            batch = _Planned(recipe, days, tuple(brewhouse for _, brewhouse in slots), tuple(planned_tanks))
             batches.append(batch)
             for planned in batch.tanks:
                 first_pending.discard(planned.vessel.id)
@@ -221,27 +233,34 @@ class ScheduleGenerator:
     def _rebottle(brewery: Brewery, batches: list[_Planned]) -> list[_Planned]:
         """Bottles the kept batches again in the order they were generated, into the runs removed batches freed.
 
-        With fewer batches on the line every run falls on the same day or
-        earlier, so no tank is occupied longer than before.
+        Every tank stays on its line, so with fewer batches on each line
+        every run falls on the same day or earlier and no tank is occupied
+        longer than before. Choosing the lines again could move a tank later.
         """
-        runs: Counter[int] = Counter()
+        runs: Counter[tuple[int, int]] = Counter()
         rebottled = []
         for batch in batches:
             bottling_day = batch.brew_days[-1] + batch.recipe.fermentation_days - 1
-            tanks = tuple(
-                replace(tank, runs=_bottle(brewery, runs, bottling_day, tank.vessel.capacity)) for tank in batch.tanks
-            )
-            rebottled.append(replace(batch, tanks=tanks))
+            tanks = []
+            for tank in batch.tanks:
+                _, days = _bottle(brewery, runs, bottling_day, tank.vessel.capacity, tank.line)
+                tanks.append(replace(tank, runs=days))
+            rebottled.append(replace(batch, tanks=tuple(tanks)))
         return rebottled
 
     @staticmethod
-    def _schedule(batches: list[_Planned]) -> Schedule:
+    def _schedule(brewery: Brewery, batches: list[_Planned]) -> Schedule:
+        several_brewhouses = len(brewery.brewhouses) > 1
+        several_lines = len(brewery.bottling_lines) > 1
         schedule = Schedule()
         ordered = sorted(batches, key=lambda batch: (batch.brew_days[0], batch.tanks[0].vessel.id))
         for number, batch in enumerate(ordered, start=1):
             batch_id = f"B{number:03d}"
             recipe = batch.recipe
-            brews = [Brew(batch_id, index, day) for index, day in enumerate(batch.brew_days, start=1)]
+            brews = [
+                Brew(batch_id, index, day, brewhouse=brewery.brewhouses[brewhouse].name if several_brewhouses else None)
+                for index, (day, brewhouse) in enumerate(zip(batch.brew_days, batch.brewhouses, strict=True), start=1)
+            ]
             schedule.add_batch(
                 Batch(
                     batch_id,
@@ -262,20 +281,35 @@ class ScheduleGenerator:
                         bottling_day=tank.runs[0],
                         fills=tuple(Fill(brews[index], volume) for index, volume in tank.fills),
                         bottling_runs=tank.runs if len(tank.runs) > 1 else (),
+                        bottling_line=brewery.bottling_lines[tank.line].name if several_lines else None,
                     )
                 )
         return schedule
 
 
-def _bottle(brewery: Brewery, runs: Counter[int], day: int, volume: float) -> tuple[int, ...]:
-    """Takes the runs that bottle ``volume`` from ``day`` on, as many a day as the line has free."""
-    line = brewery.bottling_lines[0]
-    needed = line.runs_for(volume)
-    days: list[int] = []
-    while len(days) < needed:
-        if brewery.is_working_day(day):
-            taken = min(line.max_runs_per_day - runs[day], needed - len(days))
-            days += [day] * taken
-            runs[day] += taken
-        day += 1
-    return tuple(days)
+def _bottle(
+    brewery: Brewery, runs: Counter[tuple[int, int]], day: int, volume: float, line: int | None = None
+) -> tuple[int, tuple[int, ...]]:
+    """Takes the runs that bottle ``volume`` from ``day`` on, on the line that finishes soonest; that line and the days.
+
+    Each day takes as many runs as the line has free. ``line`` keeps the
+    tank on that line.
+    """
+
+    def plan(index: int) -> tuple[int, ...]:
+        line = brewery.bottling_lines[index]
+        needed = line.runs_for(volume)
+        days: list[int] = []
+        current = day
+        while len(days) < needed:
+            if brewery.is_working_day(current):
+                days += [current] * min(line.max_runs_per_day - runs[index, current], needed - len(days))
+            current += 1
+        return tuple(days)
+
+    candidates = range(len(brewery.bottling_lines)) if line is None else [line]
+    plans = {index: plan(index) for index in candidates}
+    index = min(plans, key=lambda i: (plans[i][-1], i))
+    for run_day in plans[index]:
+        runs[index, run_day] += 1
+    return index, plans[index]

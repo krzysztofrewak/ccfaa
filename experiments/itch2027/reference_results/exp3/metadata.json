@@ -1,0 +1,127 @@
+{
+  "protocol": {
+    "occupancies": [
+      0.9,
+      0.97,
+      1.0
+    ],
+    "extra_days": [
+      1,
+      2,
+      3
+    ],
+    "schedules": 10,
+    "sample_seed": "exp3",
+    "exp2_signals_per_schedule": 20,
+    "methods": [
+      "greedy",
+      "cpsat:0",
+      "de:0",
+      "de:1",
+      "de:2"
+    ],
+    "time_limit_seconds": 10.0,
+    "fallback": "a run without a valid schedule keeps its status and gets no cost; cpsat_start marks a CP-SAT run returning its completed starting solution (the greedy schedule) as its search found no better"
+  },
+  "solvers": {
+    "greedy": {
+      "class": "HeuristicScheduler",
+      "max_horizon_days": 3650
+    },
+    "cpsat:0": {
+      "class": "CpSatScheduler",
+      "time_limit_seconds": 10.0,
+      "workers": 1,
+      "max_placements": 40,
+      "extra_chunks": 2,
+      "warm_start": true,
+      "weights": {
+        "brew_shift": 10,
+        "bottling_shift": 10,
+        "placement_change": 5,
+        "brewhouse_change": 1,
+        "lateness": 1
+      },
+      "seed": 0
+    },
+    "de:0": {
+      "class": "DifferentialEvolutionScheduler",
+      "population_size": 20,
+      "generations": 50,
+      "mutation": 0.5,
+      "crossover": 0.9,
+      "time_limit_seconds": 10.0,
+      "weights": {
+        "brew_shift": 10,
+        "bottling_shift": 10,
+        "placement_change": 5,
+        "brewhouse_change": 1,
+        "lateness": 1
+      },
+      "seed": 0
+    },
+    "de:1": {
+      "class": "DifferentialEvolutionScheduler",
+      "population_size": 20,
+      "generations": 50,
+      "mutation": 0.5,
+      "crossover": 0.9,
+      "time_limit_seconds": 10.0,
+      "weights": {
+        "brew_shift": 10,
+        "bottling_shift": 10,
+        "placement_change": 5,
+        "brewhouse_change": 1,
+        "lateness": 1
+      },
+      "seed": 1
+    },
+    "de:2": {
+      "class": "DifferentialEvolutionScheduler",
+      "population_size": 20,
+      "generations": 50,
+      "mutation": 0.5,
+      "crossover": 0.9,
+      "time_limit_seconds": 10.0,
+      "weights": {
+        "brew_shift": 10,
+        "bottling_shift": 10,
+        "placement_change": 5,
+        "brewhouse_change": 1,
+        "lateness": 1
+      },
+      "seed": 2
+    }
+  },
+  "decisions": {
+    "greedy": "HeuristicScheduler: places the batches one by one in priority order; a batch keeps its current vessels while they are still feasible, else goes into the smallest vessels that hold it; brews and bottling runs take the earliest feasible days, brewhouses and lines.",
+    "cpsat": "CpSatScheduler: decides the day and brewhouse of every brew, one of up to max_placements candidate placements per batch (its current one, the greedy one, every single vessel holding it, minimal largest-first combinations), and the line and daily chunks of every vessel's bottling (up to extra_chunks chunks more than the line needs), also for locked vessels not yet bottled. The greedy schedule bounds the horizon and, completed by a first solve of up to half the limit, is the starting solution, returned (fallback cpsat_start) if the search finds nothing better; if that completion fails, the solver starts from a partial hint and may find no schedule at all.",
+    "de": "DifferentialEvolutionScheduler: searches, for every batch not locked, its place in the greedy order, whether it keeps its current vessels and which single vessel holding it it goes into; brew days, brewhouses, splits over several vessels and bottling are left to the greedy decoder. The first population holds the genome of the greedy schedule.",
+    "common": "All methods replan the same twin state on the signal day: assignments of batches already started are locked (vessels and brews kept), the cost of every result is repair_cost with the default RepairWeights against the state before replanning, and every result is validated with sweep.replanning_problems and checked for moved locked assignments."
+  },
+  "timing": "scheduler_seconds: wall time of Scheduler.replan alone, from the twin state on the signal day to the repaired schedule; wall_seconds: also building the twin, injecting the signal and advancing to its day, without generating the baseline, the cost or the metrics. CP-SAT applies its limit to its two solves only: finding the greedy schedule and building the model come before it (cpsat_model_seconds). Differential evolution checks its limit before decoding each genome but the first, so it overruns it by at most one decoding. The greedy scheduler has no limit. Runs share the machine with the other workers.",
+  "sessions": [
+    {
+      "started_at": "2026-10-26T17:56:45+00:00",
+      "workers": 4,
+      "runs_done_before": 0,
+      "runs_pending": 4500,
+      "hardware": {
+        "cpu": "12th Gen Intel(R) Core(TM) i5-1245U",
+        "logical_cpus": 12,
+        "memory_gib": 62.5,
+        "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+        "node": "krzysztof"
+      },
+      "versions": {
+        "python": "3.10.12",
+        "ortools": "9.15.6755",
+        "brewery_schedule_digital_twin": "0.1.0",
+        "git_commit": "668d95972e06167f1934c010f02d109360dba908",
+        "git_uncommitted_changes": true
+      },
+      "finished_at": "2026-10-26T20:50:50+00:00",
+      "runs_made": 4500
+    }
+  ]
+}

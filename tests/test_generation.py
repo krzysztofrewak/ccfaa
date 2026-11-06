@@ -1,4 +1,5 @@
 import random
+from dataclasses import replace
 from itertools import pairwise
 
 import pytest
@@ -130,6 +131,51 @@ def test_replanning_a_generated_schedule_without_a_signal_changes_nothing(
         brewhouses=[Brewhouse("brewhouse", kettle_yield=600, max_brews_per_day=2)],
         bottling_lines=[BottlingLine.by_daily_volume("line", volume_per_day=2_000)],
     )
+    schedule = _fill(0.9, seed, brewery=brewery)
+
+    replanned = HeuristicScheduler().replan(brewery, schedule.clone(), current_day=5)
+
+    assert placements(replanned) == placements(schedule)
+
+
+def _two_brewhouses_and_three_lines() -> Brewery:
+    return Brewery(
+        name="Plant",
+        vessels=[Vessel.unitank("f", i, c) for i, c in enumerate([2_000.0] * 6 + [1_000.0] * 4, start=1)],
+        brewhouses=[Brewhouse(f"brewhouse{i}", kettle_yield=1_000, max_brews_per_day=1) for i in (1, 2)],
+        bottling_lines=[BottlingLine.by_daily_volume(name, volume_per_day=1_000) for name in ("a", "b", "c")],
+    )
+
+
+@pytest.mark.parametrize("seed", range(5))
+def test_a_brewery_of_several_brewhouses_and_lines_brews_and_bottles_in_all_of_them(seed: int) -> None:
+    brewery = _two_brewhouses_and_three_lines()
+    schedule = _fill(1.0, seed, brewery=brewery)
+
+    assert schedule.validate(brewery) == []
+    brews = {fill.brew for a in schedule.assignments for fill in a.effective_fills}
+    assert {brew.brewhouse for brew in brews} == {"brewhouse1", "brewhouse2"}
+    assert {a.bottling_line for a in schedule.assignments} == {"a", "b", "c"}
+
+
+@pytest.mark.parametrize("seed", range(10))
+@pytest.mark.parametrize("fill_ratio", [1.0, 0.95, 0.9])
+def test_removing_batches_never_bottles_a_tank_later_on_several_busy_lines(seed: int, fill_ratio: float) -> None:
+    brewery = replace(
+        _two_brewhouses_and_three_lines(),
+        brewhouses=[Brewhouse(f"brewhouse{i}", kettle_yield=1_000, max_brews_per_day=2) for i in (1, 2)],
+        bottling_lines=[
+            BottlingLine.by_daily_volume(name, volume_per_day=volume)
+            for name, volume in (("a", 500), ("b", 300), ("c", 200))
+        ],
+    )
+
+    assert _fill(fill_ratio, seed, brewery=brewery).validate(brewery) == []
+
+
+@pytest.mark.parametrize("seed", range(5))
+def test_replanning_a_schedule_of_several_brewhouses_and_lines_without_a_signal_changes_nothing(seed: int) -> None:
+    brewery = _two_brewhouses_and_three_lines()
     schedule = _fill(0.9, seed, brewery=brewery)
 
     replanned = HeuristicScheduler().replan(brewery, schedule.clone(), current_day=5)

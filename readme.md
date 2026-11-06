@@ -4,7 +4,7 @@ A digital twin of a batch brewery for experiments on production scheduling and r
 
 ## Installation
 
-Python 3.10 or newer is required. The package has no runtime dependencies.
+Python 3.10 or newer is required. The only runtime dependency is [OR-Tools](https://developers.google.com/optimization), for the CP-SAT scheduler.
 
 ```bash
 python -m venv .venv
@@ -22,7 +22,7 @@ pip install -e ".[dev]"
 | `signals`    | `FermentationDelaySignal`, `IngredientShortageSignal`, `NewBatchRequirementSignal`, `DayOffSignal`, `FermenterMaintenanceSignal`   |
 | `agents`     | one agent per signal type (Production, Procurement, Sales and Operations functions), each with `apply()` and `assess()`            |
 | `policies`   | `UncoordinatedPolicy` (UNC), `LocallyFilteredPolicy` (LF), `CoordinatedPolicy` (COORD), and `ManualPolicy` for scripted replanning |
-| `scheduling` | the `Scheduler` interface and `HeuristicScheduler`                                                                                 |
+| `scheduling` | the `Scheduler` interface, `HeuristicScheduler`, `CpSatScheduler`, `DifferentialEvolutionScheduler`, `SCHEDULERS` (the schedulers by name) and `repair_cost` |
 | `simulation` | `BreweryDigitalTwin`, which advances the simulation day by day                                                                     |
 | `metrics`    | schedule change measures relative to the baseline                                                                                  |
 | `generation` | `ScheduleGenerator`, which fills a running brewery with random batches up to a target occupancy, and `occupancy`                 |
@@ -47,7 +47,7 @@ A batch either stays in one `FULL` vessel, or ferments in a `PRIMARY` vessel and
 | `Vessel.lagering_tank`  | `SECONDARY`            |
 | `Vessel.general_vessel` | `PRIMARY`, `SECONDARY` |
 
-`HeuristicScheduler` keeps a batch in one vessel for `fermentation_days`, so it only uses `FULL` vessels; scheduling with transfers is not implemented yet.
+All schedulers keep a batch in one vessel for `fermentation_days`, so they only use `FULL` vessels; scheduling with transfers is not implemented yet.
 
 ## Brewhouses and bottling lines
 
@@ -77,14 +77,30 @@ A blend is declared explicitly on the batch, as the volume brewed from each reci
 
 `HeuristicScheduler` brews a batch above the largest brew in the fewest equal brews, as close together as the brewhouses allow, and fills its vessels with them in order. It brews a blend recipe by recipe, each in the fewest equal brews, and spreads every brew over the vessels in proportion to their volumes, so each vessel holds the declared blend. `tests/test_scheduler_contract.py` holds the rules every scheduler has to keep on every brewery configuration; a new scheduler is checked by adding it to `SCHEDULERS` there.
 
+## Schedulers
+
+A `Scheduler` repairs a schedule in `replan(brewery, schedule, current_day)`: it locks every batch that has started and returns a new schedule in which locked assignments keep their fermenter and brew days. The digital twin takes any scheduler, and `scheduling.SCHEDULERS` names the three there are, so an experiment can swap them:
+
+| Name        | Scheduler            | Approach                                                                                                                                 |
+|-------------|----------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| `heuristic` | `HeuristicScheduler` | greedy list scheduling: keeps every placement that is still feasible and moves the others to the earliest feasible day, batch by batch |
+| `cpsat`     | `CpSatScheduler`     | one CP-SAT model ([OR-Tools](https://developers.google.com/optimization/cp/cp_solver)) of all decisions not yet taken, solved at once    |
+| `de`        | `DifferentialEvolutionScheduler` | differential evolution over the batch order, keeping and vessel choice of `HeuristicScheduler`, which decodes every genome   |
+
+`repair_cost(original, repaired, current_day, weights)` measures how far a repaired schedule departs from the one being repaired, with `RepairWeights`: every day a brew or the last bottling run of a planned batch or of a locked vessel moves, a planned batch put into other vessels and a brew moved to another brewhouse, and, for batches without a placement, the days they are brewed and bottled after their earliest day. `CpSatScheduler` and `DifferentialEvolutionScheduler` minimise it, and it compares any schedulers on the same scale.
+
+`CpSatScheduler` decides the day and brewhouse of each brew, the vessels of each batch and the line and days of each vessel's bottling runs, and also the bottling of locked vessels that has not started. A batch keeps the brews it has, or gets the fewest equal brews per recipe; its vessels are one of up to `max_placements` options: its current placement, the one `HeuristicScheduler` finds and the least wasteful single vessels and minimal combinations of `FULL` vessels. Its objective is `repair_cost`. `HeuristicScheduler`'s schedule bounds the horizon and, completed in a first solve of up to half the time limit, is the solver's starting solution, so its `repair_cost` is never above the heuristic's; the solver stops after `time_limit_seconds` (10 by default) with the best schedule it found, and raises `SchedulingError` if it found none; with `workers=1` (the default) the search is deterministic up to the time limit. `solver_parameters` passes further CP-SAT parameters by name. `last_report`, a `CpSatReport`, gives the solver status of the last replan (`OPTIMAL` if proven optimal, `FEASIBLE` if the best found in time), the cost of its schedule and the solver's lower bound on it, and whether the starting solution was completed and returned.
+
+`DifferentialEvolutionScheduler` searches the decisions `HeuristicScheduler` takes rather than the schedule itself. A genome holds three keys in [0, 1] per batch that is not locked: the order key sets the order the batches are placed in, a keep key of 0.5 or more lets a batch keep its current placement while it is feasible, and the vessel key picks, of the vessels that hold the batch alone, the one at that fraction of them by capacity (0 is the smallest, the heuristic's choice). The greedy list scheduler decodes a genome into a schedule, and its cost is `repair_cost`. The population of `population_size` (20) starts with the genome of the heuristic's own schedule and evolves by DE/rand/1/bin with `mutation` F (0.5) and `crossover` CR (0.9), a trial replacing its target if it costs no more, for `generations` (50) or `time_limit_seconds` (10), whichever ends first. The result is therefore never worse than the heuristic's; `last_report`, an `EvolutionReport`, gives its cost and the heuristic's, the number of decoded schedules and of generations, and whether the time limit stopped the search. With a fixed `seed` the search is deterministic unless the time limit stops it. Since the decoder is greedy, the search only reaches the schedules the heuristic can build in some order and choice of vessels; vessel combinations, brew days and bottling are still the heuristic's.
+
 ## Experiments
 
 Every experiment set has its own readme, brewery configurations, scripts and reference results. Experiments are run from the repository root as modules, for example `python -m experiments.ccfaa2026.exp2`.
 
-| Code                                 | Publication                                                                                         | Status      |
-|--------------------------------------|-----------------------------------------------------------------------------------------------------|-------------|
-| [`ccfaa2026`](experiments/ccfaa2026) | Coordinating Cross-Functional Agent Assessments for Production Replanning in a Brewery Digital Twin | complete    |
-| [`itch2027`](experiments/itch2027)   | The Impact of Tank Capacity Heterogeneity on Brewery Production Scheduling                          | in progress |
+| Code                                 | Publication                                                                                         | Status    |
+|--------------------------------------|-----------------------------------------------------------------------------------------------------|-----------|
+| [`ccfaa2026`](experiments/ccfaa2026) | Coordinating Cross-Functional Agent Assessments for Production Replanning in a Brewery Digital Twin | complete  |
+| [`itch2027`](experiments/itch2027)   | The Impact of Tank Capacity Heterogeneity on Brewery Production Scheduling                          | complete  |
 
 A new experiment set goes to `experiments/<code>/`, where the code is an abbreviation of the publication title followed by the year, with a readme describing its experiments and outputs. Tests specific to an experiment set go to `tests/<code>/`.
 

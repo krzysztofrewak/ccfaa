@@ -62,7 +62,7 @@ done
 
 ## Reference results
 
-`reference_results/` holds the outputs of one complete run of every experiment with the code in this repository. It has the same layout as `experiments/ccfaa2026/results/`, so a new run can be compared with it file by file:
+`reference_results/` holds the outputs of one complete run of every experiment with the code of commit `0a52393`, the version the paper reports. It has the same layout as `experiments/ccfaa2026/results/`, so a new run can be compared with it file by file:
 
 ```bash
 diff -r experiments/ccfaa2026/results experiments/ccfaa2026/reference_results
@@ -82,6 +82,8 @@ diff -r experiments/ccfaa2026/results experiments/ccfaa2026/reference_results
 | `exp8/`                                                                 | `exp8_holdout`            | the frozen scenario definitions with their SHA-256, run results, pairwise differences and summaries                                                                 |
 
 The `*_seconds` columns of `exp7/runs.csv` and `exp7/cost_summary.csv` are wall-clock times and differ between runs and machines; all other values are reproduced exactly. `exp8_holdout run` only accepts scenario definitions matching `exp8/scenario_definitions.sha256`, so the holdout is rerun by copying both files to `experiments/ccfaa2026/results/exp8/` instead of generating new ones.
+
+The current code reproduces them except in two respects, both from commit `668d959`. Volumes are now in litres and `Batch.volume_hl` is `Batch.volume`, so the signal fingerprints of CF2–CF4 in `combined/input_identity.csv` differ although the signals are the same: they are hashes of the signals' `repr`, which now names the field `volume`. `HeuristicScheduler` now keeps the bottling of a locked vessel while it is still feasible instead of replanning it, which lowers `abs_shift` by 2–7 days in 37 of the 6,000 runs of exp5–exp8 (11 of exp5, 7 of exp6, 18 of exp7 and 1 of exp8) and the summaries built from them. To reproduce the reference results exactly, run the experiments at commit `0a52393`.
 
 ## Calendar viewer
 

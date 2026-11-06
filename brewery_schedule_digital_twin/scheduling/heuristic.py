@@ -75,21 +75,21 @@ class HeuristicScheduler(Scheduler):
 
         locked_batch_ids = {a.batch_id for a in locked}
         pending_batches = [b for b in schedule.batches.values() if b.id not in locked_batch_ids]
-        pending = sorted(pending_batches, key=self._priority_key)
+        pending = sorted(pending_batches, key=self.priority)
         for batch in pending:
             existing = schedule.assignments_of(batch.id)
             fermentation_days = existing[0].base_fermentation_days if existing else batch.recipe.fermentation_days
             if not self._keep_existing_placement(
                 brewery, new_schedule, batch, existing, fermentation_days, current_day
             ):
-                volume = self._batch_volume(batch, existing, brewery.kettle_yield)
-                brews = self._brew_plan(batch, volume, brewery.kettle_yield)
+                volume = self.batch_volume(batch, existing, brewery.kettle_yield)
+                brews = self.brew_plan(batch, volume, brewery.kettle_yield)
                 self._schedule_batch(brewery, new_schedule, batch, current_day, fermentation_days, brews)
 
         return new_schedule
 
     @staticmethod
-    def _batch_volume(batch: Batch, existing: list[FermentationAssignment], kettle_yield: float) -> float:
+    def batch_volume(batch: Batch, existing: list[FermentationAssignment], kettle_yield: float) -> float:
         if existing:
             volume = sum(a.volume for a in existing)
         elif batch.volume is not None:
@@ -99,7 +99,7 @@ class HeuristicScheduler(Scheduler):
         return float(volume)
 
     @staticmethod
-    def _brew_plan(batch: Batch, volume: float, kettle_yield: float) -> list[tuple[Recipe | None, float]]:
+    def brew_plan(batch: Batch, volume: float, kettle_yield: float) -> list[tuple[Recipe | None, float]]:
         """The recipe and volume of each brew: the fewest equal brews per recipe."""
         components: dict[Recipe | None, float] = {None: volume}
         if batch.blend is not None:
@@ -165,7 +165,7 @@ class HeuristicScheduler(Scheduler):
                     bottling_day=runs[0],
                     fills=assignment.fills,
                     bottling_line=line,
-                    bottling_runs=self._stored_runs(runs),
+                    bottling_runs=self.stored_runs(runs),
                 )
             )
         return True
@@ -230,7 +230,7 @@ class HeuristicScheduler(Scheduler):
                 [(line, runs)] = plan
                 assignment.bottling_day = day
                 assignment.bottling_line = line
-                assignment.bottling_runs = self._stored_runs(runs)
+                assignment.bottling_runs = self.stored_runs(runs)
                 break
             else:
                 raise SchedulingError(
@@ -263,8 +263,8 @@ class HeuristicScheduler(Scheduler):
             )
         )
 
-    @staticmethod
-    def _priority_key(batch: Batch) -> tuple[int, int, int]:
+    def priority(self, batch: Batch) -> tuple[float, ...]:
+        """The order batches are placed in: those with a target bottling day first, by it, then by brew day."""
         has_deadline = 0 if batch.target_bottling_day is not None else 1
         deadline = batch.target_bottling_day if batch.target_bottling_day is not None else 0
         return (has_deadline, deadline, batch.planned_brew_day)
@@ -435,12 +435,12 @@ class HeuristicScheduler(Scheduler):
         return end <= first_day + 1 or HeuristicScheduler._still_free(brewery, schedule, fermenters, brew_day, end)
 
     @staticmethod
-    def _stored_runs(runs: tuple[int, ...]) -> tuple[int, ...]:
+    def stored_runs(runs: tuple[int, ...]) -> tuple[int, ...]:
         """Run days as stored on an assignment: none for a single run on the bottling day."""
         return runs if len(runs) > 1 else ()
 
     @staticmethod
-    def _allocations(fermenters: list[Vessel], volume: float) -> list[float]:
+    def allocations(fermenters: list[Vessel], volume: float) -> list[float]:
         allocations: list[float] = []
         remaining = volume
         for fermenter in fermenters:
@@ -450,7 +450,7 @@ class HeuristicScheduler(Scheduler):
 
     @staticmethod
     def _filled(fermenters: list[Vessel], volume: float) -> list[tuple[Vessel, float]]:
-        return list(zip(fermenters, HeuristicScheduler._allocations(fermenters, volume), strict=True))
+        return list(zip(fermenters, HeuristicScheduler.allocations(fermenters, volume), strict=True))
 
     def _find_bottling_slot(
         self,
@@ -538,6 +538,10 @@ class HeuristicScheduler(Scheduler):
                 return False
         return True
 
+    def _choose_vessel(self, fits: list[Vessel]) -> Vessel:
+        """The vessel a batch goes into, of those that hold it on their own: the smallest."""
+        return min(fits, key=lambda f: f.capacity)
+
     def _find_fermenters(
         self,
         brewery: Brewery,
@@ -560,7 +564,7 @@ class HeuristicScheduler(Scheduler):
 
         single_fits = [f for f in available if f.capacity >= volume]
         if single_fits:
-            return [min(single_fits, key=lambda f: f.capacity)]
+            return [self._choose_vessel(single_fits)]
 
         combination: list[Vessel] = []
         remaining = volume
@@ -583,7 +587,7 @@ class HeuristicScheduler(Scheduler):
         fermentation_days: int,
     ) -> None:
         total = sum(volume for _, volume in brews)
-        allocations = HeuristicScheduler._allocations(fermenters, total)
+        allocations = HeuristicScheduler.allocations(fermenters, total)
 
         if len(brews) == 1 and brews[0][0].brewhouse is None:
             # One brew in the only brewhouse: the implicit fill on start_day says it all.
@@ -609,7 +613,7 @@ class HeuristicScheduler(Scheduler):
                     bottling_day=runs[0],
                     fills=tuple(fills),
                     bottling_line=line,
-                    bottling_runs=HeuristicScheduler._stored_runs(runs),
+                    bottling_runs=HeuristicScheduler.stored_runs(runs),
                 )
             )
 

@@ -1,4 +1,4 @@
-"""Fills the itch2027 brewery with a random schedule and exports it for the calendar viewer.
+"""Fills the preview brewery of ``breweries`` with a random schedule and exports it for the calendar viewer.
 
 Without ``--seed`` every run draws a new seed and prints it, so a schedule
 worth keeping can be generated again. The schedule is written to
@@ -14,7 +14,7 @@ from pathlib import Path
 
 from brewery_schedule_digital_twin.export import CalendarExporter
 from brewery_schedule_digital_twin.generation import ScheduleGenerator, occupancy
-from experiments.itch2027.brewery import build_brewery, build_recipes
+from experiments.itch2027.breweries import RECIPES, preview
 
 PROJECT_DIR = Path(__file__).resolve().parents[2]
 CALENDAR_PATH = PROJECT_DIR / "public" / "data" / "itch2027" / "calendar.json"
@@ -28,8 +28,8 @@ def main() -> None:
     args = parser.parse_args()
     seed = args.seed if args.seed is not None else random.randrange(1_000_000)
 
-    brewery = build_brewery()
-    schedule = ScheduleGenerator().fill(brewery, build_recipes(), args.fill, args.horizon, random.Random(seed))
+    brewery = preview()
+    schedule = ScheduleGenerator().fill(brewery, RECIPES, args.fill, args.horizon, random.Random(seed))
 
     problems = schedule.validate(brewery)
     print(
